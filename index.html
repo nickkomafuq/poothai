@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คลังข้อมูลสุดน่ารัก 🌸 Poothai's Information</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for modern & cute typography (Mitr & Plus Jakarta Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for cute icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastelPink: '#FFF0F5',
+                        deepPink: '#FF69B4',
+                        softPink: '#FFB6C1',
+                        accentPink: '#FF1493',
+                        blush: '#FFE4E1',
+                        cardBg: '#FFFFFF'
+                    },
+                    fontFamily: {
+                        sans: ['Mitr', 'Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Mitr', 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E1 35%, #FFD1DC 70%, #FFB6C1 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            letter-spacing: 0.01em;
+        }
+        
+        /* Continuous floating background animated characters */
+        .bg-floating-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-item {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.45;
+            user-select: none;
+            animation: continuousDrift 18s ease-in-out infinite alternate;
+        }
+
+        @keyframes continuousDrift {
+            0% {
+                transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+            }
+            33% {
+                transform: translateY(-40px) translateX(30px) rotate(15deg) scale(1.1);
+            }
+            66% {
+                transform: translateY(35px) translateX(-25px) rotate(-15deg) scale(0.95);
+            }
+            100% {
+                transform: translateY(-20px) translateX(20px) rotate(8deg) scale(1.05);
+            }
+        }
+
+        /* Custom soft card style */
+        .cute-card {
+            border-radius: 1.5rem;
+            border: 2px solid #FFD1DC;
+            box-shadow: 0 10px 25px -5px rgba(255, 182, 193, 0.3), 0 8px 10px -6px rgba(255, 182, 193, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+        }
+
+        .cute-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px -5px rgba(255, 105, 180, 0.4), 0 10px 15px -5px rgba(255, 105, 180, 0.2);
+            border-color: #FFB6C1;
+        }
+
+        .cute-btn {
+            background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 1rem;
+        }
+
+        .cute-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+            filter: brightness(1.05);
+        }
+
+        .cute-btn:active {
+            transform: translateY(0px);
+        }
+
+        .cute-input {
+            border: 2px solid #FFD1DC;
+            border-radius: 1rem;
+            transition: all 0.2s ease;
+            background-color: #FFFDFD;
+        }
+
+        .cute-input:focus {
+            outline: none;
+            border-color: #FF69B4;
+            box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.15);
+            background-color: #FFFFFF;
+        }
+
+        .interactive-hover {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .interactive-hover:hover {
+            transform: scale(1.05);
+        }
+
+        .interactive-hover:active {
+            transform: scale(0.97);
+        }
+
+        /* Modal backdrop blur */
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased flex flex-col min-h-screen selection:bg-pink-200 selection:text-pink-800">
+
+    <!-- Floating Background Cute Elements (Continuous drifting) -->
+    <div class="bg-floating-container" aria-hidden="true">
+        <div class="floating-item" style="top: 10%; left: 5%; animation-duration: 16s; animation-delay: 0s;">🐰</div>
+        <div class="floating-item" style="top: 25%; left: 85%; animation-duration: 20s; animation-delay: 2s;">🧸</div>
+        <div class="floating-item" style="top: 55%; left: 10%; animation-duration: 22s; animation-delay: 1s;">🌸</div>
+        <div class="floating-item" style="top: 75%; left: 80%; animation-duration: 17s; animation-delay: 3s;">💖</div>
+        <div class="floating-item" style="top: 40%; left: 45%; animation-duration: 19s; animation-delay: 4s;">✨</div>
+        <div class="floating-item" style="top: 85%; left: 30%; animation-duration: 21s; animation-delay: 2.5s;">🐱</div>
+        <div class="floating-item" style="top: 15%; left: 65%; animation-duration: 18s; animation-delay: 1.5s;">🎀</div>
+        <div class="floating-item" style="top: 65%; left: 92%; animation-duration: 24s; animation-delay: 3.5s;">🦄</div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b-2 border-pink-200 shadow-sm py-4 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-4 text-center sm:text-left">
+                <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center text-deepPink text-3xl border-2 border-pink-300 shadow-sm shrink-0">
+                    🌸
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-deepPink tracking-wide flex items-center justify-center sm:justify-start gap-3">
+                        <span class="font-extrabold tracking-tight">Poothai's Information</span> 
+                        <span class="text-xs sm:text-sm bg-pink-100 text-pink-600 px-3.5 py-1.5 rounded-full font-semibold border border-pink-200">Cute & Secure</span>
+                    </h1>
+                    <p class="text-sm sm:text-base text-gray-600 font-medium mt-1">คลังข้อมูลส่วนตัวสุดน่ารัก ปลอดภัย 100% ✨</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3 mt-2 sm:mt-0 shrink-0">
+                <button id="adminToggleBtn" onclick="toggleAdminMode()" class="px-5 py-3 bg-pink-100 hover:bg-pink-200 text-deepPink font-semibold rounded-2xl text-base interactive-hover flex items-center space-x-2.5 border border-pink-300 shadow-sm">
+                    <i class="fa-solid fa-lock text-sm" id="adminIcon"></i>
+                    <span id="adminBtnText">โหมดแอดมิน</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full relative z-10">
+        
+        <!-- Controls Bar: Search & Add Button -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+            <!-- Search Bar -->
+            <div class="relative w-full md:w-96">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-pink-400 pointer-events-none">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="ค้นหาชื่อ, หมวดหมู่, หรือเจ้าของข้อมูล..." class="w-full pl-11 pr-4 py-3 cute-input text-sm sm:text-base font-medium placeholder-gray-400">
+            </div>
+
+            <!-- Add New Button (Admin Only) -->
+            <div id="adminActionContainer" class="hidden w-full md:w-auto">
+                <button onclick="openAddModal()" class="cute-btn w-full md:w-auto text-white px-6 py-3 font-semibold text-sm sm:text-base flex items-center justify-center space-x-2 interactive-hover">
+                    <i class="fa-solid fa-circle-plus text-lg"></i>
+                    <span>เพิ่มข้อมูลใหม่</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div id="categoryFilters" class="flex items-center space-x-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
+            <!-- Dynamically populated category filters -->
+        </div>
+
+        <!-- Information Cards Grid -->
+        <div id="cardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cards rendered dynamically via JS -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-16 px-4">
+            <div class="w-24 h-24 bg-pink-100 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 border-2 border-pink-200 shadow-sm animate-bounce">
+                🥺
+            </div>
+            <h3 class="text-xl font-bold text-gray-700 mb-1">ไม่พบข้อมูลที่คุณค้นหา</h3>
+            <p class="text-sm sm:text-base text-gray-500 font-medium">ลองเปลี่ยนคำค้นหา หรือเพิ่มข้อมูลใหม่ได้เลยนะคะ 🌸</p>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/80 backdrop-blur-md border-t-2 border-pink-200 py-6 text-center text-xs sm:text-sm text-gray-500 font-medium relative z-10 mt-auto">
+        <p>Poothai's Information &copy; 2026 • รังสรรค์ความน่ารักและความปลอดภัยเพื่อคุณ 💖</p>
+    </footer>
+
+    <!-- Add/Edit Item Modal (Compact & Streamlined) -->
+    <div id="itemModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop hidden">
+        <div class="bg-white rounded-2xl border-2 border-pink-200 shadow-2xl w-full max-w-md overflow-hidden transform transition-all animate-fadeIn">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-pink-100 to-pink-50 px-5 py-4 border-b border-pink-200 flex justify-between items-center">
+                <h3 id="modalTitle" class="text-base sm:text-lg font-bold text-deepPink flex items-center gap-2">
+                    <i class="fa-solid fa-heart text-pink-500"></i> เพิ่มข้อมูลใหม่
+                </h3>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-white hover:bg-pink-100 text-gray-500 hover:text-deepPink flex items-center justify-center interactive-hover border border-pink-200">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Modal Form -->
+            <form id="itemForm" onsubmit="saveItem(event)" class="p-5 space-y-3.5 max-h-[80vh] overflow-y-auto">
+                <input type="hidden" id="itemId">
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">ชื่อรายการ / ชื่อบริการ <span class="text-pink-500">*</span></label>
+                    <input type="text" id="itemName" required class="w-full px-3.5 py-2 cute-input text-xs sm:text-sm" placeholder="เช่น Netflix, บัญชีธนาคาร ฯลฯ">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">หมวดหมู่ <span class="text-pink-500">*</span></label>
+                        <select id="itemCategory" required class="w-full px-3.5 py-2 cute-input text-xs sm:text-sm bg-white">
+                            <option value="บัญชีธนาคาร">🏦 บัญชีธนาคาร</option>
+                            <option value="สตรีมมิ่ง">🎬 สตรีมมิ่ง</option>
+                            <option value="โซเชียลมีเดีย">💬 โซเชียลมีเดีย</option>
+                            <option value="การทำงาน">💼 การทำงาน</option>
+                            <option value="อื่นๆ">🌸 อื่นๆ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">เจ้าของ / ผู้ใช้</label>
+                        <input type="text" id="itemOwner" class="w-full px-3.5 py-2 cute-input text-xs sm:text-sm" placeholder="เช่น คุณปูไทย">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">เลขบัญชี / ข้อมูลหลัก</label>
+                    <input type="text" id="itemAccountNo" class="w-full px-3.5 py-2 cute-input text-xs sm:text-sm font-mono" placeholder="เช่น 123-4-56789-0 หรือ Username">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">รหัสผ่าน / ข้อมูลลับ</label>
+                    <input type="text" id="itemPassword" class="w-full px-3.5 py-2 cute-input text-xs sm:text-sm font-mono" placeholder="รหัสผ่านหรือ PIN">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">โน้ตเพิ่มเติม</label>
+                    <textarea id="itemDetails" rows="2" class="w-full px-3.5 py-2 cute-input text-xs sm:text-sm resize-none" placeholder="รายละเอียดเพิ่มเติม..."></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">แนบรูปภาพ / QR Code</label>
+                    <input type="file" id="itemImageFile" accept="image/*" onchange="handleImageUpload(event)" class="w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-pink-100 file:text-deepPink hover:file:bg-pink-200 cursor-pointer">
+                    <input type="hidden" id="itemImageBase64">
+                    <!-- Image Preview Container -->
+                    <div id="imagePreviewContainer" class="hidden mt-2 relative inline-block">
+                        <img id="imagePreview" src="" alt="Preview" class="h-20 w-auto rounded-xl border border-pink-200 object-contain bg-pink-50 p-1 shadow-sm">
+                        <button type="button" onclick="removeImage()" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs shadow hover:bg-red-600" title="ลบรูป">
+                            <i class="fa-solid fa-xmark text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex items-center justify-end space-x-2 pt-2 border-t border-pink-100">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-xl border border-pink-300 text-gray-600 hover:bg-pink-50 font-semibold text-xs interactive-hover">
+                        ยกเลิก
+                    </button>
+                    <button type="submit" class="cute-btn text-white px-5 py-2 font-semibold text-xs interactive-hover">
+                        บันทึกข้อมูล
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div id="imageModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop hidden" onclick="closeImageViewer()">
+        <div class="bg-white rounded-3xl border-2 border-pink-200 shadow-2xl max-w-2xl w-full p-6 relative text-center" onclick="event.stopPropagation()">
+            <button onclick="closeImageViewer()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-pink-100 hover:bg-pink-200 text-deepPink flex items-center justify-center interactive-hover border border-pink-300">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+            <h4 id="imageModalTitle" class="text-base sm:text-lg font-bold text-gray-800 mb-4 pr-10 truncate"></h4>
+            <div class="flex justify-center mb-4 bg-pink-50/50 p-3 rounded-2xl border border-pink-100">
+                <img id="modalFullImage" src="" alt="Full size" class="max-h-[60vh] max-w-full rounded-xl object-contain shadow-sm">
+            </div>
+            <div class="flex justify-center space-x-3">
+                <a id="downloadImageBtn" href="" download="poothai-image.png" class="cute-btn text-white px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm flex items-center space-x-2 interactive-hover">
+                    <i class="fa-solid fa-download"></i>
+                    <span>ดาวน์โหลดรูปภาพ</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop hidden">
+        <div class="bg-white rounded-2xl border-2 border-pink-200 shadow-2xl w-full max-w-sm p-6 text-center animate-fadeIn">
+            <div class="w-14 h-14 bg-pink-100 rounded-full flex items-center justify-center text-deepPink text-2xl mx-auto mb-3 border border-pink-200">
+                🔐
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-1">เข้าสู่โหมดแอดมิน</h3>
+            <p class="text-xs text-gray-500 mb-4 font-medium">โปรดใส่รหัสผ่านแอดมินเพื่อจัดการข้อมูล</p>
+            <form onsubmit="verifyAdminPassword(event)" class="space-y-3">
+                <input type="password" id="adminPasswordInput" required class="w-full px-4 py-2.5 cute-input text-sm text-center font-mono tracking-widest" placeholder="รหัสผ่านแอดมิน">
+                <div id="adminPasswordError" class="text-red-500 text-xs font-semibold hidden">รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง</div>
+                <div class="flex space-x-2 pt-1">
+                    <button type="button" onclick="closeAdminModal()" class="flex-1 py-2.5 rounded-xl border border-pink-300 text-gray-600 hover:bg-pink-50 font-semibold text-xs interactive-hover">
+                        ยกเลิก
+                    </button>
+                    <button type="submit" class="flex-1 cute-btn text-white py-2.5 font-semibold text-xs interactive-hover">
+                        ยืนยัน
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop hidden">
+        <div class="bg-white rounded-2xl border-2 border-pink-200 shadow-2xl w-full max-w-sm p-6 text-center animate-fadeIn">
+            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center text-red-500 text-3xl mx-auto mb-3 border border-red-200 animate-pulse">
+                🗑️
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-1">ยืนยันการลบข้อมูล</h3>
+            <p class="text-xs sm:text-sm text-gray-600 mb-4 font-medium">คุณแน่ใจหรือไม่ที่จะลบรายการ <strong id="deleteItemName" class="text-deepPink"></strong> นี้?</p>
+            <input type="hidden" id="deleteItemId">
+            <div class="flex space-x-2">
+                <button type="button" onclick="closeDeleteModal()" class="flex-1 py-2.5 rounded-xl border border-pink-300 text-gray-600 hover:bg-pink-50 font-semibold text-xs sm:text-sm interactive-hover">
+                    ยกเลิก
+                </button>
+                <button type="button" onclick="confirmDelete()" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-2.5 font-semibold text-xs sm:text-sm rounded-xl shadow-md transition-all interactive-hover">
+                    ยืนยันลบ 🗑️
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Default initial items if localStorage is empty
+        const defaultItems = [
+            {
+                id: "1",
+                name: "บัญชีออมทรัพย์หลัก (KBANK)",
+                category: "บัญชีธนาคาร",
+                owner: "คุณปูไทย",
+                accountNo: "123-4-56789-0",
+                password: "securepin9988",
+                details: "บัญชีใช้รับเงินเดือนและค่าใช้จ่ายประจำวัน",
+                image: ""
+            },
+            {
+                id: "2",
+                name: "Netflix Premium Family",
+                category: "สตรีมมิ่ง",
+                owner: "คุณปูไทย",
+                accountNo: "poothai.netflix@gmail.com",
+                password: "flixlove2026",
+                details: "หาร 4 คน จ่ายทุกวันที่ 25 ของเดือน",
+                image: ""
+            },
+            {
+                id: "3",
+                name: "Instagram ส่วนตัว",
+                category: "โซเชียลมีเดีย",
+                owner: "คุณปูไทย",
+                accountNo: "@poothai.cute",
+                password: "igsecretpass#",
+                details: "บัญชีหลักสำหรับลงรูปคาเฟ่และแมว",
+                image: ""
+            }
+        ];
+
+        let items = [];
+        let isAdmin = false;
+        let currentCategory = 'ทั้งหมด';
+        let searchQuery = '';
+        let revealedPasswords = {};
+
+        // Load items on startup
+        function initApp() {
+            const savedItems = localStorage.getItem('poothai_info_items');
+            if (savedItems) {
+                try {
+                    items = JSON.parse(savedItems);
+                } catch (e) {
+                    items = defaultItems;
+                }
+            } else {
+                items = defaultItems;
+                saveToLocalStorage();
+            }
+            renderCategoryFilters();
+            renderCards();
+            updateAdminUI();
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('poothai_info_items', JSON.stringify(items));
+        }
+
+        // Admin Mode Toggling
+        function toggleAdminMode() {
+            if (isAdmin) {
+                isAdmin = false;
+                revealedPasswords = {};
+                updateAdminUI();
+                renderCards();
+                showNotification("ออกจากโหมดแอดมินแล้วค่ะ 🔒");
+            } else {
+                openAdminModal();
+            }
+        }
+
+        function openAdminModal() {
+            document.getElementById('adminModal').classList.remove('hidden');
+            document.getElementById('adminPasswordInput').value = '';
+            document.getElementById('adminPasswordError').classList.add('hidden');
+            setTimeout(() => document.getElementById('adminPasswordInput').focus(), 100);
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+
+        function verifyAdminPassword(e) {
+            e.preventDefault();
+            const pass = document.getElementById('adminPasswordInput').value;
+            // Admin password set to "1234" (or customize as desired)
+            if (pass === '1234') {
+                isAdmin = true;
+                closeAdminModal();
+                updateAdminUI();
+                renderCards();
+                showNotification("เข้าสู่โหมดแอดมินสำเร็จแล้วค่ะ ✨");
+            } else {
+                document.getElementById('adminPasswordError').classList.remove('hidden');
+                document.getElementById('adminPasswordInput').focus();
+            }
+        }
+
+        function updateAdminUI() {
+            const adminBtnText = document.getElementById('adminBtnText');
+            const adminIcon = document.getElementById('adminIcon');
+            const adminContainer = document.getElementById('adminActionContainer');
+
+            if (isAdmin) {
+                adminBtnText.textContent = 'ออกจากแอดมิน';
+                adminIcon.className = 'fa-solid fa-lock-open text-sm';
+                adminContainer.classList.remove('hidden');
+            } else {
+                adminBtnText.textContent = 'โหมดแอดมิน';
+                adminIcon.className = 'fa-solid fa-lock text-sm';
+                adminContainer.classList.add('hidden');
+            }
+        }
+
+        // Search & Filter
+        function handleSearch(query) {
+            searchQuery = query.trim().toLowerCase();
+            renderCards();
+        }
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            renderCategoryFilters();
+            renderCards();
+        }
+
+        function renderCategoryFilters() {
+            const categories = ['ทั้งหมด', 'บัญชีธนาคาร', 'สตรีมมิ่ง', 'โซเชียลมีเดีย', 'การทำงาน', 'อื่นๆ'];
+            const container = document.getElementById('categoryFilters');
+            
+            container.innerHTML = categories.map(cat => {
+                const isActive = currentCategory === cat;
+                const activeClass = isActive 
+                    ? 'cute-btn text-white font-bold shadow-md' 
+                    : 'bg-white/80 hover:bg-pink-100 text-gray-700 font-semibold border border-pink-200';
+                return `
+                    <button onclick="setCategory('${cat}')" class="px-4 py-2 rounded-2xl text-xs sm:text-sm whitespace-nowrap interactive-hover ${activeClass}">
+                        ${cat}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // Render Information Cards
+        function renderCards() {
+            const grid = document.getElementById('cardsGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            let filtered = items.filter(item => {
+                const matchesCat = currentCategory === 'ทั้งหมด' || item.category === currentCategory;
+                const matchesSearch = !searchQuery || 
+                    item.name.toLowerCase().includes(searchQuery) ||
+                    item.category.toLowerCase().includes(searchQuery) ||
+                    (item.owner && item.owner.toLowerCase().includes(searchQuery)) ||
+                    (item.accountNo && item.accountNo.toLowerCase().includes(searchQuery));
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(item => createCardHTML(item)).join('');
+        }
+
+        function createCardHTML(item) {
+            const isRevealed = revealedPasswords[item.id] || false;
+            
+            let passwordDisplay = '';
+            let passwordButtonHTML = '';
+
+            if (item.password) {
+                if (isAdmin) {
+                    const maskedText = isRevealed ? escapeHtml(item.password) : '••••••••••••';
+                    const iconClass = isRevealed ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
+                    passwordDisplay = `<span class="font-mono font-bold text-gray-800 text-xs sm:text-sm">${maskedText}</span>`;
+                    passwordButtonHTML = `
+                        <button type="button" onclick="togglePassword('${item.id}')" class="text-pink-500 hover:text-deepPink p-1.5 rounded-xl bg-pink-50 hover:bg-pink-100 interactive-hover" title="แสดง/ซ่อนรหัสผ่าน">
+                            <i class="${iconClass} text-xs"></i>
+                        </button>
+                    `;
+                } else {
+                    passwordDisplay = `<span class="font-mono font-bold text-gray-400 text-xs tracking-wider"><i class="fa-solid fa-lock text-[10px] mr-1"></i>ซ่อนความลับ (เฉพาะแอดมิน)</span>`;
+                    passwordButtonHTML = '';
+                }
+            } else {
+                passwordDisplay = `<span class="text-gray-400 italic text-xs sm:text-sm">ไม่มีรหัสผ่าน</span>`;
+            }
+
+            let imageHTML = '';
+            if (item.image) {
+                const safeName = escapeHtml(item.name).replace(/'/g, "\\'");
+                imageHTML = `
+                    <div class="mt-3.5 pt-3 border-t border-pink-100 text-center">
+                        <img src="${escapeHtml(item.image)}" alt="QR / Attachment" class="max-h-32 mx-auto rounded-xl object-contain border border-pink-200 p-1 bg-pink-50/50 shadow-sm cursor-pointer interactive-hover" onclick="openImageViewer('${escapeHtml(item.image).replace(/'/g, "\\'")}', '${safeName}')">
+                        <p class="text-xs text-pink-500 font-semibold mt-2"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i>คลิกเพื่อดูรูปขยาย/ดาวน์โหลด</p>
+                    </div>
+                `;
+            }
+
+            let adminActionsHTML = '';
+            if (isAdmin) {
+                adminActionsHTML = `
+                    <div class="flex items-center space-x-2">
+                        <button type="button" onclick="editItem('${item.id}')" class="w-10 h-10 bg-pink-50 hover:bg-pink-100 text-deepPink rounded-xl flex items-center justify-center interactive-hover shadow-sm" title="แก้ไขข้อมูล">
+                            <i class="fa-solid fa-pen text-sm pointer-events-none"></i>
+                        </button>
+                        <button type="button" onclick="openDeleteModal('${item.id}', '${escapeHtml(item.name).replace(/'/g, "\\'")}')" class="w-10 h-10 bg-red-50 hover:bg-red-100 text-red-500 rounded-xl flex items-center justify-center interactive-hover shadow-sm" title="ลบข้อมูล">
+                            <i class="fa-solid fa-trash-can text-sm pointer-events-none"></i>
+                        </button>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="cute-card bg-white p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden text-xs sm:text-sm">
+                    <div>
+                        <!-- Card Header -->
+                        <div class="flex justify-between items-start gap-2 mb-3 border-b border-pink-100 pb-2.5">
+                            <div>
+                                <span class="text-xs font-semibold bg-pink-100 text-deepPink px-2.5 py-0.5 rounded-full border border-pink-200">${escapeHtml(item.category)}</span>
+                                <h3 class="text-base sm:text-lg font-bold text-gray-800 mt-2 tracking-tight">${escapeHtml(item.name)}</h3>
+                            </div>
+                            ${adminActionsHTML}
+                        </div>
+
+                        <!-- Card Details -->
+                        <div class="space-y-2.5 text-xs sm:text-sm">
+                            ${item.owner ? `
+                                <div class="flex items-center text-gray-700 font-medium">
+                                    <i class="fa-solid fa-user-circle text-pink-400 w-4 text-center text-sm mr-1.5"></i>
+                                    <span>เจ้าของ/ผู้ใช้: <strong class="text-gray-900 font-semibold">${escapeHtml(item.owner)}</strong></span>
+                                </div>
+                            ` : ''}
+
+                            ${item.accountNo ? `
+                                <div class="bg-pink-50/70 p-3 rounded-xl border border-pink-100 flex items-center justify-between gap-2">
+                                    <div class="truncate">
+                                        <div class="text-xs text-gray-500 font-semibold mb-0.5">เลขบัญชี / ข้อมูลหลัก</div>
+                                        <div class="font-mono font-bold text-gray-900 text-xs sm:text-sm tracking-wide truncate">${escapeHtml(item.accountNo)}</div>
+                                    </div>
+                                    <button type="button" onclick="copyText('${escapeHtml(item.accountNo).replace(/'/g, "\\'")}', 'เลขบัญชี')" class="cute-btn text-white px-3 py-1.5 text-xs font-semibold shrink-0 flex items-center space-x-1">
+                                        <i class="fa-regular fa-copy pointer-events-none"></i>
+                                        <span class="pointer-events-none">คัดลอก</span>
+                                    </button>
+                                </div>
+                            ` : ''}
+
+                            <div class="bg-purple-50/50 p-3 rounded-xl border border-purple-100 flex items-center justify-between gap-2">
+                                <div class="truncate">
+                                    <div class="text-xs text-purple-400 font-semibold mb-0.5">รหัสผ่าน / ข้อมูลลับ</div>
+                                    <div class="truncate mt-0.5">${passwordDisplay}</div>
+                                </div>
+                                <div class="shrink-0 flex items-center space-x-1.5">
+                                    ${passwordButtonHTML}
+                                    ${item.password && isAdmin ? `
+                                        <button type="button" onclick="copyText('${escapeHtml(item.password).replace(/'/g, "\\'")}', 'รหัสผ่าน')" class="bg-purple-100 hover:bg-purple-200 text-purple-700 px-3 py-1.5 text-xs font-semibold rounded-xl interactive-hover flex items-center space-x-1" title="คัดลอกรหัสผ่าน">
+                                            <i class="fa-regular fa-copy pointer-events-none"></i>
+                                            <span class="pointer-events-none">คัดลอก</span>
+                                        </button>
+                                    ` : ''}
+                                </div>
+                            </div>
+
+                            ${item.details ? `
+                                <div class="text-gray-600 bg-gray-50 p-2.5 rounded-xl text-xs sm:text-sm font-medium border border-gray-100">
+                                    <span class="font-semibold text-gray-700 block mb-0.5">โน้ตเพิ่มเติม:</span>
+                                    ${escapeHtml(item.details)}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    ${imageHTML}
+                </div>
+            `;
+        }
+
+        // Toggle Password Masking
+        function togglePassword(id) {
+            revealedPasswords[id] = !revealedPasswords[id];
+            renderCards();
+        }
+
+        // Modal Management (Add / Edit)
+        function openAddModal() {
+            document.getElementById('modalTitle').innerHTML = '<i class="fa-solid fa-circle-plus text-pink-500"></i> เพิ่มข้อมูลใหม่';
+            document.getElementById('itemId').value = '';
+            document.getElementById('itemForm').reset();
+            document.getElementById('itemImageBase64').value = '';
+            document.getElementById('imagePreviewContainer').classList.add('hidden');
+            document.getElementById('itemModal').classList.remove('hidden');
+        }
+
+        function editItem(id) {
+            const item = items.find(i => i.id === id);
+            if (!item) return;
+
+            document.getElementById('modalTitle').innerHTML = '<i class="fa-solid fa-pen-to-square text-pink-500"></i> แก้ไขข้อมูล';
+            document.getElementById('itemId').value = item.id;
+            document.getElementById('itemName').value = item.name || '';
+            document.getElementById('itemCategory').value = item.category || 'อื่นๆ';
+            document.getElementById('itemOwner').value = item.owner || '';
+            document.getElementById('itemAccountNo').value = item.accountNo || '';
+            document.getElementById('itemPassword').value = item.password || '';
+            document.getElementById('itemDetails').value = item.details || '';
+            
+            const base64Input = document.getElementById('itemImageBase64');
+            const previewImg = document.getElementById('imagePreview');
+            const previewContainer = document.getElementById('imagePreviewContainer');
+
+            if (item.image) {
+                base64Input.value = item.image;
+                previewImg.src = item.image;
+                previewContainer.classList.remove('hidden');
+            } else {
+                base64Input.value = '';
+                previewContainer.classList.add('hidden');
+            }
+
+            document.getElementById('itemModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('itemModal').classList.add('hidden');
+        }
+
+        // Image Upload Handling
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const base64String = event.target.result;
+                document.getElementById('itemImageBase64').value = base64String;
+                document.getElementById('imagePreview').src = base64String;
+                document.getElementById('imagePreviewContainer').classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeImage() {
+            document.getElementById('itemImageFile').value = '';
+            document.getElementById('itemImageBase64').value = '';
+            document.getElementById('imagePreviewContainer').classList.add('hidden');
+        }
+
+        // Save Item (Create or Update)
+        function saveItem(e) {
+            e.preventDefault();
+            const id = document.getElementById('itemId').value;
+            const newItem = {
+                id: id ? id : Date.now().toString(),
+                name: document.getElementById('itemName').value.trim(),
+                category: document.getElementById('itemCategory').value,
+                owner: document.getElementById('itemOwner').value.trim(),
+                accountNo: document.getElementById('itemAccountNo').value.trim(),
+                password: document.getElementById('itemPassword').value.trim(),
+                details: document.getElementById('itemDetails').value.trim(),
+                image: document.getElementById('itemImageBase64').value.trim()
+            };
+
+            if (id) {
+                const index = items.findIndex(i => i.id === id);
+                if (index !== -1) {
+                    items[index] = newItem;
+                }
+                showNotification("แก้ไขข้อมูลเรียบร้อยแล้วค่ะ ✨");
+            } else {
+                items.unshift(newItem);
+                showNotification("เพิ่มข้อมูลใหม่เรียบร้อยแล้วค่ะ 🌸");
+            }
+
+            saveToLocalStorage();
+            closeModal();
+            renderCards();
+        }
+
+        // Delete Confirmation Modal Handling
+        function openDeleteModal(id, name) {
+            document.getElementById('deleteItemId').value = id;
+            document.getElementById('deleteItemName').textContent = name;
+            document.getElementById('deleteModal').classList.remove('hidden');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
+
+        function confirmDelete() {
+            const id = document.getElementById('deleteItemId').value;
+            items = items.filter(i => i.id !== id);
+            saveToLocalStorage();
+            closeDeleteModal();
+            renderCards();
+            showNotification("ลบข้อมูลสำเร็จแล้วค่ะ 🗑️");
+        }
+
+        // Image Viewer Lightbox
+        function openImageViewer(imgSrc, title) {
+            document.getElementById('modalFullImage').src = imgSrc;
+            document.getElementById('imageModalTitle').textContent = title || 'รูปภาพแนบ';
+            document.getElementById('downloadImageBtn').href = imgSrc;
+            document.getElementById('imageModal').classList.remove('hidden');
+        }
+
+        function closeImageViewer() {
+            document.getElementById('imageModal').classList.add('hidden');
+        }
+
+        // Copy Text Function using document.execCommand for iFrame reliability
+        function copyText(text, label) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showNotification(`คัดลอก${label}เรียบร้อยแล้วค่ะ! 📋`);
+            } catch (err) {
+                showNotification('ไม่สามารถคัดลอกได้ กรุณาลองใหม่อีกครั้ง');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // Cute Floating Notification Toast
+        function showNotification(message) {
+            const existingToast = document.getElementById('toastNotification');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.id = 'toastNotification';
+            toast.className = 'fixed bottom-6 right-6 z-50 bg-white/95 backdrop-blur-md border-2 border-pink-300 text-deepPink px-5 py-3 rounded-2xl shadow-xl flex items-center space-x-3 text-xs sm:text-sm font-bold animate-bounce';
+            toast.innerHTML = `<span>✨</span><span>${message}</span>`;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // Utility: HTML Escape
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            initApp();
+        };
+    </script>
+</body>
+</html>
