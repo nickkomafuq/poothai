@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Bakery Personal Link</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Mali & Prompt สำหรับความน่ารักและอ่านง่าย -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'cute': ['Mali', 'Prompt', 'sans-serif'],
+                        'body': ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        cream: {
+                            50: '#FFFDF9',
+                            100: '#FFF9ED',
+                            200: '#FDF0D5',
+                            300: '#FAE3B4',
+                        },
+                        peach: {
+                            100: '#FFE8D6',
+                            200: '#FFD1B3',
+                            300: '#FFB58A',
+                            400: '#FF9B66',
+                        },
+                        cocoa: {
+                            400: '#A67B5B',
+                            500: '#8C5E3C',
+                            600: '#6F4526',
+                            700: '#523018',
+                        }
+                    },
+                    animation: {
+                        'float-slow': 'float 6s ease-in-out infinite',
+                        'float-medium': 'float 4s ease-in-out infinite',
+                        'wiggle': 'wiggle 3s ease-in-out infinite',
+                        'pulse-soft': 'pulseSoft 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-15px) rotate(5deg)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        pulseSoft: {
+                            '0%, 100%': { opacity: 0.8, transform: 'scale(1)' },
+                            '50%': { opacity: 1, transform: 'scale(1.05)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #FFF9ED;
+            color: #523018;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        h1, h2, h3, .font-cute {
+            font-family: 'Mali', cursive, sans-serif;
+        }
+
+        /* ลายตาราง Gingham สไตล์คาเฟ่เบเกอรี่ */
+        .bg-gingham {
+            background-image: 
+                linear-gradient(90deg, rgba(255, 209, 179, 0.28) 50%, transparent 50%),
+                linear-gradient(rgba(255, 209, 179, 0.28) 50%, transparent 50%);
+            background-size: 36px 36px;
+        }
+
+        .bg-polka {
+            background-image: radial-gradient(rgba(255, 181, 138, 0.45) 2.5px, transparent 2.5px);
+            background-size: 24px 24px;
+        }
+
+        .bg-stripes {
+            background-image: repeating-linear-gradient(
+                45deg,
+                rgba(255, 232, 214, 0.45),
+                rgba(255, 232, 214, 0.45) 16px,
+                transparent 16px,
+                transparent 32px
+            );
+        }
+
+        .bg-hearts {
+            background-image: radial-gradient(circle at 12px 12px, rgba(255, 154, 162, 0.25) 3px, transparent 3.5px),
+                              radial-gradient(circle at 28px 28px, rgba(255, 181, 138, 0.25) 3px, transparent 3.5px);
+            background-size: 40px 40px;
+        }
+
+        .bg-waffle {
+            background-image: 
+                linear-gradient(to right, rgba(166, 123, 91, 0.12) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(166, 123, 91, 0.12) 1px, transparent 1px);
+            background-size: 22px 22px;
+        }
+
+        .bg-solid {
+            background-image: none;
+        }
+
+        /* เงาละมุนสไตล์ขนมหวาน */
+        .bakery-shadow {
+            box-shadow: 0 8px 20px -4px rgba(140, 94, 60, 0.12), 0 4px 8px -2px rgba(255, 181, 138, 0.2);
+        }
+
+        .bakery-btn {
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .bakery-btn:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 12px 24px -6px rgba(140, 94, 60, 0.18);
+        }
+        .bakery-btn:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF9ED;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFD1B3;
+            border-radius: 999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFB58A;
+        }
+
+        /* Floating Decoration Layer */
+        #decoration-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .floating-item {
+            position: absolute;
+            user-select: none;
+            filter: drop-shadow(0 6px 10px rgba(111, 69, 38, 0.14));
+            transition: top 0.2s ease, left 0.2s ease, transform 0.2s ease;
+        }
+
+        /* กรอบลูกไม้/ขนมหวานบนล่างสำหรับ Header */
+        .header-scallop-frame {
+            position: relative;
+        }
+        .header-scallop-frame::before,
+        .header-scallop-frame::after {
+            content: '';
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            height: 6px;
+            background-image: radial-gradient(circle, var(--header-frame-color, #FFB58A) 3px, transparent 3.5px);
+            background-size: 12px 6px;
+            background-repeat: repeat-x;
+            pointer-events: none;
+        }
+        .header-scallop-frame::before {
+            top: -5px;
+        }
+        .header-scallop-frame::after {
+            bottom: -5px;
+        }
+
+        /* ========================================== */
+        /* 6 รูปแบบสไตล์ปุ่มลิงก์หลักแนวคาเฟ่ (Button Styles) */
+        /* ========================================== */
+        .link-style-soft3d {
+            border-radius: 1.5rem;
+            border-width: 2px;
+            box-shadow: 0 5px 0 rgba(140, 94, 60, 0.16), 0 8px 16px rgba(140, 94, 60, 0.08);
+        }
+        .link-style-soft3d:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 rgba(140, 94, 60, 0.16);
+        }
+
+        .link-style-stitch {
+            border-radius: 1.4rem;
+            border-width: 2px;
+            position: relative;
+        }
+        .link-style-stitch::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1.5px dashed rgba(111, 69, 38, 0.35);
+            border-radius: 1.1rem;
+            pointer-events: none;
+        }
+
+        .link-style-menutag {
+            border-radius: 0.95rem;
+            border-width: 2px;
+            position: relative;
+            padding-left: 1.4rem !important;
+            padding-right: 1.4rem !important;
+        }
+        .link-style-menutag::before,
+        .link-style-menutag::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background-color: #FFFDF9;
+            border: 1.5px solid rgba(111, 69, 38, 0.35);
+            pointer-events: none;
+        }
+        .link-style-menutag::before { left: 7px; }
+        .link-style-menutag::after { right: 7px; }
+
+        .link-style-cloud {
+            border-radius: 9999px;
+            border-width: 3px;
+            box-shadow: 0 6px 15px rgba(255, 181, 138, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+        }
+
+        .link-style-sticker {
+            border-radius: 1.5rem;
+            border: 4px solid #FFFFFF !important;
+            box-shadow: 0 6px 14px rgba(82, 48, 24, 0.16), 0 0 0 1.5px rgba(166, 123, 91, 0.2);
+        }
+
+        .link-style-glass {
+            border-radius: 1.5rem;
+            border-width: 2px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 8px 20px rgba(140, 94, 60, 0.08);
+        }
+
+        /* ========================================== */
+        /* 6 รูปแบบกรอบตกแต่งพื้นหลัง/การ์ด (Page Frames) - แก้ไขให้แสดงลายชัดเจน */
+        /* ========================================== */
+        .page-frame-none {
+            border: 2px solid #FFD1B3;
+        }
+
+        /* 2. ขอบหยักคลื่นวิปครีม (Wavy Cream Scallop) */
+        .page-frame-wavy {
+            border: 4px solid var(--page-frame-color, #FFB58A);
+            position: relative;
+        }
+        .page-frame-wavy::before,
+        .page-frame-wavy::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 14px;
+            background-image: radial-gradient(circle at 14px 0px, transparent 9px, var(--page-frame-color, #FFB58A) 9.5px, var(--page-frame-color, #FFB58A) 13px, transparent 13.5px);
+            background-size: 28px 14px;
+            background-repeat: repeat-x;
+            pointer-events: none;
+            z-index: 20;
+        }
+        .page-frame-wavy::before {
+            top: -2px;
+            transform: rotate(180deg);
+        }
+        .page-frame-wavy::after {
+            bottom: -2px;
+        }
+
+        /* 3. ลูกไม้กระดาษรองเค้ก (Cafe Doily Lace) */
+        .page-frame-doily {
+            border: 6px dashed var(--page-frame-color, #FFB58A);
+            box-shadow: inset 0 0 0 5px #FFFDF9, inset 0 0 0 8px var(--page-frame-color, #FFB58A), 0 10px 25px rgba(140, 94, 60, 0.14);
+        }
+
+        /* 4. ขอบเส้นประเย็บมือ (Stitched Bakery Border) */
+        .page-frame-stitched {
+            border: 3px solid var(--page-frame-color, #FFB58A);
+            outline: 3px dashed var(--page-frame-color, #FFB58A);
+            outline-offset: -10px;
+        }
+
+        /* 5. กรอบบิสกิตขอบหยัก (Biscuit Crinkle Frame) */
+        .page-frame-biscuit {
+            border: 6px solid var(--page-frame-color, #FFB58A);
+            border-radius: 1.8rem !important;
+            background-image: 
+                radial-gradient(circle at 0 50%, var(--page-frame-color, #FFB58A) 5px, transparent 5.5px),
+                radial-gradient(circle at 100% 50%, var(--page-frame-color, #FFB58A) 5px, transparent 5.5px);
+            background-size: 100% 26px;
+            box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.9), 0 8px 20px rgba(140, 94, 60, 0.12);
+        }
+
+        /* 6. กรอบริบบิ้นและหัวใจมุม (Ribbon & Corner Dots) */
+        .page-frame-ribbon {
+            border: 4px double var(--page-frame-color, #FFB58A);
+            box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.8), 0 10px 24px rgba(140, 94, 60, 0.12);
+        }
+        .page-frame-ribbon .corner-pearl {
+            display: block !important;
+        }
+    </style>
+</head>
+<body class="bg-gingham min-h-screen pb-14 relative transition-colors duration-500" id="app-body" style="background-color: #FFFDF9;">
+
+    <!-- ชั้นของตกแต่งพื้นหลังแบบเคลื่อนไหว -->
+    <div id="decoration-canvas"></div>
+
+    <!-- แถบแจ้งเตือน (Custom Toast Notification แทน alert) -->
+    <div id="toast-container" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 flex flex-col gap-2 w-11/12 max-w-sm pointer-events-none"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-cream-100/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center transition-opacity duration-300">
+        <div class="text-5xl animate-bounce mb-3">🥐</div>
+        <p class="font-cute text-cocoa-600 font-semibold text-lg">กำลังอบขนมและจัดร้าน...</p>
+    </div>
+
+    <!-- Main Container (จำลองสัดส่วน Mobile-First Card สวยงามบนทุกหน้าจอ) -->
+    <div class="relative z-10 max-w-md mx-auto px-4 pt-6 sm:pt-8">
+        
+        <!-- 1. ส่วนหัวเว็บไซต์ (Header Bar พร้อมรูปภาพวงกลมเล็กๆ และกรอบขอบบนล่างเปลี่ยนสีได้) -->
+        <header id="header-bar" class="header-scallop-frame flex items-center justify-between bg-cream-50/95 backdrop-blur-md border-2 rounded-full px-3.5 py-2 bakery-shadow mb-6 transition-colors duration-300" style="border-color: #FFB58A; --header-frame-color: #FFB58A;">
+            <div class="flex items-center gap-2.5 overflow-hidden">
+                <!-- รูปภาพวงกลมเล็กๆ ตรงหัวข้อบนสุด พร้อมกรอบน่ารัก -->
+                <div id="header-avatar-ring" class="w-9 h-9 rounded-full p-0.5 border-2 shrink-0 shadow-sm bg-white overflow-hidden transition-colors duration-300" style="border-color: #FFB58A;">
+                    <img id="display-header-img" 
+                         src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=200&q=80" 
+                         alt="Mini Icon" 
+                         onerror="this.src='https://placehold.co/100x100/FFE8D6/6F4526?text=Cafe'"
+                         class="w-full h-full object-cover rounded-full">
+                </div>
+                <span id="display-site-title" class="font-cute font-bold text-cocoa-600 text-sm sm:text-base truncate">
+                    Sweet Bakery Cafe
+                </span>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+                <!-- ปุ่มแชร์ลิงก์ -->
+                <button onclick="copyShareLink()" title="คัดลอกลิงก์เว็บไซต์" class="w-8 h-8 rounded-full bg-peach-100 hover:bg-peach-200 text-cocoa-600 flex items-center justify-center transition">
+                    <i class="fa-solid fa-share-nodes text-xs"></i>
+                </button>
+                <!-- ปุ่มเข้าสู่โหมดแก้ไข (Admin) -->
+                <button id="admin-toggle-btn" onclick="openAdminAuth()" title="จัดการเว็บไซต์ (Admin)" class="px-3 h-8 rounded-full bg-cocoa-500 hover:bg-cocoa-600 text-cream-50 text-xs font-medium flex items-center gap-1.5 transition shadow-sm">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span id="admin-btn-text">ตกแต่งร้าน</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- แถบแจ้งเตือนสถานะ Admin เมื่อล็อกอินอยู่ -->
+        <div id="admin-banner" class="hidden mb-5 bg-peach-200/90 border-2 border-peach-400 rounded-2xl p-3 flex items-center justify-between bakery-shadow">
+            <div class="flex items-center gap-2">
+                <span class="text-xl">👩‍🍳</span>
+                <div>
+                    <p class="font-cute font-bold text-cocoa-700 text-sm">โหมดเจ้าของร้าน (Admin)</p>
+                    <p class="text-xs text-cocoa-600">แก้ไขข้อมูลแล้วอย่าลืมกดบันทึกนะ!</p>
+                </div>
+            </div>
+            <div class="flex gap-1.5">
+                <button onclick="openEditorModal()" class="px-3 py-1.5 bg-cocoa-600 text-white rounded-xl text-xs font-medium hover:bg-cocoa-700 transition shadow">
+                    <i class="fa-solid fa-pen-to-square mr-1"></i>แก้ไขทั้งหมด
+                </button>
+                <button onclick="logoutAdmin()" class="px-2.5 py-1.5 bg-cream-50 text-cocoa-600 rounded-xl text-xs font-medium hover:bg-cream-200 transition">
+                    ออก
+                </button>
+            </div>
+        </div>
+
+        <!-- การ์ดโปรไฟล์หลัก (Main Profile Card) -->
+        <main id="main-profile-card" class="bg-cream-50/95 page-frame-none rounded-[2.2rem] p-6 bakery-shadow relative overflow-hidden transition-all duration-300" style="--page-frame-color: #FFB58A;">
+            <!-- จุดมุกตกแต่งมุมทั้งสี่ (แสดงเมื่อเลือกกรอบ Ribbon & Corner Dots) -->
+            <span class="corner-pearl hidden absolute top-3 left-3 w-3.5 h-3.5 rounded-full border-2 border-white shadow-sm pointer-events-none z-20" style="background-color: var(--page-frame-color, #FFB58A);"></span>
+            <span class="corner-pearl hidden absolute top-3 right-3 w-3.5 h-3.5 rounded-full border-2 border-white shadow-sm pointer-events-none z-20" style="background-color: var(--page-frame-color, #FFB58A);"></span>
+            <span class="corner-pearl hidden absolute bottom-3 left-3 w-3.5 h-3.5 rounded-full border-2 border-white shadow-sm pointer-events-none z-20" style="background-color: var(--page-frame-color, #FFB58A);"></span>
+            <span class="corner-pearl hidden absolute bottom-3 right-3 w-3.5 h-3.5 rounded-full border-2 border-white shadow-sm pointer-events-none z-20" style="background-color: var(--page-frame-color, #FFB58A);"></span>
+
+            <!-- ริบบิ้นตกแต่งมุมการ์ด -->
+            <div class="absolute -top-3 -right-3 w-16 h-16 bg-peach-100 rounded-full opacity-60 pointer-events-none"></div>
+            <div class="absolute -bottom-4 -left-4 w-20 h-20 bg-cream-200 rounded-full opacity-60 pointer-events-none"></div>
+
+            <!-- 2. ส่วนแสดงรูปภาพหลัก (ปรับให้เล็กลง: w-36 h-36) -->
+            <div class="relative mx-auto w-36 h-36 sm:w-40 sm:h-40 mb-4 group">
+                <!-- กรอบวงกลมซ้อนสไตล์คุกกี้/จานขนม -->
+                <div class="absolute inset-0 rounded-full border-4 border-dashed border-peach-300 animate-[spin_25s_linear_infinite]"></div>
+                <div class="relative w-full h-full p-1.5">
+                    <div class="w-full h-full rounded-full overflow-hidden border-4 border-white shadow-md bg-peach-100 flex items-center justify-center relative">
+                        <img id="display-hero-img" 
+                             src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" 
+                             alt="Profile Mascot" 
+                             onerror="this.src='https://placehold.co/400x400/FFE8D6/6F4526?text=Sweet+Bakery'"
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                </div>
+                <!-- ป้ายสติกเกอร์เล็กๆ มุมรูป -->
+                <div id="display-badge" class="absolute bottom-1 right-1 bg-white border-2 border-peach-300 rounded-full px-2.5 py-0.5 shadow-sm flex items-center gap-1 text-[11px] font-cute font-bold text-cocoa-600 animate-pulse-soft">
+                    <span>🍓</span> <span id="display-badge-text">Open</span>
+                </div>
+            </div>
+
+            <!-- 3. ส่วนแสดงชื่อและข้อความแนะนำตัว -->
+            <div class="text-center mb-5">
+                <h1 id="display-owner-name" class="font-cute text-2xl sm:text-3xl font-bold text-cocoa-700 mb-1.5 tracking-wide">
+                    Mimi's Bakery Corner 🥐
+                </h1>
+                <p id="display-tagline" class="inline-block bg-peach-100/80 text-cocoa-600 text-xs sm:text-sm font-medium px-3.5 py-1 rounded-full mb-3">
+                    ✨ Homemade Sweets & Lifestyle ✨
+                </p>
+                <p id="display-bio" class="text-cocoa-500 text-sm leading-relaxed max-w-xs mx-auto whitespace-pre-line">
+                    ยินดีต้อนรับสู่พื้นที่เล็กๆ แสนอบอุ่น 🍰
+                    รวบรวมผลงาน รีวิวคาเฟ่ และช่องทางติดตามทั้งหมดไว้ที่นี่แล้วค่ะ 🧸💕
+                </p>
+            </div>
+
+            <!-- วิดเจ็ตใหม่: รูปภาพสี่เหลี่ยมผืนผ้าแนวนอน (ขนาดใหญ่กว่ารูปโปรไฟล์) -->
+            <div id="display-banner-widget-container" class="mb-6 hidden">
+                <div class="relative w-full h-36 sm:h-44 rounded-2xl overflow-hidden border-3 border-white shadow-md bg-peach-100 group">
+                    <img id="display-banner-widget-img" src="" alt="Cafe Banner" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div id="display-banner-widget-caption" class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-cocoa-700/80 to-transparent px-4 py-2 text-white font-cute text-xs sm:text-sm text-center font-medium"></div>
+                </div>
+            </div>
+
+            <!-- 4. ส่วนปุ่มไอคอนโซเชียลมีเดีย (Social Media Icons) -->
+            <div id="display-socials" class="flex flex-wrap items-center justify-center gap-3 mb-7">
+                <!-- จะถูกสร้างด้วย JavaScript -->
+            </div>
+
+            <!-- เส้นคั่นลายขนม -->
+            <div class="flex items-center justify-center gap-2 mb-6 opacity-60">
+                <div class="h-[2px] flex-1 bg-peach-200 rounded-full"></div>
+                <span class="text-sm">🍪</span>
+                <div class="h-[2px] flex-1 bg-peach-200 rounded-full"></div>
+            </div>
+
+            <!-- 5. ส่วนแสดงลิงก์เว็บไซต์หรือแอปพลิเคชันต่างๆ (ปุ่มกดขนาดใหญ่) -->
+            <div id="display-links" class="space-y-3.5">
+                <!-- จะถูกสร้างด้วย JavaScript -->
+            </div>
+
+            <!-- 6. ข้อความเสริมด้านล่างการ์ด (Extra Note / Footer Text) -->
+            <div id="display-extra-note-box" class="mt-7 pt-4 border-t border-dashed border-peach-200 text-center">
+                <p id="display-extra-note" class="text-xs text-cocoa-400 font-cute">
+                    🌷 ขอบคุณที่แวะเข้ามาเยี่ยมชมนะคะ Have a sweet day! 🌷
+                </p>
+            </div>
+        </main>
+
+        <!-- Footer เล็กๆ -->
+        <footer class="text-center mt-6 text-xs text-cocoa-400">
+            <p id="display-footer-credit">© 2026 Sweet Bakery Personal Link</p>
+        </footer>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL 1: ยืนยันรหัสผ่านเจ้าของร้าน (Admin Auth) -->
+    <!-- ========================================== -->
+    <div id="auth-modal" class="fixed inset-0 bg-cocoa-700/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-cream-50 border-2 border-peach-300 rounded-3xl max-w-sm w-full p-6 bakery-shadow transform transition-all">
+            <div class="text-center mb-4">
+                <div class="w-14 h-14 bg-peach-100 rounded-full flex items-center justify-center text-2xl mx-auto mb-2">🔐</div>
+                <h3 class="font-cute font-bold text-xl text-cocoa-700">เข้าสู่ระบบเจ้าของร้าน</h3>
+                <p id="auth-modal-desc" class="text-xs text-cocoa-500 mt-1">กรอกรหัสผ่านผู้ดูแลเพื่อแก้ไขและตกแต่งเว็บไซต์</p>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-cocoa-600 mb-1">รหัสผ่าน Admin</label>
+                    <input type="password" id="admin-passcode-input" placeholder="ค่าเริ่มต้นคือ 1234" 
+                           class="w-full px-4 py-2.5 rounded-2xl border-2 border-peach-200 bg-white focus:outline-none focus:border-peach-400 text-cocoa-700 text-center tracking-widest font-bold">
+                </div>
+                <p class="text-[11px] text-cocoa-400 text-center">* คุณสามารถเปลี่ยนรหัสผ่านใหม่ได้ในหน้าตั้งค่า</p>
+                <div class="flex gap-2 pt-2">
+                    <button onclick="closeModal('auth-modal')" class="flex-1 py-2.5 rounded-2xl bg-cream-200 text-cocoa-600 font-medium text-sm hover:bg-cream-300 transition">
+                        ยกเลิก
+                    </button>
+                    <button onclick="verifyAdminPasscode()" class="flex-1 py-2.5 rounded-2xl bg-cocoa-600 text-white font-medium text-sm hover:bg-cocoa-700 transition shadow">
+                        เข้าสู่ระบบ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL 2: หน้าต่างแก้ไขข้อมูลเว็บไซต์ (Admin Editor) -->
+    <!-- ========================================== -->
+    <div id="editor-modal" class="fixed inset-0 bg-cocoa-700/50 backdrop-blur-sm z-50 hidden items-center justify-center p-3 sm:p-5">
+        <div class="bg-cream-50 border-2 border-peach-300 rounded-[2rem] w-full max-w-[720px] max-h-[85vh] flex flex-col overflow-hidden bakery-shadow">
+            
+            <!-- 1. ส่วนหัวหน้าต่าง (Header - flex-shrink: 0) -->
+            <div class="bg-cream-100 px-6 py-4 border-b border-peach-200 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-peach-100 border border-peach-300 flex items-center justify-center text-xl shadow-sm">
+                        🧁
+                    </div>
+                    <div>
+                        <h2 class="font-cute font-bold text-cocoa-700 text-base sm:text-lg leading-snug">ตกแต่งร้าน & แก้ไขข้อมูล</h2>
+                        <p class="text-xs text-cocoa-500 mt-0.5">ปรับแต่งรายละเอียดได้ตามใจชอบ แล้วกดบันทึกด้านล่าง</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('editor-modal')" title="ปิดหน้าต่าง" class="w-9 h-9 rounded-full bg-white hover:bg-peach-100 border border-peach-200 text-cocoa-600 flex items-center justify-center transition shrink-0">
+                    <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+            </div>
+
+            <!-- 2. แถบเมนูแท็บ (Tab Navigation - flex-shrink: 0) -->
+            <div class="flex items-center overflow-x-auto bg-cream-100/80 px-5 pt-3 border-b border-peach-200 gap-2 shrink-0 no-scrollbar">
+                <button onclick="switchEditorTab('profile')" id="tab-btn-profile" class="editor-tab-btn px-4 py-2.5 rounded-t-2xl text-xs font-cute font-bold bg-cream-50 text-cocoa-700 border-t-2 border-x-2 border-peach-200 whitespace-nowrap shrink-0 transition">
+                    🎀 โปรไฟล์ & ส่วนหัว
+                </button>
+                <button onclick="switchEditorTab('socials')" id="tab-btn-socials" class="editor-tab-btn px-4 py-2.5 rounded-t-2xl text-xs font-cute font-bold text-cocoa-500 hover:bg-cream-50/50 whitespace-nowrap shrink-0 transition">
+                    📱 โซเชียลมีเดีย
+                </button>
+                <button onclick="switchEditorTab('links')" id="tab-btn-links" class="editor-tab-btn px-4 py-2.5 rounded-t-2xl text-xs font-cute font-bold text-cocoa-500 hover:bg-cream-50/50 whitespace-nowrap shrink-0 transition">
+                    🔗 ปุ่มลิงก์หลัก
+                </button>
+                <button onclick="switchEditorTab('theme')" id="tab-btn-theme" class="editor-tab-btn px-4 py-2.5 rounded-t-2xl text-xs font-cute font-bold text-cocoa-500 hover:bg-cream-50/50 whitespace-nowrap shrink-0 transition">
+                    🎨 พื้นหลัง & ของตกแต่ง
+                </button>
+                <button onclick="switchEditorTab('security')" id="tab-btn-security" class="editor-tab-btn px-4 py-2.5 rounded-t-2xl text-xs font-cute font-bold text-cocoa-500 hover:bg-cream-50/50 whitespace-nowrap shrink-0 transition">
+                    🔐 รหัสผ่าน
+                </button>
+            </div>
+
+            <!-- 3. พื้นที่เนื้อหาตรงกลาง (Scrollable Content Body - flex: 1, overflow-y: auto) -->
+            <div class="p-5 sm:p-6 overflow-y-auto flex-1 space-y-5 leading-relaxed">
+                
+                <!-- TAB 1: โปรไฟล์และส่วนหัว -->
+                <div id="tab-profile" class="editor-tab-content space-y-5">
+                    <!-- การ์ดตั้งค่าส่วนหัวบนสุด -->
+                    <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
+                        <div class="border-b border-cream-200 pb-2.5">
+                            <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base flex items-center gap-2">
+                                <span>👑</span> ส่วนหัวเว็บไซต์ (รูปวงกลมเล็ก & กรอบขอบบนล่าง)
+                            </h3>
+                            <p class="text-xs text-cocoa-400 mt-0.5">แสดงบริเวณแถบด้านบนสุดของเว็บไซต์</p>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-center gap-4">
+                            <div id="preview-header-ring" class="w-16 h-16 rounded-full p-0.5 border-2 shrink-0 bg-cream-50 overflow-hidden shadow-sm" style="border-color: #FFB58A;">
+                                <img id="preview-header-img" src="" class="w-full h-full rounded-full object-cover">
+                            </div>
+                            <div class="flex-1 w-full space-y-3">
+                                <div class="flex flex-col sm:flex-row gap-2">
+                                    <label class="text-center py-2 px-3.5 bg-peach-100 hover:bg-peach-200 text-cocoa-700 rounded-xl text-xs font-medium cursor-pointer transition shrink-0">
+                                        <i class="fa-solid fa-image mr-1.5"></i>อัปโหลดรูปส่วนหัว
+                                        <input type="file" accept="image/*" class="hidden" onchange="handleHeaderImageUpload(event)">
+                                    </label>
+                                    <input type="text" id="edit-header-url" placeholder="หรือวางลิงก์รูปส่วนหัว (URL)..." 
+                                           oninput="document.getElementById('preview-header-img').src = this.value; window.draftData.headerImage = this.value;"
+                                           class="flex-1 px-3.5 py-2 rounded-xl border border-peach-200 text-xs focus:outline-none focus:border-peach-400">
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2.5 pt-1">
+                                    <span class="text-xs text-cocoa-600 font-medium">สีกรอบบนล่าง:</span>
+                                    <button type="button" onclick="setHeaderFrameColor('#FFB58A')" class="w-6 h-6 rounded-full bg-[#FFB58A] border-2 border-white shadow hover:scale-110 transition" title="ส้มพีช"></button>
+                                    <button type="button" onclick="setHeaderFrameColor('#FF9AA2')" class="w-6 h-6 rounded-full bg-[#FF9AA2] border-2 border-white shadow hover:scale-110 transition" title="ชมพูสตรอว์เบอร์รี"></button>
+                                    <button type="button" onclick="setHeaderFrameColor('#F6D365')" class="w-6 h-6 rounded-full bg-[#F6D365] border-2 border-white shadow hover:scale-110 transition" title="เหลืองวานิลลา"></button>
+                                    <button type="button" onclick="setHeaderFrameColor('#A67B5B')" class="w-6 h-6 rounded-full bg-[#A67B5B] border-2 border-white shadow hover:scale-110 transition" title="น้ำตาลโกโก้"></button>
+                                    <button type="button" onclick="setHeaderFrameColor('#B5EAD7')" class="w-6 h-6 rounded-full bg-[#B5EAD7] border-2 border-white shadow hover:scale-110 transition" title="เขียวมัทฉะ"></button>
+                                    <input type="color" id="edit-header-frame-color" value="#FFB58A" onchange="setHeaderFrameColor(this.value)" class="w-7 h-7 rounded-full cursor-pointer border-0 bg-transparent" title="เลือกสีเอง">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- การ์ดรูปภาพหลัก -->
+                    <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
+                        <div class="border-b border-cream-200 pb-2.5">
+                            <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base flex items-center gap-2">
+                                <span>🖼️</span> รูปภาพหลัก (ตัวละคร / โปรไฟล์)
+                            </h3>
+                            <p class="text-xs text-cocoa-400 mt-0.5">ขนาดกะทัดรัด วงกลมสวยงาม</p>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-center gap-4">
+                            <img id="preview-hero-img" src="" class="w-20 h-20 rounded-full object-cover border-2 border-peach-300 bg-cream-100 shrink-0 shadow-sm">
+                            <div class="flex-1 w-full space-y-2.5">
+                                <label class="block w-full text-center py-2.5 px-4 bg-peach-100 hover:bg-peach-200 text-cocoa-700 rounded-xl text-xs font-medium cursor-pointer transition">
+                                    <i class="fa-solid fa-cloud-arrow-up mr-1.5"></i>อัปโหลดรูปภาพจากเครื่อง
+                                    <input type="file" id="hero-file-input" accept="image/*" class="hidden" onchange="handleHeroImageUpload(event)">
+                                </label>
+                                <input type="text" id="edit-hero-url" placeholder="หรือวางลิงก์รูปภาพ (URL) ที่นี่..." 
+                                       oninput="document.getElementById('preview-hero-img').src = this.value; window.draftData.heroImage = this.value;"
+                                       class="w-full px-3.5 py-2 rounded-xl border border-peach-200 text-xs focus:outline-none focus:border-peach-400">
+                                <div class="text-right">
+                                    <button type="button" onclick="resetHeroImage()" class="text-[11px] text-red-500 hover:underline">
+                                        ใช้ภาพเริ่มต้น
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- วิดเจ็ตใหม่: รูปภาพสี่เหลี่ยมผืนผ้าแนวนอน (Banner Widget) -->
+                    <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
+                        <div class="border-b border-cream-200 pb-2.5">
+                            <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base flex items-center gap-2">
+                                <span>🖼️</span> วิดเจ็ตรูปภาพสี่เหลี่ยมผืนผ้า (Banner Widget)
+                            </h3>
+                            <p class="text-xs text-cocoa-400 mt-0.5">แสดงภาพถ่ายบรรยากาศคาเฟ่ขนาดใหญ่บนหน้าหลัก</p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="w-full h-28 rounded-2xl overflow-hidden border border-peach-200 bg-cream-100 relative">
+                                <img id="preview-banner-widget-img" src="" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x200/FFE8D6/6F4526?text=Cafe+Banner'">
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <label class="text-center py-2 px-3.5 bg-peach-100 hover:bg-peach-200 text-cocoa-700 rounded-xl text-xs font-medium cursor-pointer transition shrink-0">
+                                    <i class="fa-solid fa-image mr-1.5"></i>อัปโหลดภาพแบนเนอร์
+                                    <input type="file" accept="image/*" class="hidden" onchange="handleBannerWidgetUpload(event)">
+                                </label>
+                                <input type="text" id="edit-banner-widget-url" placeholder="หรือวางลิงก์รูปภาพแบนเนอร์ (URL)..." 
+                                       oninput="document.getElementById('preview-banner-widget-img').src = this.value; window.draftData.bannerWidgetImage = this.value;"
+                                       class="flex-1 px-3.5 py-2 rounded-xl border border-peach-200 text-xs focus:outline-none focus:border-peach-400">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-cocoa-600 mb-1">ข้อความบนภาพแบนเนอร์ (Caption)</label>
+                                <input type="text" id="edit-banner-widget-caption" placeholder="เช่น 🌸 Sweet Moment Cafe 🌸" 
+                                       oninput="window.draftData.bannerWidgetCaption = this.value"
+                                       class="w-full px-3.5 py-2 rounded-xl border border-peach-200 text-xs focus:outline-none focus:border-peach-400">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- การ์ดข้อมูลส่วนตัวและข้อความ -->
+                    <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
+                        <div class="border-b border-cream-200 pb-2.5">
+                            <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base flex items-center gap-2">
+                                <span>📝</span> ข้อมูลส่วนตัวและข้อความแนะนำตัว
+                            </h3>
+                        </div>
+
+                        <div class="space-y-3.5">
+                            <div>
+                                <label class="block text-xs font-medium text-cocoa-600 mb-1.5">ชื่อเว็บไซต์ (ส่วนหัวด้านบน)</label>
+                                <input type="text" id="edit-site-title" class="w-full px-4 py-2.5 rounded-xl border border-peach-200 text-sm focus:outline-none focus:border-peach-400">
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                <div>
+                                    <label class="block text-xs font-medium text-cocoa-600 mb-1.5">ชื่อเจ้าของเว็บไซต์</label>
+                                    <input type="text" id="edit-owner-name" class="w-full px-4 py-2.5 rounded-xl border border-peach-200 text-sm focus:outline-none focus:border-peach-400">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-cocoa-600 mb-1.5">ป้ายสติกเกอร์มุมรูปภาพ</label>
+                                    <input type="text" id="edit-badge-text" placeholder="เช่น Open, Cafe, Cute" class="w-full px-4 py-2.5 rounded-xl border border-peach-200 text-sm focus:outline-none focus:border-peach-400">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-medium text-cocoa-600 mb-1.5">ข้อความต้อนรับ / แท็กไลน์ย่อย</label>
+                                <input type="text" id="edit-tagline" class="w-full px-4 py-2.5 rounded-xl border border-peach-200 text-sm focus:outline-none focus:border-peach-400">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-medium text-cocoa-600 mb-1.5">ข้อความแนะนำตัว (Bio)</label>
+                                <textarea id="edit-bio" rows="3" class="w-full px-4 py-2.5 rounded-xl border border-peach-200 text-sm focus:outline-none focus:border-peach-400 resize-none"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-medium text-cocoa-600 mb-1.5">ข้อความท้ายการ์ด (Extra Footer Note)</label>
+                                <input type="text" id="edit-extra-note" class="w-full px-4 py-2.5 rounded-xl border border-peach-200 text-sm focus:outline-none focus:border-peach-400">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: โซเชียลมีเดีย -->
+                <div id="tab-socials" class="editor-tab-content hidden space-y-4">
+                    <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between border-b border-cream-200 pb-3">
+                            <div>
+                                <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">📱 จัดการไอคอนโซเชียลมีเดีย</h3>
+                                <p class="text-xs text-cocoa-500 mt-0.5">เพิ่ม ลบ หรือแก้ไขลิงก์โซเชียลของคุณ</p>
+                            </div>
+                            <button type="button" onclick="addSocialItem()" class="px-3.5 py-2 bg-peach-100 hover:bg-peach-200 text-cocoa-700 rounded-xl text-xs font-medium transition flex items-center gap-1 shadow-sm">
+                                <i class="fa-solid fa-plus"></i> เพิ่มไอคอน
+                            </button>
+                        </div>
+                        <div id="editor-socials-list" class="space-y-3"></div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: ปุ่มลิงก์หลัก -->
+                <div id="tab-links" class="editor-tab-content hidden space-y-4">
+                    <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between border-b border-cream-200 pb-3">
+                            <div>
+                                <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">🔗 ปุ่มลิงก์เว็บไซต์ & แอปพลิเคชัน</h3>
+                                <p class="text-xs text-cocoa-500 mt-0.5">จัดการปุ่มกดขนาดใหญ่ แสดงผลเด่นชัด</p>
+                            </div>
+                            <button type="button" onclick="addLinkItem()" class="px-3.5 py-2 bg-peach-100 hover:bg-peach-200 text-cocoa-700 rounded-xl text-xs font-medium transition flex items-center gap-1 shadow-sm">
+                                <i class="fa-solid fa-plus"></i> เพิ่มปุ่มลิงก์
+                            </button>
+                        </div>
+                        <div id="editor-links-list" class="space-y-4"></div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: สีพื้นหลัง ลวดลาย กรอบตกแต่ง และของตกแต่งเคลื่อนไหว -->
+                <div id="tab-theme" class="editor-tab-content hidden space-y-5">
+                    <!-- การ์ดสีพื้นหลัง & ลวดลาย -->
+                    <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between border-b border-cream-200 pb-3">
+                            <div>
+                                <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">🎨 สีพื้นหลัง & ลวดลายคาเฟ่</h3>
+                                <p class="text-xs text-cocoa-500 mt-0.5">เลือกสีพื้นหลังและลวดลาย วงกลมด้านขวาจะแสดงตัวอย่างที่เลือก</p>
+                            </div>
+                            <div class="flex flex-col items-center shrink-0">
+                                <div id="active-bg-preview-circle" class="w-12 h-12 rounded-full border-4 border-white shadow-md ring-2 ring-cocoa-500 bg-gingham transition-all" style="background-color: #FFFDF9;"></div>
+                                <span class="text-[10px] text-cocoa-500 mt-1 font-medium">แบบที่เลือก</span>
+                            </div>
+                        </div>
+
+                        <!-- 1. เลือกโทนสีพื้นหลัง -->
+                        <div class="space-y-2.5">
+                            <label class="block text-xs font-medium text-cocoa-600">1. เลือกโทนสีพื้นหลัง (หรือใส่โค้ดสีเอง)</label>
+                            <div class="flex flex-wrap items-center gap-2.5" id="bg-color-palette"></div>
+                            <div class="flex flex-wrap items-center gap-2.5 pt-1">
+                                <input type="color" id="bg-color-picker" value="#FFFDF9" oninput="setBgCustomColor(this.value)" class="w-9 h-9 rounded-full cursor-pointer border-2 border-peach-200 p-0.5 bg-white" title="กระดานเลือกสี">
+                                <input type="text" id="bg-hex-input" value="#FFFDF9" maxlength="7" placeholder="#FFFDF9" 
+                                       oninput="handleHexInput(this.value)"
+                                       class="w-28 px-3.5 py-2 rounded-xl border border-peach-200 text-xs font-mono uppercase text-cocoa-700 focus:outline-none focus:border-peach-400">
+                                <span class="text-xs text-cocoa-400">พิมพ์โค้ดสี HEX หรือจิ้มวงกลมสีได้เลย</span>
+                            </div>
+                        </div>
+
+                        <!-- 2. เลือกลวดลาย -->
+                        <div class="space-y-2.5 pt-3 border-t border-cream-200">
+                            <label class="block text-xs font-medium text-cocoa-600">2. เลือกลวดลายตกแต่งพื้นหลัง</label>
+                            <div class="grid grid-cols-3 sm:grid-cols-6 gap-3" id="bg-pattern-selector"></div>
+                        </div>
+
+                        <!-- 3. โทนสีปุ่มลิงก์หลัก (เลือกจากชุดสีหรือปรับสีเองด้วยวงล้อสี / HEX) -->
+                        <div class="pt-3 border-t border-cream-200 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <label class="block text-xs font-medium text-cocoa-600">3. โทนสีปุ่มลิงก์หลัก (เลือกโทนสีหรือปรับแต่งเอง)</label>
+                                <div id="btn-color-preview-pill" class="px-3 py-1 rounded-full text-[11px] font-cute font-bold border shadow-sm transition-all" style="background-color: #FFE8D6; border-color: #FFB58A; color: #523018;">
+                                    ตัวอย่างปุ่ม
+                                </div>
+                            </div>
+                            <!-- ชุดสีคาเฟ่สำเร็จรูป -->
+                            <div class="flex flex-wrap items-center gap-2.5" id="accent-theme-selector"></div>
+                            <!-- วงล้อสี + โค้ดสี HEX + สีตัวอักษร -->
+                            <div class="flex flex-wrap items-center gap-2.5 bg-cream-50 p-3 rounded-2xl border border-peach-200">
+                                <div class="flex items-center gap-1.5">
+                                    <input type="color" id="btn-custom-color-picker" value="#FFE8D6" oninput="setBtnCustomColor(this.value)" class="w-8 h-8 rounded-full cursor-pointer border-2 border-white shadow-sm p-0 bg-transparent" title="วงล้อสีพื้นปุ่ม">
+                                    <input type="text" id="btn-custom-hex-input" value="#FFE8D6" maxlength="7" placeholder="#FFE8D6"
+                                           oninput="handleBtnHexInput(this.value)"
+                                           class="w-24 px-2.5 py-1.5 rounded-xl border border-peach-200 text-xs font-mono uppercase text-cocoa-700 bg-white focus:outline-none focus:border-peach-400">
+                                </div>
+                                <div class="flex items-center gap-1.5 pl-2 border-l border-peach-200">
+                                    <span class="text-[11px] text-cocoa-600 font-medium">สีตัวอักษร:</span>
+                                    <button type="button" onclick="setBtnTextColor('#523018')" class="w-6 h-6 rounded-full bg-[#523018] border-2 border-white shadow-sm hover:scale-110 transition" title="น้ำตาลโกโก้เข้ม"></button>
+                                    <button type="button" onclick="setBtnTextColor('#FFFFFF')" class="w-6 h-6 rounded-full bg-[#FFFFFF] border-2 border-peach-300 shadow-sm hover:scale-110 transition" title="สีขาวนวล"></button>
+                                    <button type="button" onclick="setBtnTextColor('#8C5E3C')" class="w-6 h-6 rounded-full bg-[#8C5E3C] border-2 border-white shadow-sm hover:scale-110 transition" title="น้ำตาลคาราเมล"></button>
+                                    <input type="color" id="btn-text-color-picker" value="#523018" oninput="setBtnTextColor(this.value)" class="w-7 h-7 rounded-full cursor-pointer border-0 bg-transparent" title="เลือกสีตัวอักษรเอง">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. รูปแบบลักษณะของแถบปุ่มลิงก์หลัก (6 สไตล์น่ารัก) -->
+                        <div class="pt-3 border-t border-cream-200 space-y-2.5">
+                            <label class="block text-xs font-medium text-cocoa-600">4. รูปแบบลักษณะของแถบปุ่มลิงก์หลัก (6 สไตล์คาเฟ่)</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5" id="link-style-selector"></div>
+                        </div>
+                    </div>
+
+                    <!-- การ์ดใหม่: กรอบตกแต่งพื้นหลัง / การ์ดหลัก (Page Frame) -->
+                    <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
+                        <div class="flex items-center justify-between border-b border-cream-200 pb-3">
+                            <div>
+                                <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">🖼️ กรอบตกแต่งพื้นหลัง & การ์ดร้าน</h3>
+                                <p class="text-xs text-cocoa-500 mt-0.5">เลือกขอบหยักคลื่น ลูกไม้รองเค้ก หรือกรอบบิสกิต พร้อมเปลี่ยนสีได้เอง</p>
+                            </div>
+                        </div>
+
+                        <!-- เลือกรูปแบบกรอบ 6 แบบ -->
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5" id="page-frame-selector"></div>
+
+                        <!-- ปรับสีกรอบตกแต่ง -->
+                        <div class="flex flex-wrap items-center gap-2.5 bg-cream-50 p-3 rounded-2xl border border-peach-200">
+                            <span class="text-xs font-medium text-cocoa-600">สีกรอบตกแต่ง:</span>
+                            <button type="button" onclick="setPageFrameColor('#FFB58A')" class="w-6 h-6 rounded-full bg-[#FFB58A] border-2 border-white shadow-sm hover:scale-110 transition" title="ส้มพีช"></button>
+                            <button type="button" onclick="setPageFrameColor('#FF9AA2')" class="w-6 h-6 rounded-full bg-[#FF9AA2] border-2 border-white shadow-sm hover:scale-110 transition" title="ชมพูสตรอว์เบอร์รี"></button>
+                            <button type="button" onclick="setPageFrameColor('#F6D365')" class="w-6 h-6 rounded-full bg-[#F6D365] border-2 border-white shadow-sm hover:scale-110 transition" title="เหลืองวานิลลา"></button>
+                            <button type="button" onclick="setPageFrameColor('#A67B5B')" class="w-6 h-6 rounded-full bg-[#A67B5B] border-2 border-white shadow-sm hover:scale-110 transition" title="น้ำตาลโกโก้"></button>
+                            <button type="button" onclick="setPageFrameColor('#B5EAD7')" class="w-6 h-6 rounded-full bg-[#B5EAD7] border-2 border-white shadow-sm hover:scale-110 transition" title="เขียวมัทฉะ"></button>
+                            <button type="button" onclick="setPageFrameColor('#FFFFFF')" class="w-6 h-6 rounded-full bg-[#FFFFFF] border-2 border-peach-300 shadow-sm hover:scale-110 transition" title="สีขาวครีม"></button>
+                            <div class="flex items-center gap-1.5 pl-1">
+                                <input type="color" id="page-frame-color-picker" value="#FFB58A" oninput="setPageFrameColor(this.value)" class="w-8 h-8 rounded-full cursor-pointer border-2 border-white shadow-sm p-0 bg-transparent" title="วงล้อสีกรอบ">
+                                <input type="text" id="page-frame-hex-input" value="#FFB58A" maxlength="7" placeholder="#FFB58A"
+                                       oninput="handlePageFrameHexInput(this.value)"
+                                       class="w-24 px-2.5 py-1.5 rounded-xl border border-peach-200 text-xs font-mono uppercase text-cocoa-700 bg-white focus:outline-none focus:border-peach-400">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- การ์ดของตกแต่งเบเกอรี่คาเฟ่ -->
+                    <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
+                        <div class="border-b border-cream-200 pb-2.5">
+                            <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">🍰 ของตกแต่งเบเกอรี่คาเฟ่ (ภาพวาดเฉพาะ)</h3>
+                            <p class="text-xs text-cocoa-500 mt-0.5">เลือกขนมในคาเฟ่และปรับตำแหน่ง บน-ล่าง / ซ้าย-ขวา / ขนาด ได้เอง</p>
+                        </div>
+
+                        <div class="bg-cream-50 p-3.5 rounded-2xl border border-peach-200">
+                            <p class="text-xs font-semibold text-cocoa-600 mb-2.5">คลิกเลือกขนมเพื่อเพิ่มลงบนหน้าเว็บ:</p>
+                            <div id="bakery-svg-gallery" class="grid grid-cols-3 sm:grid-cols-5 gap-2.5"></div>
+                        </div>
+
+                        <div id="editor-deco-list" class="space-y-3"></div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: ตั้งค่ารหัสผ่าน Admin -->
+                <div id="tab-security" class="editor-tab-content hidden space-y-4">
+                    <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
+                        <div class="border-b border-cream-200 pb-2.5">
+                            <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">🔐 เปลี่ยนรหัสผ่านเจ้าของร้าน</h3>
+                            <p class="text-xs text-cocoa-500 mt-0.5">รหัสผ่านนี้ใช้ป้องกันไม่ให้ผู้เข้าชมทั่วไปแก้ไขข้อมูลบนหน้าเว็บไซต์สาธารณะของคุณ</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-cocoa-600 mb-1.5">รหัสผ่านใหม่</label>
+                            <input type="text" id="edit-admin-passcode" placeholder="กรอกรหัสผ่านใหม่..." class="w-full px-4 py-2.5 rounded-xl border border-peach-200 text-sm focus:outline-none focus:border-peach-400">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 4. ส่วนท้ายหน้าต่าง (Footer - flex-shrink: 0) -->
+            <div class="bg-cream-100 px-6 py-4 border-t border-peach-200 flex items-center justify-end gap-3 shrink-0">
+                <button type="button" onclick="closeModal('editor-modal')" class="px-5 py-2.5 rounded-2xl bg-white border border-peach-200 text-cocoa-600 text-xs sm:text-sm font-medium hover:bg-cream-200 transition">
+                    ปิดหน้าต่าง
+                </button>
+                <button type="button" id="save-cloud-btn" onclick="saveDataToCloud()" class="px-6 py-2.5 rounded-2xl bg-cocoa-600 hover:bg-cocoa-700 text-white text-xs sm:text-sm font-cute font-bold transition shadow-md flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span>บันทึกข้อมูลออนไลน์ (อัปเดตทุกเครื่อง)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK & Application Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // ตั้งค่า Firebase จาก Environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'cute-bakery-link-app';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+        let isAdminLoggedIn = false;
+
+        // ข้อมูลเริ่มต้นของเว็บไซต์ (Default Bakery Theme Data)
+        const defaultSiteData = {
+            siteTitle: "Mimi's Sweet Bakery",
+            headerImage: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=200&q=80",
+            headerFrameColor: "#FFB58A",
+            ownerName: "Mimi Chan",
+            badgeText: "Open",
+            tagline: "✨ Sweet Cafe & Lifestyle Creator ✨",
+            bio: "ยินดีต้อนรับสู่คาเฟ่เล็กๆ ของมิมิค่ะ\nรวบรวมพิกัดของน่ารัก คลิปทำขนม และช่องทางติดตามทั้งหมดไว้ที่นี่แล้วนะคะ",
+            extraNote: "🌷 ขอบคุณที่แวะเข้ามาเยี่ยมชมนะคะ Have a sweet day! 🌷",
+            heroImage: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80",
+            bannerWidgetImage: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80",
+            bannerWidgetCaption: "🌸 Homemade Bakery & Cozy Vibe 🌸",
+            bgColor: "#FFFDF9",
+            bgPattern: "bg-gingham",
+            accentTheme: "peach",
+            btnCustomBg: "#FFE8D6",
+            btnCustomBorder: "#FFB58A",
+            btnCustomText: "#523018",
+            linkStyle: "link-style-soft3d",
+            pageFrameStyle: "page-frame-none",
+            pageFrameColor: "#FFB58A",
+            adminPasscode: "1234",
+            socials: [
+                { id: "s1", platform: "line", label: "LINE", url: "https://line.me", color: "#06C755" },
+                { id: "s2", platform: "instagram", label: "Instagram", url: "https://instagram.com", color: "#E1306C" },
+                { id: "s3", platform: "tiktok", label: "TikTok", url: "https://tiktok.com", color: "#111111" },
+                { id: "s4", platform: "youtube", label: "YouTube", url: "https://youtube.com", color: "#FF0000" },
+                { id: "s5", platform: "facebook", label: "Facebook", url: "https://facebook.com", color: "#1877F2" }
+            ],
+            links: [
+                { id: "l1", title: "เมนูขนมและพิกัดของน่ารัก (My Shop)", subtitle: "รวมของใช้ในครัวและอุปกรณ์ทำเบเกอรี่", url: "https://shopee.co.th", icon: "🛍️" },
+                { id: "l2", title: "ช่อง YouTube: Mimi Baking Vlog", subtitle: "คลิปสอนทำขนมง่ายๆ สไตล์โฮมเมด", url: "https://youtube.com", icon: "🎬" },
+                { id: "l3", title: "ติดตามคลิปสั้นน่ารักๆ ที่ TikTok", subtitle: "อัปเดตคาเฟ่เปิดใหม่ทุกสัปดาห์", url: "https://tiktok.com", icon: "✨" },
+                { id: "l4", title: "ติดต่องาน / สอบถามผ่าน LINE Official", subtitle: "แอดไลน์เพื่อพูดคุยหรือสั่งขนมได้เลยค่ะ", url: "https://line.me", icon: "💬" }
+            ],
+            decorations: [
+                { id: "d1", svgKey: "croissant", top: 8, left: 5, size: 54, anim: "animate-float-slow" },
+                { id: "d2", svgKey: "strawberry_cake", top: 16, left: 84, size: 58, anim: "animate-float-medium" },
+                { id: "d3", svgKey: "sparkle_star", top: 34, left: 4, size: 38, anim: "animate-pulse-soft" },
+                { id: "d4", svgKey: "cupcake", top: 54, left: 86, size: 56, anim: "animate-float-slow" },
+                { id: "d5", svgKey: "cookie", top: 74, left: 6, size: 48, anim: "animate-wiggle" },
+                { id: "d6", svgKey: "latte_cup", top: 82, left: 83, size: 52, anim: "animate-float-medium" }
+            ]
+        };
+
+        // คลังภาพวาด SVG ขนมเบเกอรี่คาเฟ่ (ออกแบบพิเศษ ไม่ใช่อิโมจิ)
+        const BAKERY_SVG_ASSETS = {
+            strawberry_cake: {
+                name: "เค้กสตรอว์เบอร์รี",
+                svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 34L54 24V48C54 50.2 52.2 52 50 52H14C11.8 52 10 50.2 10 48V34Z" fill="#FFE8D6" stroke="#8C5E3C" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M10 40L54 32V38L10 46V40Z" fill="#FF9AA2"/>
+                    <path d="M10 34L34 16L54 24L10 34Z" fill="#FFFDF9" stroke="#8C5E3C" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M32 18C32 13 38 11 40 16C42 21 36 24 32 23C28 24 22 21 24 16C26 11 32 13 32 18Z" fill="#FF6B81" stroke="#8C5E3C" stroke-width="2"/>
+                    <path d="M29 12L32 15L35 12" stroke="#6AB04C" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>`
+            },
+            croissant: {
+                name: "ครัวซองต์",
+                svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 42C10 36 14 24 24 20C30 18 34 18 40 20C50 24 54 36 50 42C47 46 42 44 40 40C36 42 28 42 24 40C22 44 17 46 14 42Z" fill="#F6B970" stroke="#8C5E3C" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M24 20C22 27 22 34 24 40" stroke="#8C5E3C" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M40 20C42 27 42 34 40 40" stroke="#8C5E3C" stroke-width="2.2" stroke-linecap="round"/>
+                    <path d="M32 18.5C32 26 32 34 32 41.5" stroke="#8C5E3C" stroke-width="2.2" stroke-linecap="round"/>
+                    <ellipse cx="29" cy="25" rx="2" ry="4" fill="#FFE8D6" opacity="0.7"/>
+                </svg>`
+            },
+            cupcake: {
+                name: "คัพเค้กครีม",
+                svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 36H46L42 52C41.5 54 39.8 55 38 55H26C24.2 55 22.5 54 22 52L18 36Z" fill="#FFD1B3" stroke="#8C5E3C" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M25 36L27 55M32 36V55M39 36L37 55" stroke="#8C5E3C" stroke-width="1.8"/>
+                    <path d="M15 36C13 31 18 26 23 26C22 20 27 16 32 16C37 16 42 20 41 26C46 26 51 31 49 36H15Z" fill="#FFFDF9" stroke="#8C5E3C" stroke-width="2.5" stroke-linejoin="round"/>
+                    <circle cx="32" cy="13" r="4.5" fill="#FF6B81" stroke="#8C5E3C" stroke-width="2"/>
+                    <circle cx="24" cy="29" r="1.5" fill="#FF9AA2"/>
+                    <circle cx="39" cy="30" r="1.5" fill="#F6D365"/>
+                </svg>`
+            },
+            cookie: {
+                name: "คุกกี้ช็อกชิพ",
+                svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="21" fill="#E8B882" stroke="#8C5E3C" stroke-width="2.5"/>
+                    <circle cx="24" cy="24" r="3" fill="#6F4526"/>
+                    <circle cx="38" cy="22" r="2.5" fill="#6F4526"/>
+                    <circle cx="33" cy="34" r="3.5" fill="#6F4526"/>
+                    <circle cx="22" cy="38" r="2.5" fill="#6F4526"/>
+                    <circle cx="42" cy="38" r="3" fill="#6F4526"/>
+                    <path d="M20 18C23 16 27 15 31 15" stroke="#FFFDF9" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+                </svg>`
+            },
+            donut: {
+                name: "โดนัทเคลือบพีช",
+                svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="21" fill="#F3C68F" stroke="#8C5E3C" stroke-width="2.5"/>
+                    <path d="M12 30C12 19 21 11 32 11C43 11 52 19 52 30C52 34 48 35 46 32C44 29 40 31 39 34C38 37 33 37 32 34C31 31 26 31 25 34C24 37 19 36 18 33C17 30 12 34 12 30Z" fill="#FFB58A" stroke="#8C5E3C" stroke-width="2"/>
+                    <circle cx="32" cy="32" r="7" fill="#FFFDF9" stroke="#8C5E3C" stroke-width="2.5"/>
+                    <rect x="22" y="17" width="4" height="2" rx="1" transform="rotate(-20 22 17)" fill="#FFFDF9"/>
+                    <rect x="38" y="18" width="4" height="2" rx="1" transform="rotate(25 38 18)" fill="#FF6B81"/>
+                </svg>`
+            },
+            latte_cup: {
+                name: "แก้วลาเต้อุ่นๆ",
+                svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M46 28H50C53.3 28 56 30.7 56 34C56 37.3 53.3 40 50 40H45" stroke="#8C5E3C" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M14 24H46L43 44C42.2 48.5 38.3 52 33.7 52H26.3C21.7 52 17.8 48.5 17 44L14 24Z" fill="#FFFDF9" stroke="#8C5E3C" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M10 52H50" stroke="#8C5E3C" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M24 16C24 13 26 12 26 9" stroke="#FFB58A" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M34 16C34 13 36 12 36 9" stroke="#FFB58A" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M30 35C28 33 25 34 25 36.5C25 39 30 42 30 42C30 42 35 39 35 36.5C35 34 32 33 30 35Z" fill="#FF9AA2"/>
+                </svg>`
+            },
+            macaron: {
+                name: "มาการองหวาน",
+                svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 28C14 20 22 16 32 16C42 16 50 20 50 28H14Z" fill="#FFC2CB" stroke="#8C5E3C" stroke-width="2.5" stroke-linejoin="round"/>
+                    <rect x="13" y="28" width="38" height="8" rx="4" fill="#FFFDF9" stroke="#8C5E3C" stroke-width="2.2"/>
+                    <path d="M14 36H50C50 44 42 48 32 48C22 48 14 44 14 36Z" fill="#FFC2CB" stroke="#8C5E3C" stroke-width="2.5" stroke-linejoin="round"/>
+                </svg>`
+            },
+            pudding: {
+                name: "พุดดิ้งคาราเมล",
+                svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 46L21 22C21.5 19.5 23.7 18 26.2 18H37.8C40.3 18 42.5 19.5 43 22L48 46H16Z" fill="#FDE69A" stroke="#8C5E3C" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M21 22C21.5 19.5 23.7 18 26.2 18H37.8C40.3 18 42.5 19.5 43 22L44 27C41 29 38 26 35 28C32 30 29 26 26 28C23 30 21 27 20 26L21 22Z" fill="#A67B5B" stroke="#8C5E3C" stroke-width="2"/>
+                    <ellipse cx="32" cy="48" rx="22" ry="4" fill="#FFFDF9" stroke="#8C5E3C" stroke-width="2.5"/>
+                </svg>`
+            },
+            bread_loaf: {
+                name: "ขนมปังปอนด์",
+                svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 28C10 26 10 18 18 16H46C54 18 54 26 50 28V48C50 50.2 48.2 52 46 52H18C15.8 52 14 50.2 14 48V28Z" fill="#FFF6E5" stroke="#8C5E3C" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M14 27C10 25 10 18 18 16H46C54 18 54 25 50 27" stroke="#D99B52" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="27" cy="36" r="1.8" fill="#8C5E3C"/>
+                    <circle cx="37" cy="36" r="1.8" fill="#8C5E3C"/>
+                    <path d="M30 39C31 40.5 33 40.5 34 39" stroke="#8C5E3C" stroke-width="2" stroke-linecap="round"/>
+                </svg>`
+            },
+            sparkle_star: {
+                name: "ประกายวิบวับ",
+                svg: `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M32 8L37 25L54 30L37 35L32 52L27 35L10 30L27 25L32 8Z" fill="#FDE69A" stroke="#D99B52" stroke-width="2.5" stroke-linejoin="round"/>
+                    <circle cx="48" cy="16" r="3" fill="#FFB58A"/>
+                    <circle cx="16" cy="46" r="2.5" fill="#FF9AA2"/>
+                </svg>`
+            }
+        };
+
+        const PRESET_BG_COLORS = [
+            { name: "ครีมวานิลลา", hex: "#FFFDF9" },
+            { name: "ครีมนมสด", hex: "#FFF9ED" },
+            { name: "ส้มพีชอ่อน", hex: "#FFF0E5" },
+            { name: "ชมพูสตรอว์เบอร์รี", hex: "#FFF0F3" },
+            { name: "เหลืองบัตเตอร์", hex: "#FEF9E7" },
+            { name: "เบจลาเต้", hex: "#F7EFE5" },
+            { name: "มัทฉะพาสเทล", hex: "#F2F8F3" },
+            { name: "ฟ้ามิ้นท์อ่อน", hex: "#F0F7FA" }
+        ];
+
+        const PRESET_BG_PATTERNS = [
+            { id: "bg-gingham", name: "ตารางคาเฟ่" },
+            { id: "bg-polka", name: "ลายจุดพีช" },
+            { id: "bg-stripes", name: "ลายทางครีม" },
+            { id: "bg-hearts", name: "จุดหัวใจ" },
+            { id: "bg-waffle", name: "ลายวาฟเฟิล" },
+            { id: "bg-solid", name: "สีพื้นเรียบ" }
+        ];
+
+        const PRESET_BTN_THEMES = [
+            { id: "peach", name: "พีชลาเต้", bg: "#FFE8D6", border: "#FFB58A", text: "#523018" },
+            { id: "vanilla", name: "ครีมวานิลลา", bg: "#FFF6D6", border: "#F6D365", text: "#523018" },
+            { id: "cocoa", name: "โกโก้อุ่น", bg: "#EAD8C9", border: "#A67B5B", text: "#523018" },
+            { id: "strawberry", name: "สตรอว์เบอร์รี", bg: "#FFE2E6", border: "#FF9AA2", text: "#523018" },
+            { id: "matcha", name: "มัทฉะครีม", bg: "#E3F2E6", border: "#9AD0A6", text: "#3E5641" },
+            { id: "caramel", name: "คาราเมลเข้ม", bg: "#8C5E3C", border: "#6F4526", text: "#FFFFFF" }
+        ];
+
+        const LINK_BUTTON_STYLES = [
+            { id: "link-style-soft3d", name: "ปุ่มนุ่มนูน 3D", desc: "ขอบมนมีมิติ กดแล้วเด้ง" },
+            { id: "link-style-stitch", name: "คุกกี้เส้นประ", desc: "เส้นประเย็บขอบด้านใน" },
+            { id: "link-style-menutag", name: "ป้ายเมนูคาเฟ่", desc: "ป้ายแท็กมีจุดหมุดซ้ายขวา" },
+            { id: "link-style-cloud", name: "ก้อนเมฆวิปครีม", desc: "ทรงแคปซูลโค้งมนฟูนุ่ม" },
+            { id: "link-style-sticker", name: "สติกเกอร์ขอบขาว", desc: "ขอบขาวหนาเหมือนสติกเกอร์" },
+            { id: "link-style-glass", name: "กระจกใสละมุน", desc: "โปร่งแสงเห็นลายพื้นหลัง" }
+        ];
+
+        const PAGE_FRAME_STYLES = [
+            { id: "page-frame-none", name: "ไม่มีกรอบพิเศษ", icon: "⬜" },
+            { id: "page-frame-wavy", name: "ขอบหยักคลื่นวิปครีม", icon: "〰️" },
+            { id: "page-frame-doily", name: "ลูกไม้กระดาษรองเค้ก", icon: "💮" },
+            { id: "page-frame-stitched", name: "ขอบเส้นประเย็บมือ", icon: "🧵" },
+            { id: "page-frame-biscuit", name: "กรอบบิสกิตขอบหยัก", icon: "🍪" },
+            { id: "page-frame-ribbon", name: "กรอบริบบิ้น & มุกมุม", icon: "🎀" }
+        ];
+
+        let siteData = JSON.parse(JSON.stringify(defaultSiteData));
+        window.draftData = JSON.parse(JSON.stringify(defaultSiteData));
+
+        window.showToast = function(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgClass = type === 'error' ? 'bg-red-50 border-red-300 text-red-700' : 'bg-cream-50 border-peach-300 text-cocoa-700';
+            const icon = type === 'error' ? '⚠️' : '🧁';
+            
+            toast.className = `${bgClass} border-2 rounded-2xl px-4 py-3 shadow-lg flex items-center gap-2.5 text-xs sm:text-sm font-cute font-semibold transform transition-all duration-300 translate-y-[-10px] opacity-0`;
+            toast.innerHTML = `<span class="text-lg">${icon}</span><span>${message}</span>`;
+            
+            container.appendChild(toast);
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-[-10px]', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-[-10px]');
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
+        };
+
+        async function initApp() {
+            try {
+                if (firebaseConfig) {
+                    const app = initializeApp(firebaseConfig);
+                    auth = getAuth(app);
+                    db = getFirestore(app);
+
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        const cred = await signInWithCustomToken(auth, __initial_auth_token);
+                        currentUser = cred.user;
+                    } else {
+                        const cred = await signInAnonymously(auth);
+                        currentUser = cred.user;
+                    }
+
+                    const publicDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'bakery_site', 'main_profile');
+                    
+                    onSnapshot(publicDocRef, (docSnap) => {
+                        if (docSnap.exists()) {
+                            const remoteData = docSnap.data();
+                            siteData = { ...defaultSiteData, ...remoteData };
+                        } else {
+                            siteData = JSON.parse(JSON.stringify(defaultSiteData));
+                            setDoc(publicDocRef, siteData).catch(() => {});
+                        }
+                        renderPublicWebsite();
+                        hideLoader();
+                    }, (error) => {
+                        console.error("Firestore error:", error);
+                        renderPublicWebsite();
+                        hideLoader();
+                    });
+                } else {
+                    renderPublicWebsite();
+                    hideLoader();
+                }
+            } catch (err) {
+                console.error("Init error:", err);
+                renderPublicWebsite();
+                hideLoader();
+            }
+        }
+
+        function hideLoader() {
+            const loader = document.getElementById('loading-overlay');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.remove(), 300);
+            }
+        }
+
+        function getButtonStyleConfig() {
+            const bg = siteData.btnCustomBg || '#FFE8D6';
+            const border = siteData.btnCustomBorder || adjustHexBrightness(bg, -24);
+            const text = siteData.btnCustomText || '#523018';
+            const styleClass = siteData.linkStyle || 'link-style-soft3d';
+            return { bg, border, text, styleClass };
+        }
+
+        function adjustHexBrightness(hex, amount) {
+            let clean = (hex || '#FFE8D6').replace('#', '');
+            if (clean.length !== 6) return '#FFB58A';
+            let r = Math.min(255, Math.max(0, parseInt(clean.substring(0, 2), 16) + amount));
+            let g = Math.min(255, Math.max(0, parseInt(clean.substring(2, 4), 16) + amount));
+            let b = Math.min(255, Math.max(0, parseInt(clean.substring(4, 6), 16) + amount));
+            return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toUpperCase();
+        }
+
+        function hexToRgba(hex, alpha = 0.72) {
+            let clean = (hex || '#FFE8D6').replace('#', '');
+            if (clean.length !== 6) return `rgba(255, 232, 214, ${alpha})`;
+            let r = parseInt(clean.substring(0, 2), 16);
+            let g = parseInt(clean.substring(2, 4), 16);
+            let b = parseInt(clean.substring(4, 6), 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        function renderPublicWebsite() {
+            const body = document.getElementById('app-body');
+            body.className = `${siteData.bgPattern || 'bg-gingham'} min-h-screen pb-14 relative transition-colors duration-500`;
+            body.style.backgroundColor = siteData.bgColor || '#FFFDF9';
+
+            const mainCard = document.getElementById('main-profile-card');
+            const frameClass = siteData.pageFrameStyle || 'page-frame-none';
+            const pageFrameCol = siteData.pageFrameColor || '#FFB58A';
+            mainCard.className = `bg-cream-50/95 ${frameClass} rounded-[2.2rem] p-6 bakery-shadow relative overflow-hidden transition-all duration-300`;
+            mainCard.style.setProperty('--page-frame-color', pageFrameCol);
+
+            document.title = siteData.siteTitle || "Sweet Bakery Personal Link";
+            document.getElementById('display-site-title').textContent = siteData.siteTitle;
+            
+            const headerImg = document.getElementById('display-header-img');
+            headerImg.src = siteData.headerImage || siteData.heroImage || 'https://placehold.co/100x100/FFE8D6/6F4526?text=Cafe';
+            
+            const frameColor = siteData.headerFrameColor || '#FFB58A';
+            const headerBar = document.getElementById('header-bar');
+            headerBar.style.borderColor = frameColor;
+            headerBar.style.setProperty('--header-frame-color', frameColor);
+            document.getElementById('header-avatar-ring').style.borderColor = frameColor;
+
+            document.getElementById('display-owner-name').textContent = siteData.ownerName;
+            document.getElementById('display-tagline').textContent = siteData.tagline;
+            document.getElementById('display-bio').textContent = siteData.bio;
+            document.getElementById('display-extra-note').textContent = siteData.extraNote;
+            
+            const badgeBox = document.getElementById('display-badge');
+            if (siteData.badgeText && siteData.badgeText.trim() !== '') {
+                badgeBox.classList.remove('hidden');
+                document.getElementById('display-badge-text').textContent = siteData.badgeText;
+            } else {
+                badgeBox.classList.add('hidden');
+            }
+
+            const heroImg = document.getElementById('display-hero-img');
+            heroImg.src = siteData.heroImage || 'https://placehold.co/400x400/FFE8D6/6F4526?text=Sweet+Bakery';
+
+            // จัดการแสดงผลแบนเนอร์วิดเจ็ตสี่เหลี่ยมผืนผ้าแนวนอน
+            const bannerContainer = document.getElementById('display-banner-widget-container');
+            const bannerImg = document.getElementById('display-banner-widget-img');
+            const bannerCaption = document.getElementById('display-banner-widget-caption');
+            if (siteData.bannerWidgetImage && siteData.bannerWidgetImage.trim() !== '') {
+                bannerContainer.classList.remove('hidden');
+                bannerImg.src = siteData.bannerWidgetImage;
+                if (siteData.bannerWidgetCaption && siteData.bannerWidgetCaption.trim() !== '') {
+                    bannerCaption.classList.remove('hidden');
+                    bannerCaption.textContent = siteData.bannerWidgetCaption;
+                } else {
+                    bannerCaption.classList.add('hidden');
+                }
+            } else {
+                bannerContainer.classList.add('hidden');
+            }
+
+            const socialsContainer = document.getElementById('display-socials');
+            socialsContainer.innerHTML = '';
+            (siteData.socials || []).forEach(s => {
+                const a = document.createElement('a');
+                a.href = s.url || '#';
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.title = s.label;
+                a.className = 'w-11 h-11 rounded-full bg-white border-2 border-peach-200 text-cocoa-700 hover:bg-peach-100 flex items-center justify-center text-lg bakery-btn shadow-sm';
+                
+                let iconClass = 'fa-solid fa-link';
+                const p = (s.platform || '').toLowerCase();
+                if (p.includes('line')) iconClass = 'fa-brands fa-line';
+                else if (p.includes('instagram')) iconClass = 'fa-brands fa-instagram';
+                else if (p.includes('tiktok')) iconClass = 'fa-brands fa-tiktok';
+                else if (p.includes('youtube')) iconClass = 'fa-brands fa-youtube';
+                else if (p.includes('facebook')) iconClass = 'fa-brands fa-facebook';
+                else if (p.includes('twitter') || p.includes('x')) iconClass = 'fa-brands fa-x-twitter';
+                else if (p.includes('shopee')) iconClass = 'fa-solid fa-bag-shopping';
+                else if (p.includes('github')) iconClass = 'fa-brands fa-github';
+
+                a.innerHTML = `<i class="${iconClass}"></i>`;
+                socialsContainer.appendChild(a);
+            });
+
+            const linksContainer = document.getElementById('display-links');
+            linksContainer.innerHTML = '';
+            const btnCfg = getButtonStyleConfig();
+
+            (siteData.links || []).forEach(link => {
+                const a = document.createElement('a');
+                a.href = link.url || '#';
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.className = `block w-full ${btnCfg.styleClass} p-3.5 bakery-btn group`;
+                
+                if (btnCfg.styleClass === 'link-style-glass') {
+                    a.style.backgroundColor = hexToRgba(btnCfg.bg, 0.72);
+                } else {
+                    a.style.backgroundColor = btnCfg.bg;
+                }
+                if (btnCfg.styleClass !== 'link-style-sticker') {
+                    a.style.borderColor = btnCfg.border;
+                }
+                a.style.color = btnCfg.text;
+
+                a.innerHTML = `
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-12 h-12 rounded-2xl bg-white/90 flex items-center justify-center text-2xl shadow-sm shrink-0 group-hover:rotate-6 transition-transform">
+                            ${link.icon || '🍰'}
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <h3 class="font-cute font-bold text-sm sm:text-base truncate" style="color: ${btnCfg.text};">${escapeHtml(link.title)}</h3>
+                            ${link.subtitle ? `<p class="text-xs truncate mt-0.5 opacity-80" style="color: ${btnCfg.text};">${escapeHtml(link.subtitle)}</p>` : ''}
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-white/75 flex items-center justify-center shrink-0 group-hover:translate-x-1 transition-transform" style="color: ${btnCfg.text};">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </div>
+                    </div>
+                `;
+                linksContainer.appendChild(a);
+            });
+
+            renderDecorations(siteData.decorations || []);
+        }
+
+        function renderDecorations(decoList) {
+            const canvas = document.getElementById('decoration-canvas');
+            canvas.innerHTML = '';
+            decoList.forEach(d => {
+                const wrapper = document.createElement('div');
+                wrapper.className = `floating-item ${d.anim || 'animate-float-slow'}`;
+                wrapper.style.top = `${d.top}%`;
+                wrapper.style.left = `${d.left}%`;
+                const sizePx = d.size || 52;
+                wrapper.style.width = `${sizePx}px`;
+                wrapper.style.height = `${sizePx}px`;
+
+                const asset = BAKERY_SVG_ASSETS[d.svgKey] || BAKERY_SVG_ASSETS.strawberry_cake;
+                wrapper.innerHTML = asset.svg;
+                canvas.appendChild(wrapper);
+            });
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        window.copyShareLink = function() {
+            const tempInput = document.createElement('input');
+            tempInput.value = window.location.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast('คัดลอกลิงก์เว็บไซต์เรียบร้อยแล้ว พร้อมแชร์เลย! 🎀');
+        };
+
+        window.openAdminAuth = function() {
+            if (isAdminLoggedIn) {
+                openEditorModal();
+            } else {
+                document.getElementById('admin-passcode-input').value = '';
+                document.getElementById('auth-modal').classList.remove('hidden');
+                document.getElementById('auth-modal').classList.add('flex');
+            }
+        };
+
+        window.verifyAdminPasscode = function() {
+            const inputVal = document.getElementById('admin-passcode-input').value.trim();
+            const correctPass = siteData.adminPasscode || '1234';
+            if (inputVal === correctPass) {
+                isAdminLoggedIn = true;
+                closeModal('auth-modal');
+                document.getElementById('admin-banner').classList.remove('hidden');
+                document.getElementById('admin-btn-text').textContent = 'จัดการร้าน';
+                openEditorModal();
+                showToast('เข้าสู่ระบบเจ้าของร้านสำเร็จ 👩‍🍳✨');
+            } else {
+                showToast('รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง', 'error');
+            }
+        };
+
+        window.logoutAdmin = function() {
+            isAdminLoggedIn = false;
+            document.getElementById('admin-banner').classList.add('hidden');
+            document.getElementById('admin-btn-text').textContent = 'ตกแต่งร้าน';
+            showToast('ออกจากระบบ Admin เรียบร้อยแล้ว');
+        };
+
+        window.closeModal = function(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        };
+
+        window.openEditorModal = function() {
+            window.draftData = JSON.parse(JSON.stringify(siteData));
+            
+            document.getElementById('edit-site-title').value = window.draftData.siteTitle || '';
+            document.getElementById('edit-header-url').value = window.draftData.headerImage || '';
+            document.getElementById('preview-header-img').src = window.draftData.headerImage || window.draftData.heroImage || '';
+            document.getElementById('preview-header-ring').style.borderColor = window.draftData.headerFrameColor || '#FFB58A';
+            document.getElementById('edit-header-frame-color').value = window.draftData.headerFrameColor || '#FFB58A';
+
+            document.getElementById('edit-owner-name').value = window.draftData.ownerName || '';
+            document.getElementById('edit-badge-text').value = window.draftData.badgeText || '';
+            document.getElementById('edit-tagline').value = window.draftData.tagline || '';
+            document.getElementById('edit-bio').value = window.draftData.bio || '';
+            document.getElementById('edit-extra-note').value = window.draftData.extraNote || '';
+            
+            document.getElementById('edit-hero-url').value = window.draftData.heroImage || '';
+            document.getElementById('preview-hero-img').src = window.draftData.heroImage || '';
+
+            document.getElementById('edit-banner-widget-url').value = window.draftData.bannerWidgetImage || '';
+            document.getElementById('preview-banner-widget-img').src = window.draftData.bannerWidgetImage || '';
+            document.getElementById('edit-banner-widget-caption').value = window.draftData.bannerWidgetCaption || '';
+
+            document.getElementById('edit-admin-passcode').value = '';
+
+            switchEditorTab('profile');
+            renderEditorSocials();
+            renderEditorLinks();
+            renderBgCustomizer();
+            renderBakerySvgGallery();
+            renderEditorDeco();
+
+            const modal = document.getElementById('editor-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        };
+
+        window.switchEditorTab = function(tabName) {
+            document.querySelectorAll('.editor-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.editor-tab-btn').forEach(btn => {
+                btn.className = 'editor-tab-btn px-4 py-2.5 rounded-t-2xl text-xs font-cute font-bold text-cocoa-500 hover:bg-cream-50/50 whitespace-nowrap shrink-0 transition';
+            });
+
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+            activeBtn.className = 'editor-tab-btn px-4 py-2.5 rounded-t-2xl text-xs font-cute font-bold bg-cream-50 text-cocoa-700 border-t-2 border-x-2 border-peach-200 whitespace-nowrap shrink-0 transition';
+        };
+
+        window.setHeaderFrameColor = function(color) {
+            window.draftData.headerFrameColor = color.toUpperCase();
+            document.getElementById('preview-header-ring').style.borderColor = color;
+            document.getElementById('edit-header-frame-color').value = color;
+        };
+
+        // ฟังก์ชันบีบอัดรูปภาพให้อยู่ในขนาดที่เหมาะสม (ไม่เกิน 1MB ป้องกัน Firestore error) และแสดงผลเรียลไทม์
+        function compressImage(file, maxWidth = 600, quality = 0.8) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        window.handleHeaderImageUpload = async function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                try {
+                    const compressedDataUrl = await compressImage(file, 300, 0.75);
+                    window.draftData.headerImage = compressedDataUrl;
+                    document.getElementById('edit-header-url').value = compressedDataUrl;
+                    document.getElementById('preview-header-img').src = compressedDataUrl;
+                } catch (err) {
+                    console.error("Image compression error:", err);
+                    showToast('เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ กรุณาลองใหม่', 'error');
+                }
+            }
+        };
+
+        window.handleHeroImageUpload = async function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                try {
+                    const compressedDataUrl = await compressImage(file, 500, 0.8);
+                    window.draftData.heroImage = compressedDataUrl;
+                    document.getElementById('edit-hero-url').value = compressedDataUrl;
+                    document.getElementById('preview-hero-img').src = compressedDataUrl;
+                } catch (err) {
+                    console.error("Image compression error:", err);
+                    showToast('เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ กรุณาลองใหม่', 'error');
+                }
+            }
+        };
+
+        window.handleBannerWidgetUpload = async function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                try {
+                    const compressedDataUrl = await compressImage(file, 800, 0.8);
+                    window.draftData.bannerWidgetImage = compressedDataUrl;
+                    document.getElementById('edit-banner-widget-url').value = compressedDataUrl;
+                    document.getElementById('preview-banner-widget-img').src = compressedDataUrl;
+                } catch (err) {
+                    console.error("Image compression error:", err);
+                    showToast('เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ กรุณาลองใหม่', 'error');
+                }
+            }
+        };
+
+        window.resetHeroImage = function() {
+            window.draftData.heroImage = 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80';
+            document.getElementById('edit-hero-url').value = window.draftData.heroImage;
+            document.getElementById('preview-hero-img').src = window.draftData.heroImage;
+        };
+
+        function renderEditorSocials() {
+            const list = document.getElementById('editor-socials-list');
+            list.innerHTML = '';
+            (window.draftData.socials || []).forEach((s, idx) => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-2 bg-cream-50 p-3 rounded-2xl border border-peach-200';
+                div.innerHTML = `
+                    <select onchange="updateSocialProp(${idx}, 'platform', this.value)" class="px-3 py-2 rounded-xl border border-peach-200 text-xs bg-white text-cocoa-700">
+                        <option value="line" ${s.platform === 'line' ? 'selected' : ''}>LINE</option>
+                        <option value="instagram" ${s.platform === 'instagram' ? 'selected' : ''}>Instagram</option>
+                        <option value="tiktok" ${s.platform === 'tiktok' ? 'selected' : ''}>TikTok</option>
+                        <option value="youtube" ${s.platform === 'youtube' ? 'selected' : ''}>YouTube</option>
+                        <option value="facebook" ${s.platform === 'facebook' ? 'selected' : ''}>Facebook</option>
+                        <option value="shopee" ${s.platform === 'shopee' ? 'selected' : ''}>Shopee</option>
+                        <option value="github" ${s.platform === 'github' ? 'selected' : ''}>GitHub</option>
+                        <option value="other" ${s.platform === 'other' ? 'selected' : ''}>อื่นๆ</option>
+                    </select>
+                    <input type="text" value="${s.label || ''}" placeholder="ชื่อป้าย" oninput="updateSocialProp(${idx}, 'label', this.value)" class="w-24 px-3 py-2 rounded-xl border border-peach-200 text-xs bg-white">
+                    <input type="text" value="${s.url || ''}" placeholder="ลิงก์ URL" oninput="updateSocialProp(${idx}, 'url', this.value)" class="flex-1 px-3 py-2 rounded-xl border border-peach-200 text-xs bg-white">
+                    <button type="button" onclick="removeSocialItem(${idx})" class="w-8 h-8 rounded-xl bg-red-50 text-red-500 hover:bg-red-100 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-trash text-xs"></i>
+                    </button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        window.updateSocialProp = function(idx, prop, val) {
+            window.draftData.socials[idx][prop] = val;
+        };
+
+        window.addSocialItem = function() {
+            window.draftData.socials.push({ id: 's' + Date.now(), platform: 'instagram', label: 'Instagram', url: 'https://instagram.com' });
+            renderEditorSocials();
+        };
+
+        window.removeSocialItem = function(idx) {
+            window.draftData.socials.splice(idx, 1);
+            renderEditorSocials();
+        };
+
+        function renderEditorLinks() {
+            const list = document.getElementById('editor-links-list');
+            list.innerHTML = '';
+            (window.draftData.links || []).forEach((l, idx) => {
+                const div = document.createElement('div');
+                div.className = 'bg-cream-50 p-4 rounded-2xl border border-peach-200 space-y-3 text-xs';
+                div.innerHTML = `
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2 flex-1">
+                            <input type="text" value="${l.icon || '🍰'}" oninput="updateLinkProp(${idx}, 'icon', this.value)" class="w-12 text-center py-2 rounded-xl border border-peach-200 bg-white text-lg" title="ไอคอน">
+                            <input type="text" value="${l.title || ''}" placeholder="ชื่อหัวข้อปุ่มลิงก์" oninput="updateLinkProp(${idx}, 'title', this.value)" class="flex-1 px-3 py-2 rounded-xl border border-peach-200 bg-white font-semibold">
+                        </div>
+                        <button type="button" onclick="removeLinkItem(${idx})" class="px-2.5 py-2 rounded-xl bg-red-50 text-red-500 hover:bg-red-100">
+                            <i class="fa-solid fa-trash"></i> ลบปุ่ม
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <input type="text" value="${l.subtitle || ''}" placeholder="ข้อความรายละเอียดด้านล่าง" oninput="updateLinkProp(${idx}, 'subtitle', this.value)" class="px-3 py-2 rounded-xl border border-peach-200 bg-white">
+                        <input type="text" value="${l.url || ''}" placeholder="ลิงก์ปลายทาง URL" oninput="updateLinkProp(${idx}, 'url', this.value)" class="px-3 py-2 rounded-xl border border-peach-200 bg-white">
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        window.updateLinkProp = function(idx, prop, val) {
+            window.draftData.links[idx][prop] = val;
+        };
+
+        window.addLinkItem = function() {
+            window.draftData.links.push({ id: 'l' + Date.now(), title: 'หัวข้อลิงก์ใหม่', subtitle: 'คำอธิบายสั้นๆ', url: 'https://', icon: '✨' });
+            renderEditorLinks();
+        };
+
+        window.removeLinkItem = function(idx) {
+            window.draftData.links.splice(idx, 1);
+            renderEditorLinks();
+        };
+
+        function renderBgCustomizer() {
+            const currentColor = (window.draftData.bgColor || '#FFFDF9').toUpperCase();
+            const currentPattern = window.draftData.bgPattern || 'bg-gingham';
+
+            document.getElementById('bg-color-picker').value = currentColor;
+            document.getElementById('bg-hex-input').value = currentColor;
+
+            const previewCircle = document.getElementById('active-bg-preview-circle');
+            previewCircle.className = `w-12 h-12 rounded-full border-4 border-white shadow-md ring-2 ring-cocoa-500 ${currentPattern} transition-all`;
+            previewCircle.style.backgroundColor = currentColor;
+
+            const paletteEl = document.getElementById('bg-color-palette');
+            paletteEl.innerHTML = '';
+            PRESET_BG_COLORS.forEach(c => {
+                const isSelected = currentColor === c.hex.toUpperCase();
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.title = `${c.name} (${c.hex})`;
+                btn.onclick = () => setBgCustomColor(c.hex);
+                btn.className = `w-8 h-8 rounded-full border-2 border-white shadow-sm flex items-center justify-center transition-transform hover:scale-110 ${isSelected ? 'ring-2 ring-cocoa-600 scale-110' : 'ring-1 ring-peach-200'}`;
+                btn.style.backgroundColor = c.hex;
+                if (isSelected) {
+                    btn.innerHTML = '<i class="fa-solid fa-check text-cocoa-700 text-xs"></i>';
+                }
+                paletteEl.appendChild(btn);
+            });
+
+            const patternEl = document.getElementById('bg-pattern-selector');
+            patternEl.innerHTML = '';
+            PRESET_BG_PATTERNS.forEach(p => {
+                const isSelected = currentPattern === p.id;
+                const wrap = document.createElement('button');
+                wrap.type = 'button';
+                wrap.onclick = () => selectBgPattern(p.id);
+                wrap.className = 'flex flex-col items-center gap-1 group';
+                wrap.innerHTML = `
+                    <div class="w-11 h-11 rounded-full ${p.id} border-2 border-white shadow-sm flex items-center justify-center transition-all ${isSelected ? 'ring-2 ring-cocoa-600 scale-105' : 'ring-1 ring-peach-200 group-hover:scale-105'}" style="background-color: ${currentColor};">
+                        ${isSelected ? '<span class="w-5 h-5 rounded-full bg-cocoa-600 text-white flex items-center justify-center text-[10px] shadow"><i class="fa-solid fa-check"></i></span>' : ''}
+                    </div>
+                    <span class="text-[10px] font-medium ${isSelected ? 'text-cocoa-700 font-bold' : 'text-cocoa-500'}">${p.name}</span>
+                `;
+                patternEl.appendChild(wrap);
+            });
+
+            const curBtnBg = (window.draftData.btnCustomBg || '#FFE8D6').toUpperCase();
+            const curBtnBorder = (window.draftData.btnCustomBorder || adjustHexBrightness(curBtnBg, -24)).toUpperCase();
+            const curBtnText = (window.draftData.btnCustomText || '#523018').toUpperCase();
+
+            document.getElementById('btn-custom-color-picker').value = curBtnBg;
+            document.getElementById('btn-custom-hex-input').value = curBtnBg;
+            document.getElementById('btn-text-color-picker').value = curBtnText;
+
+            const previewPill = document.getElementById('btn-color-preview-pill');
+            previewPill.style.backgroundColor = curBtnBg;
+            previewPill.style.borderColor = curBtnBorder;
+            previewPill.style.color = curBtnText;
+
+            const btnThemeSelector = document.getElementById('accent-theme-selector');
+            btnThemeSelector.innerHTML = '';
+            PRESET_BTN_THEMES.forEach(t => {
+                const isSelected = curBtnBg === t.bg.toUpperCase();
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.title = t.name;
+                b.onclick = () => selectPresetBtnTheme(t);
+                b.className = `w-8 h-8 rounded-full border-2 border-white shadow-sm flex items-center justify-center text-xs transition-transform hover:scale-110 ${isSelected ? 'ring-2 ring-cocoa-600 scale-110' : 'ring-1 ring-peach-200'}`;
+                b.style.backgroundColor = t.bg;
+                b.style.color = t.text;
+                if (isSelected) {
+                    b.innerHTML = '<i class="fa-solid fa-check"></i>';
+                }
+                btnThemeSelector.appendChild(b);
+            });
+
+            const curLinkStyle = window.draftData.linkStyle || 'link-style-soft3d';
+            const linkStyleContainer = document.getElementById('link-style-selector');
+            linkStyleContainer.innerHTML = '';
+            LINK_BUTTON_STYLES.forEach(st => {
+                const isSelected = curLinkStyle === st.id;
+                const card = document.createElement('button');
+                card.type = 'button';
+                card.onclick = () => selectLinkStyle(st.id);
+                card.className = `p-2.5 rounded-2xl border-2 text-left transition-all flex flex-col gap-1.5 ${isSelected ? 'bg-peach-100/70 border-cocoa-600 shadow-sm' : 'bg-cream-50 border-peach-200 hover:bg-peach-50'}`;
+                card.innerHTML = `
+                    <div class="w-full h-7 ${st.id} flex items-center justify-center text-[10px] font-cute font-bold px-2 truncate"
+                         style="background-color: ${st.id === 'link-style-glass' ? hexToRgba(curBtnBg, 0.72) : curBtnBg}; border-color: ${curBtnBorder}; color: ${curBtnText};">
+                        ${st.name}
+                    </div>
+                    <div class="flex items-center justify-between gap-1">
+                        <span class="text-[10px] text-cocoa-500 truncate">${st.desc}</span>
+                        ${isSelected ? '<i class="fa-solid fa-circle-check text-cocoa-600 text-xs shrink-0"></i>' : ''}
+                    </div>
+                `;
+                linkStyleContainer.appendChild(card);
+            });
+
+            const curFrameStyle = window.draftData.pageFrameStyle || 'page-frame-none';
+            const curFrameColor = (window.draftData.pageFrameColor || '#FFB58A').toUpperCase();
+            document.getElementById('page-frame-color-picker').value = curFrameColor;
+            document.getElementById('page-frame-hex-input').value = curFrameColor;
+
+            const frameContainer = document.getElementById('page-frame-selector');
+            frameContainer.innerHTML = '';
+            PAGE_FRAME_STYLES.forEach(fr => {
+                const isSelected = curFrameStyle === fr.id;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => selectPageFrameStyle(fr.id);
+                btn.className = `p-2.5 rounded-2xl border-2 text-center transition-all flex flex-col items-center gap-1 ${isSelected ? 'bg-peach-100/70 border-cocoa-600 shadow-sm' : 'bg-cream-50 border-peach-200 hover:bg-peach-50'}`;
+                btn.innerHTML = `
+                    <span class="text-lg">${fr.icon}</span>
+                    <span class="text-[11px] font-cute font-bold text-cocoa-700 leading-tight">${fr.name}</span>
+                `;
+                frameContainer.appendChild(btn);
+            });
+        }
+
+        window.setBgCustomColor = function(hex) {
+            window.draftData.bgColor = hex.toUpperCase();
+            renderBgCustomizer();
+        };
+
+        window.handleHexInput = function(val) {
+            let clean = val.trim();
+            if (!clean.startsWith('#')) clean = '#' + clean;
+            if (/^#[0-9A-Fa-f]{6}$/.test(clean)) {
+                window.draftData.bgColor = clean.toUpperCase();
+                renderBgCustomizer();
+            }
+        };
+
+        window.selectBgPattern = function(pattern) {
+            window.draftData.bgPattern = pattern;
+            renderBgCustomizer();
+        };
+
+        window.selectPresetBtnTheme = function(themeObj) {
+            window.draftData.accentTheme = themeObj.id;
+            window.draftData.btnCustomBg = themeObj.bg;
+            window.draftData.btnCustomBorder = themeObj.border;
+            window.draftData.btnCustomText = themeObj.text;
+            renderBgCustomizer();
+        };
+
+        window.setBtnCustomColor = function(hex) {
+            const up = hex.toUpperCase();
+            window.draftData.accentTheme = 'custom';
+            window.draftData.btnCustomBg = up;
+            window.draftData.btnCustomBorder = adjustHexBrightness(up, -26);
+            renderBgCustomizer();
+        };
+
+        window.handleBtnHexInput = function(val) {
+            let clean = val.trim();
+            if (!clean.startsWith('#')) clean = '#' + clean;
+            if (/^#[0-9A-Fa-f]{6}$/.test(clean)) {
+                setBtnCustomColor(clean);
+            }
+        };
+
+        window.setBtnTextColor = function(hex) {
+            window.draftData.btnCustomText = hex.toUpperCase();
+            renderBgCustomizer();
+        };
+
+        window.selectLinkStyle = function(styleId) {
+            window.draftData.linkStyle = styleId;
+            renderBgCustomizer();
+        };
+
+        window.selectPageFrameStyle = function(frameId) {
+            window.draftData.pageFrameStyle = frameId;
+            renderBgCustomizer();
+        };
+
+        window.setPageFrameColor = function(hex) {
+            window.draftData.pageFrameColor = hex.toUpperCase();
+            renderBgCustomizer();
+        };
+
+        window.handlePageFrameHexInput = function(val) {
+            let clean = val.trim();
+            if (!clean.startsWith('#')) clean = '#' + clean;
+            if (/^#[0-9A-Fa-f]{6}$/.test(clean)) {
+                setPageFrameColor(clean);
+            }
+        };
+
+        function renderBakerySvgGallery() {
+            const gallery = document.getElementById('bakery-svg-gallery');
+            gallery.innerHTML = '';
+            Object.entries(BAKERY_SVG_ASSETS).forEach(([key, item]) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => addBakeryDecoration(key);
+                btn.className = 'flex flex-col items-center p-2 rounded-xl bg-white hover:bg-peach-100 border border-peach-200 transition group';
+                btn.innerHTML = `
+                    <div class="w-9 h-9 group-hover:scale-110 transition-transform">${item.svg}</div>
+                    <span class="text-[10px] text-cocoa-600 font-medium mt-1 truncate w-full text-center">${item.name}</span>
+                `;
+                gallery.appendChild(btn);
+            });
+        }
+
+        window.addBakeryDecoration = function(svgKey) {
+            const randTop = Math.floor(Math.random() * 75) + 8;
+            const randLeft = Math.random() > 0.5 ? Math.floor(Math.random() * 12) + 3 : Math.floor(Math.random() * 12) + 80;
+            window.draftData.decorations.push({
+                id: 'd' + Date.now(),
+                svgKey: svgKey,
+                top: randTop,
+                left: randLeft,
+                size: 52,
+                anim: 'animate-float-slow'
+            });
+            renderEditorDeco();
+            renderDecorations(window.draftData.decorations);
+        };
+
+        function renderEditorDeco() {
+            const list = document.getElementById('editor-deco-list');
+            list.innerHTML = '';
+            if (window.draftData.decorations.length === 0) {
+                list.innerHTML = '<p class="text-xs text-cocoa-400 text-center py-3">ยังไม่มีของตกแต่ง คลิกเลือกขนมด้านบนเพื่อเพิ่มได้เลยค่ะ</p>';
+                return;
+            }
+
+            window.draftData.decorations.forEach((d, idx) => {
+                const asset = BAKERY_SVG_ASSETS[d.svgKey] || BAKERY_SVG_ASSETS.strawberry_cake;
+                const div = document.createElement('div');
+                div.className = 'bg-cream-50 p-3 rounded-2xl border border-peach-200 space-y-2 text-xs';
+                div.innerHTML = `
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 bg-white rounded-lg p-1 border border-peach-200 shrink-0">${asset.svg}</div>
+                            <span class="font-cute font-bold text-cocoa-700">${asset.name}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <select onchange="updateDecoProp(${idx}, 'anim', this.value)" class="px-2 py-1 rounded-lg border border-peach-200 bg-white text-[11px]">
+                                <option value="animate-float-slow" ${d.anim === 'animate-float-slow' ? 'selected' : ''}>ลอยช้าๆ</option>
+                                <option value="animate-float-medium" ${d.anim === 'animate-float-medium' ? 'selected' : ''}>ลอยพริ้ว</option>
+                                <option value="animate-wiggle" ${d.anim === 'animate-wiggle' ? 'selected' : ''}>ดุ๊กดิ๊ก</option>
+                                <option value="animate-pulse-soft" ${d.anim === 'animate-pulse-soft' ? 'selected' : ''}>วิบวับ</option>
+                            </select>
+                            <button onclick="removeDecorationItem(${idx})" class="px-2 py-1 text-red-500 hover:bg-red-100 rounded-lg" title="ลบออก">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+                        <label class="flex flex-col gap-0.5">
+                            <span class="text-[10px] text-cocoa-500">แนวตั้ง (บน-ล่าง): <b id="deco-top-val-${idx}">${d.top}%</b></span>
+                            <input type="range" min="0" max="92" value="${d.top}" oninput="updateDecoProp(${idx}, 'top', Number(this.value)); document.getElementById('deco-top-val-${idx}').textContent = this.value + '%';" class="accent-cocoa-600 cursor-pointer">
+                        </label>
+                        <label class="flex flex-col gap-0.5">
+                            <span class="text-[10px] text-cocoa-500">แนวนอน (ซ้าย-ขวา): <b id="deco-left-val-${idx}">${d.left}%</b></span>
+                            <input type="range" min="0" max="92" value="${d.left}" oninput="updateDecoProp(${idx}, 'left', Number(this.value)); document.getElementById('deco-left-val-${idx}').textContent = this.value + '%';" class="accent-cocoa-600 cursor-pointer">
+                        </label>
+                        <label class="flex flex-col gap-0.5">
+                            <span class="text-[10px] text-cocoa-500">ขนาดขนม: <b id="deco-size-val-${idx}">${d.size || 52}px</b></span>
+                            <input type="range" min="28" max="90" value="${d.size || 52}" oninput="updateDecoProp(${idx}, 'size', Number(this.value)); document.getElementById('deco-size-val-${idx}').textContent = this.value + 'px';" class="accent-cocoa-600 cursor-pointer">
+                        </label>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        window.updateDecoProp = function(idx, prop, val) {
+            window.draftData.decorations[idx][prop] = val;
+            renderDecorations(window.draftData.decorations);
+        };
+
+        window.removeDecorationItem = function(idx) {
+            window.draftData.decorations.splice(idx, 1);
+            renderEditorDeco();
+            renderDecorations(window.draftData.decorations);
+        };
+
+        window.saveDataToCloud = async function() {
+            const saveBtn = document.getElementById('save-cloud-btn');
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>กำลังบันทึกข้อมูล...</span>';
+
+            try {
+                window.draftData.siteTitle = document.getElementById('edit-site-title').value.trim() || "Sweet Bakery";
+                window.draftData.headerImage = document.getElementById('edit-header-url').value.trim();
+                window.draftData.ownerName = document.getElementById('edit-owner-name').value.trim() || "Owner";
+                window.draftData.badgeText = document.getElementById('edit-badge-text').value.trim();
+                window.draftData.tagline = document.getElementById('edit-tagline').value.trim();
+                window.draftData.bio = document.getElementById('edit-bio').value;
+                window.draftData.extraNote = document.getElementById('edit-extra-note').value;
+                window.draftData.heroImage = document.getElementById('edit-hero-url').value.trim();
+                window.draftData.bannerWidgetImage = document.getElementById('edit-banner-widget-url').value.trim();
+                window.draftData.bannerWidgetCaption = document.getElementById('edit-banner-widget-caption').value.trim();
+                
+                const newPass = document.getElementById('edit-admin-passcode').value.trim();
+                if (newPass) {
+                    window.draftData.adminPasscode = newPass;
+                }
+
+                if (db && currentUser) {
+                    const publicDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'bakery_site', 'main_profile');
+                    await setDoc(publicDocRef, window.draftData);
+                    siteData = JSON.parse(JSON.stringify(window.draftData));
+                    renderPublicWebsite();
+                    closeModal('editor-modal');
+                    showToast('บันทึกข้อมูลออนไลน์สำเร็จ! ทุกอุปกรณ์เห็นภาพและข้อมูลล่าสุดทันที 🎉');
+                } else {
+                    siteData = JSON.parse(JSON.stringify(window.draftData));
+                    renderPublicWebsite();
+                    closeModal('editor-modal');
+                    showToast('อัปเดตหน้าเว็บไซต์เรียบร้อยแล้ว ✨');
+                }
+            } catch (error) {
+                console.error("Save error:", error);
+                showToast('เกิดข้อผิดพลาดในการบันทึก กรุณาลองใหม่อีกครั้ง', 'error');
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> <span>บันทึกข้อมูลออนไลน์ (อัปเดตทุกเครื่อง)</span>';
+            }
+        };
+
+        window.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
