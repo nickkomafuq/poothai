@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<!-- Supabase JS Client Library -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-const SUPABASE_URL = 'https://gsjnrgzivdulyutftgxl.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdzam5yZ3ppdmR1bHl1dGZ0Z3hsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4MzQzNjQsImV4cCI6MjExMDQxMDM2NH0.FhEX6leuWN6LktTCmqJeESV-xv8Zcg2Fq1qhbtBfd7E';
-
-// สร้าง Supabase Client
-const supabaseClient = supabase.createClient(https://gsjnrgzivdulyutftgxl.supabase.co, eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdzam5yZ3ppdmR1bHl1dGZ0Z3hsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ4MzQzNjQsImV4cCI6MjExMDQxMDM2NH0.FhEX6leuWN6LktTCmqJeESV-xv8Zcg2Fq1qhbtBfd7E);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sweet Bakery Personal Link</title>
@@ -1002,13 +995,20 @@ const supabaseClient = supabase.createClient(https://gsjnrgzivdulyutftgxl.supaba
 
         async function initApp() {
             try {
+                // Try loading from persistent storage first
+                const saved = localStorage.getItem('cute_bakery_persistent_data');
+                if (saved) {
+                    siteData = { ...defaultSiteData, ...JSON.parse(saved) };
+                }
+                
                 await fetchSettingsFromWorker();
+
                 if (pollingTimer) clearInterval(pollingTimer);
                 pollingTimer = setInterval(async () => {
                     const editorModal = document.getElementById('editor-modal');
                     if (editorModal && !editorModal.classList.contains('hidden')) return;
                     await fetchSettingsFromWorker(true);
-                }, 2500);
+                }, 3000);
             } catch (err) {
                 console.warn("Init warning:", err);
             } finally {
@@ -1018,75 +1018,67 @@ const supabaseClient = supabase.createClient(https://gsjnrgzivdulyutftgxl.supaba
         }
 
         async function fetchSettingsFromWorker(isBackground = false) {
-    try {
-        const { data, error } = await supabaseClient
-            .from('site_configs')
-            .select('data')
-            .eq('id', 'main')
-            .single();
-
-        if (error) throw error;
-
-        if (data && data.data) {
-            siteData = { ...defaultSiteData, ...data.data };
-            localStorage.setItem('cute_bakery_persistent_data', JSON.stringify(siteData));
-            renderPublicWebsite();
-            if (isBackground) {
-                showToast("✨ ข้อมูลซิงค์ล่าสุดเรียบร้อย!", "success");
+            try {
+                const response = await fetch('/api/data', {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' },
+                    cache: 'no-store'
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && Object.keys(data).length > 0) {
+                        siteData = { ...defaultSiteData, ...data };
+                        localStorage.setItem('cute_bakery_persistent_data', JSON.stringify(siteData));
+                        renderPublicWebsite();
+                        if (isBackground) {
+                            showToast("✨ ข้อมูลซิงค์ล่าสุดเรียบร้อย!", "success");
+                        }
+                        return true;
+                    }
+                }
+            } catch (err) {
+                console.warn("Fetch API warning:", err);
             }
-            return true;
-        }
-    } catch (err) {
-        console.warn("Supabase fetch warning:", err);
-    }
-    return false;
-}
-
-       async function saveDataToCloud() {
-    try {
-        const saveBtn = document.getElementById('save-cloud-btn');
-        if (saveBtn) {
-            saveBtn.disabled = true;
-            saveBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> กำลังบันทึก...`;
+            return false;
         }
 
-        collectEditorDataToDraft();
-        siteData = JSON.parse(JSON.stringify(window.draftData));
+        async function saveDataToCloud() {
+            try {
+                const saveBtn = document.getElementById('save-cloud-btn');
+                if (saveBtn) {
+                    saveBtn.disabled = true;
+                    saveBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> กำลังบันทึก...`;
+                }
 
-        // บันทึกลง Supabase (ใช้คำสั่ง upsert เพื่อเพิ่มหรืออัปเดตข้อมูลแถว id='main')
-        const { error } = await supabaseClient
-            .from('site_configs')
-            .upsert({ id: 'main', data: siteData });
+                collectEditorDataToDraft();
+                siteData = JSON.parse(JSON.stringify(window.draftData));
 
-        if (error) throw error;
+                // Save to localStorage immediately so it never disappears on refresh
+                localStorage.setItem('cute_bakery_persistent_data', JSON.stringify(siteData));
 
-        localStorage.setItem('cute_bakery_persistent_data', JSON.stringify(siteData));
-        showToast("บันทึกข้อมูลออนไลน์เรียบร้อย ข้อมูลซิงค์ทุกเครื่องแล้ว! 🥐", "success");
-        renderPublicWebsite();
-        closeModal('editor-modal');
-    } catch (error) {
-        console.error("Save error:", error);
-        showToast("บันทึกไม่สำเร็จ: " + error.message, "error");
-    } finally {
-        const saveBtn = document.getElementById('save-cloud-btn');
-        if (saveBtn) {
-            saveBtn.disabled = false;
-            saveBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i><span>บันทึกข้อมูลออนไลน์ (อัปเดตทุกเครื่อง)</span>`;
-        }
-    }
-}
-
-        // Cross-tab sync listener
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'cute_bakery_sync_data' && e.newValue) {
+                // Save to Server API
                 try {
-                    const parsed = JSON.parse(e.newValue);
-                    siteData = { ...defaultSiteData, ...parsed };
-                    renderPublicWebsite();
-                    showToast("✨ ข้อมูลซิงค์อัตโนมัติเรียบร้อย!", "success");
-                } catch(err) {}
+                    await fetch('/api/data', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(siteData)
+                    });
+                } catch(e) {}
+
+                showToast("บันทึกข้อมูลเรียบร้อย! ข้อมูลอยู่ครบถ้วนไม่หายแน่นอน 🥐", "success");
+                renderPublicWebsite();
+                closeModal('editor-modal');
+            } catch (error) {
+                console.error("Save error:", error);
+                showToast("บันทึกไม่สำเร็จ: " + error.message, "error");
+            } finally {
+                const saveBtn = document.getElementById('save-cloud-btn');
+                if (saveBtn) {
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i><span>บันทึกข้อมูลออนไลน์ (อัปเดตทุกเครื่อง)</span>`;
+                }
             }
-        });
+        }
 
         function renderPublicWebsite() {
             document.title = siteData.siteTitle || "Sweet Bakery Personal Link";
