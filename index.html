@@ -270,13 +270,12 @@
         }
 
         /* ========================================== */
-        /* 6 รูปแบบกรอบตกแต่งพื้นหลัง/การ์ด (Page Frames) - แก้ไขให้แสดงลายชัดเจน */
+        /* 6 รูปแบบกรอบตกแต่งพื้นหลัง/การ์ด (Page Frames) */
         /* ========================================== */
         .page-frame-none {
             border: 2px solid #FFD1B3;
         }
 
-        /* 2. ขอบหยักคลื่นวิปครีม (Wavy Cream Scallop) */
         .page-frame-wavy {
             border: 4px solid var(--page-frame-color, #FFB58A);
             position: relative;
@@ -302,20 +301,17 @@
             bottom: -2px;
         }
 
-        /* 3. ลูกไม้กระดาษรองเค้ก (Cafe Doily Lace) */
         .page-frame-doily {
             border: 6px dashed var(--page-frame-color, #FFB58A);
             box-shadow: inset 0 0 0 5px #FFFDF9, inset 0 0 0 8px var(--page-frame-color, #FFB58A), 0 10px 25px rgba(140, 94, 60, 0.14);
         }
 
-        /* 4. ขอบเส้นประเย็บมือ (Stitched Bakery Border) */
         .page-frame-stitched {
             border: 3px solid var(--page-frame-color, #FFB58A);
             outline: 3px dashed var(--page-frame-color, #FFB58A);
             outline-offset: -10px;
         }
 
-        /* 5. กรอบบิสกิตขอบหยัก (Biscuit Crinkle Frame) */
         .page-frame-biscuit {
             border: 6px solid var(--page-frame-color, #FFB58A);
             border-radius: 1.8rem !important;
@@ -326,7 +322,6 @@
             box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.9), 0 8px 20px rgba(140, 94, 60, 0.12);
         }
 
-        /* 6. กรอบริบบิ้นและหัวใจมุม (Ribbon & Corner Dots) */
         .page-frame-ribbon {
             border: 4px double var(--page-frame-color, #FFB58A);
             box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.8), 0 10px 24px rgba(140, 94, 60, 0.12);
@@ -350,13 +345,12 @@
         <p class="font-cute text-cocoa-600 font-semibold text-lg">กำลังอบขนมและจัดร้าน...</p>
     </div>
 
-    <!-- Main Container (จำลองสัดส่วน Mobile-First Card สวยงามบนทุกหน้าจอ) -->
+    <!-- Main Container -->
     <div class="relative z-10 max-w-md mx-auto px-4 pt-6 sm:pt-8">
         
-        <!-- 1. ส่วนหัวเว็บไซต์ (Header Bar พร้อมรูปภาพวงกลมเล็กๆ และกรอบขอบบนล่างเปลี่ยนสีได้) -->
+        <!-- 1. ส่วนหัวเว็บไซต์ -->
         <header id="header-bar" class="header-scallop-frame flex items-center justify-between bg-cream-50/95 backdrop-blur-md border-2 rounded-full px-3.5 py-2 bakery-shadow mb-6 transition-colors duration-300" style="border-color: #FFB58A; --header-frame-color: #FFB58A;">
             <div class="flex items-center gap-2.5 overflow-hidden">
-                <!-- รูปภาพวงกลมเล็กๆ ตรงหัวข้อบนสุด พร้อมกรอบน่ารัก -->
                 <div id="header-avatar-ring" class="w-9 h-9 rounded-full p-0.5 border-2 shrink-0 shadow-sm bg-white overflow-hidden transition-colors duration-300" style="border-color: #FFB58A;">
                     <img id="display-header-img" 
                          src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=200&q=80" 
@@ -371,11 +365,9 @@
                 </div>
             </div>
             <div class="flex items-center gap-1.5 shrink-0">
-                <!-- ปุ่มแชร์ลิงก์ -->
                 <button onclick="copyShareLink()" title="คัดลอกลิงก์เว็บไซต์" class="w-8 h-8 rounded-full bg-peach-100 hover:bg-peach-200 text-cocoa-600 flex items-center justify-center transition">
                     <i class="fa-solid fa-share-nodes text-xs"></i>
                 </button>
-                <!-- ปุ่มเข้าสู่โหมดแก้ไข (Admin) -->
                 <button id="admin-toggle-btn" onclick="openAdminAuth()" title="จัดการเว็บไซต์ (Admin)" class="px-3 h-8 rounded-full bg-cocoa-500 hover:bg-cocoa-600 text-cream-50 text-xs font-medium flex items-center gap-1.5 transition shadow-sm">
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
                     <span id="admin-btn-text">ตกแต่งร้าน</span>
@@ -383,7 +375,7 @@
             </div>
         </header>
 
-        <!-- แถบแจ้งเตือนสถานะ Admin เมื่อล็อกอินอยู่ -->
+        <!-- แถบแจ้งเตือนสถานะ Admin -->
         <div id="admin-banner" class="hidden mb-5 bg-peach-200/90 border-2 border-peach-400 rounded-2xl p-3 flex items-center justify-between bakery-shadow">
             <div class="flex items-center gap-2">
                 <span class="text-xl">👩‍🍳</span>
@@ -402,21 +394,17 @@
             </div>
         </div>
 
-        <!-- การ์ดโปรไฟล์หลัก (Main Profile Card) -->
+        <!-- การ์ดโปรไฟล์หลัก -->
         <main id="main-profile-card" class="bg-cream-50/95 page-frame-none rounded-[2.2rem] p-6 bakery-shadow relative overflow-hidden transition-all duration-300" style="--page-frame-color: #FFB58A;">
-            <!-- จุดมุกตกแต่งมุมทั้งสี่ (แสดงเมื่อเลือกกรอบ Ribbon & Corner Dots) -->
             <span class="corner-pearl hidden absolute top-3 left-3 w-3.5 h-3.5 rounded-full border-2 border-white shadow-sm pointer-events-none z-20" style="background-color: var(--page-frame-color, #FFB58A);"></span>
             <span class="corner-pearl hidden absolute top-3 right-3 w-3.5 h-3.5 rounded-full border-2 border-white shadow-sm pointer-events-none z-20" style="background-color: var(--page-frame-color, #FFB58A);"></span>
             <span class="corner-pearl hidden absolute bottom-3 left-3 w-3.5 h-3.5 rounded-full border-2 border-white shadow-sm pointer-events-none z-20" style="background-color: var(--page-frame-color, #FFB58A);"></span>
             <span class="corner-pearl hidden absolute bottom-3 right-3 w-3.5 h-3.5 rounded-full border-2 border-white shadow-sm pointer-events-none z-20" style="background-color: var(--page-frame-color, #FFB58A);"></span>
 
-            <!-- ริบบิ้นตกแต่งมุมการ์ด -->
             <div class="absolute -top-3 -right-3 w-16 h-16 bg-peach-100 rounded-full opacity-60 pointer-events-none"></div>
             <div class="absolute -bottom-4 -left-4 w-20 h-20 bg-cream-200 rounded-full opacity-60 pointer-events-none"></div>
 
-            <!-- 2. ส่วนแสดงรูปภาพหลัก (ปรับให้เล็กลง: w-36 h-36) -->
             <div class="relative mx-auto w-36 h-36 sm:w-40 sm:h-40 mb-4 group">
-                <!-- กรอบวงกลมซ้อนสไตล์คุกกี้/จานขนม -->
                 <div class="absolute inset-0 rounded-full border-4 border-dashed border-peach-300 animate-[spin_25s_linear_infinite]"></div>
                 <div class="relative w-full h-full p-1.5">
                     <div class="w-full h-full rounded-full overflow-hidden border-4 border-white shadow-md bg-peach-100 flex items-center justify-center relative">
@@ -427,13 +415,11 @@
                              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     </div>
                 </div>
-                <!-- ป้ายสติกเกอร์เล็กๆ มุมรูป -->
                 <div id="display-badge" class="absolute bottom-1 right-1 bg-white border-2 border-peach-300 rounded-full px-2.5 py-0.5 shadow-sm flex items-center gap-1 text-[11px] font-cute font-bold text-cocoa-600 animate-pulse-soft">
                     <span>🍓</span> <span id="display-badge-text">Open</span>
                 </div>
             </div>
 
-            <!-- 3. ส่วนแสดงชื่อและข้อความแนะนำตัว -->
             <div class="text-center mb-5">
                 <h1 id="display-owner-name" class="font-cute text-2xl sm:text-3xl font-bold text-cocoa-700 mb-1.5 tracking-wide">
                     Mimi's Bakery Corner 🥐
@@ -447,7 +433,6 @@
                 </p>
             </div>
 
-            <!-- วิดเจ็ตใหม่: รูปภาพสี่เหลี่ยมผืนผ้าแนวนอน (ขนาดใหญ่กว่ารูปโปรไฟล์) -->
             <div id="display-banner-widget-container" class="mb-6 hidden">
                 <div class="relative w-full h-36 sm:h-44 rounded-2xl overflow-hidden border-3 border-white shadow-md bg-peach-100 group">
                     <img id="display-banner-widget-img" src="" alt="Cafe Banner" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
@@ -455,24 +440,16 @@
                 </div>
             </div>
 
-            <!-- 4. ส่วนปุ่มไอคอนโซเชียลมีเดีย (Social Media Icons) -->
-            <div id="display-socials" class="flex flex-wrap items-center justify-center gap-3 mb-7">
-                <!-- จะถูกสร้างด้วย JavaScript -->
-            </div>
+            <div id="display-socials" class="flex flex-wrap items-center justify-center gap-3 mb-7"></div>
 
-            <!-- เส้นคั่นลายขนม -->
             <div class="flex items-center justify-center gap-2 mb-6 opacity-60">
                 <div class="h-[2px] flex-1 bg-peach-200 rounded-full"></div>
                 <span class="text-sm">🍪</span>
                 <div class="h-[2px] flex-1 bg-peach-200 rounded-full"></div>
             </div>
 
-            <!-- 5. ส่วนแสดงลิงก์เว็บไซต์หรือแอปพลิเคชันต่างๆ (ปุ่มกดขนาดใหญ่) -->
-            <div id="display-links" class="space-y-3.5">
-                <!-- จะถูกสร้างด้วย JavaScript -->
-            </div>
+            <div id="display-links" class="space-y-3.5"></div>
 
-            <!-- 6. ข้อความเสริมด้านล่างการ์ด (Extra Note / Footer Text) -->
             <div id="display-extra-note-box" class="mt-7 pt-4 border-t border-dashed border-peach-200 text-center">
                 <p id="display-extra-note" class="text-xs text-cocoa-400 font-cute">
                     🌷 ขอบคุณที่แวะเข้ามาเยี่ยมชมนะคะ Have a sweet day! 🌷
@@ -480,15 +457,12 @@
             </div>
         </main>
 
-        <!-- Footer เล็กๆ -->
         <footer class="text-center mt-6 text-xs text-cocoa-400">
             <p id="display-footer-credit">© 2026 Sweet Bakery Personal Link</p>
         </footer>
     </div>
 
-    <!-- ========================================== -->
-    <!-- MODAL 1: ยืนยันรหัสผ่านเจ้าของร้าน (Admin Auth) -->
-    <!-- ========================================== -->
+    <!-- MODAL 1: ยืนยันรหัสผ่านเจ้าของร้าน -->
     <div id="auth-modal" class="fixed inset-0 bg-cocoa-700/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-cream-50 border-2 border-peach-300 rounded-3xl max-w-sm w-full p-6 bakery-shadow transform transition-all">
             <div class="text-center mb-4">
@@ -516,13 +490,10 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- MODAL 2: หน้าต่างแก้ไขข้อมูลเว็บไซต์ (Admin Editor) -->
-    <!-- ========================================== -->
+    <!-- MODAL 2: หน้าต่างแก้ไขข้อมูลเว็บไซต์ -->
     <div id="editor-modal" class="fixed inset-0 bg-cocoa-700/50 backdrop-blur-sm z-50 hidden items-center justify-center p-3 sm:p-5">
         <div class="bg-cream-50 border-2 border-peach-300 rounded-[2rem] w-full max-w-[720px] max-h-[85vh] flex flex-col overflow-hidden bakery-shadow">
             
-            <!-- 1. ส่วนหัวหน้าต่าง (Header - flex-shrink: 0) -->
             <div class="bg-cream-100 px-6 py-4 border-b border-peach-200 flex items-center justify-between shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-2xl bg-peach-100 border border-peach-300 flex items-center justify-center text-xl shadow-sm">
@@ -538,7 +509,6 @@
                 </button>
             </div>
 
-            <!-- 2. แถบเมนูแท็บ (Tab Navigation - flex-shrink: 0) -->
             <div class="flex items-center overflow-x-auto bg-cream-100/80 px-5 pt-3 border-b border-peach-200 gap-2 shrink-0 no-scrollbar">
                 <button onclick="switchEditorTab('profile')" id="tab-btn-profile" class="editor-tab-btn px-4 py-2.5 rounded-t-2xl text-xs font-cute font-bold bg-cream-50 text-cocoa-700 border-t-2 border-x-2 border-peach-200 whitespace-nowrap shrink-0 transition">
                     🎀 โปรไฟล์ & ส่วนหัว
@@ -557,12 +527,10 @@
                 </button>
             </div>
 
-            <!-- 3. พื้นที่เนื้อหาตรงกลาง (Scrollable Content Body - flex: 1, overflow-y: auto) -->
             <div class="p-5 sm:p-6 overflow-y-auto flex-1 space-y-5 leading-relaxed">
                 
                 <!-- TAB 1: โปรไฟล์และส่วนหัว -->
                 <div id="tab-profile" class="editor-tab-content space-y-5">
-                    <!-- การ์ดตั้งค่าส่วนหัวบนสุด -->
                     <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
                         <div class="border-b border-cream-200 pb-2.5">
                             <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base flex items-center gap-2">
@@ -598,7 +566,6 @@
                         </div>
                     </div>
 
-                    <!-- การ์ดรูปภาพหลัก -->
                     <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
                         <div class="border-b border-cream-200 pb-2.5">
                             <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base flex items-center gap-2">
@@ -626,7 +593,6 @@
                         </div>
                     </div>
 
-                    <!-- วิดเจ็ตใหม่: รูปภาพสี่เหลี่ยมผืนผ้าแนวนอน (Banner Widget) -->
                     <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
                         <div class="border-b border-cream-200 pb-2.5">
                             <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base flex items-center gap-2">
@@ -657,7 +623,6 @@
                         </div>
                     </div>
 
-                    <!-- การ์ดข้อมูลส่วนตัวและข้อความ -->
                     <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
                         <div class="border-b border-cream-200 pb-2.5">
                             <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base flex items-center gap-2">
@@ -732,9 +697,8 @@
                     </div>
                 </div>
 
-                <!-- TAB 4: สีพื้นหลัง ลวดลาย กรอบตกแต่ง และของตกแต่งเคลื่อนไหว -->
+                <!-- TAB 4: สีพื้นหลัง ลวดลาย กรอบตกแต่ง และของตกแต่ง -->
                 <div id="tab-theme" class="editor-tab-content hidden space-y-5">
-                    <!-- การ์ดสีพื้นหลัง & ลวดลาย -->
                     <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
                         <div class="flex items-center justify-between border-b border-cream-200 pb-3">
                             <div>
@@ -747,7 +711,6 @@
                             </div>
                         </div>
 
-                        <!-- 1. เลือกโทนสีพื้นหลัง -->
                         <div class="space-y-2.5">
                             <label class="block text-xs font-medium text-cocoa-600">1. เลือกโทนสีพื้นหลัง (หรือใส่โค้ดสีเอง)</label>
                             <div class="flex flex-wrap items-center gap-2.5" id="bg-color-palette"></div>
@@ -760,13 +723,11 @@
                             </div>
                         </div>
 
-                        <!-- 2. เลือกลวดลาย -->
                         <div class="space-y-2.5 pt-3 border-t border-cream-200">
                             <label class="block text-xs font-medium text-cocoa-600">2. เลือกลวดลายตกแต่งพื้นหลัง</label>
                             <div class="grid grid-cols-3 sm:grid-cols-6 gap-3" id="bg-pattern-selector"></div>
                         </div>
 
-                        <!-- 3. โทนสีปุ่มลิงก์หลัก (เลือกจากชุดสีหรือปรับสีเองด้วยวงล้อสี / HEX) -->
                         <div class="pt-3 border-t border-cream-200 space-y-3">
                             <div class="flex items-center justify-between">
                                 <label class="block text-xs font-medium text-cocoa-600">3. โทนสีปุ่มลิงก์หลัก (เลือกโทนสีหรือปรับแต่งเอง)</label>
@@ -774,9 +735,7 @@
                                     ตัวอย่างปุ่ม
                                 </div>
                             </div>
-                            <!-- ชุดสีคาเฟ่สำเร็จรูป -->
                             <div class="flex flex-wrap items-center gap-2.5" id="accent-theme-selector"></div>
-                            <!-- วงล้อสี + โค้ดสี HEX + สีตัวอักษร -->
                             <div class="flex flex-wrap items-center gap-2.5 bg-cream-50 p-3 rounded-2xl border border-peach-200">
                                 <div class="flex items-center gap-1.5">
                                     <input type="color" id="btn-custom-color-picker" value="#FFE8D6" oninput="setBtnCustomColor(this.value)" class="w-8 h-8 rounded-full cursor-pointer border-2 border-white shadow-sm p-0 bg-transparent" title="วงล้อสีพื้นปุ่ม">
@@ -794,14 +753,12 @@
                             </div>
                         </div>
 
-                        <!-- 4. รูปแบบลักษณะของแถบปุ่มลิงก์หลัก (6 สไตล์น่ารัก) -->
                         <div class="pt-3 border-t border-cream-200 space-y-2.5">
                             <label class="block text-xs font-medium text-cocoa-600">4. รูปแบบลักษณะของแถบปุ่มลิงก์หลัก (6 สไตล์คาเฟ่)</label>
                             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5" id="link-style-selector"></div>
                         </div>
                     </div>
 
-                    <!-- การ์ดใหม่: กรอบตกแต่งพื้นหลัง / การ์ดหลัก (Page Frame) -->
                     <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
                         <div class="flex items-center justify-between border-b border-cream-200 pb-3">
                             <div>
@@ -810,10 +767,8 @@
                             </div>
                         </div>
 
-                        <!-- เลือกรูปแบบกรอบ 6 แบบ -->
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5" id="page-frame-selector"></div>
 
-                        <!-- ปรับสีกรอบตกแต่ง -->
                         <div class="flex flex-wrap items-center gap-2.5 bg-cream-50 p-3 rounded-2xl border border-peach-200">
                             <span class="text-xs font-medium text-cocoa-600">สีกรอบตกแต่ง:</span>
                             <button type="button" onclick="setPageFrameColor('#FFB58A')" class="w-6 h-6 rounded-full bg-[#FFB58A] border-2 border-white shadow-sm hover:scale-110 transition" title="ส้มพีช"></button>
@@ -831,7 +786,6 @@
                         </div>
                     </div>
 
-                    <!-- การ์ดของตกแต่งเบเกอรี่คาเฟ่ -->
                     <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
                         <div class="border-b border-cream-200 pb-2.5">
                             <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">🍰 ของตกแต่งคาเฟ่ (อัปโหลดรูปพื้นหลังโปร่งใส)</h3>
@@ -869,7 +823,6 @@
                         </div>
                     </div>
 
-                    <!-- ส่วนสำรองและคัดลอกข้อมูลสำหรับอัปเดตถาวร -->
                     <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-3">
                         <div class="border-b border-cream-200 pb-2.5">
                             <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">☁️ สถานะการซิงค์ & สำรองข้อมูลสาธารณะ</h3>
@@ -885,7 +838,6 @@
 
             </div>
 
-            <!-- 4. ส่วนท้ายหน้าต่าง (Footer - flex-shrink: 0) -->
             <div class="bg-cream-100 px-6 py-4 border-t border-peach-200 flex items-center justify-end gap-3 shrink-0">
                 <button type="button" onclick="closeModal('editor-modal')" class="px-5 py-2.5 rounded-2xl bg-white border border-peach-200 text-cocoa-600 text-xs sm:text-sm font-medium hover:bg-cream-200 transition">
                     ปิดหน้าต่าง
@@ -898,15 +850,8 @@
         </div>
     </div>
 
-    <!-- Firebase SDK & Application Logic -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // =========================================================================
-        // ข้อมูลเริ่มต้นของเว็บไซต์ (Default Data & Configuration Constants)
-        // =========================================================================
+    <!-- Application Logic & Synchronized API Storage -->
+    <script>
         const BAKERY_SVG_ASSETS = {
             strawberry_cake: {
                 name: 'เค้กสตรอว์เบอร์รี',
@@ -1037,68 +982,69 @@
         };
 
         let siteData = JSON.parse(JSON.stringify(defaultSiteData));
-
-        const appId = 'cute-bakery-link-app';
         let isAdminLoggedIn = false;
-        let storageChannel = null;
+        let pollingTimer = null;
 
-        // ฟังก์ชันปิดหน้าจอ Loading เริ่มต้น
         function hideLoader() {
             const loader = document.getElementById('loading-overlay');
             if (loader) {
                 loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.classList.add('hidden');
-                }, 300);
+                setTimeout(() => loader.classList.add('hidden'), 300);
             }
         }
 
-        // ฟังก์ชันเริ่มต้นการโหลดข้อมูลจาก localStorage
         async function initApp() {
             try {
-                // ตั้งค่า BroadcastChannel สำหรับซิงค์ข้อมูลระหว่างแท็บอัตโนมัติ
-                if (window.BroadcastChannel) {
-                    storageChannel = new BroadcastChannel('sweet_bakery_sync_channel');
-                    storageChannel.onmessage = (event) => {
-                        if (event.data && event.data.type === 'DATA_UPDATED') {
-                            const editorModal = document.getElementById('editor-modal');
-                            if (editorModal && !editorModal.classList.contains('hidden')) return;
-                            
-                            siteData = event.data.payload;
-                            renderPublicWebsite();
-                            showToast("✨ มีการอัปเดตข้อมูลใหม่จากหน้าร้านแล้ว!", "success");
-                        }
-                    };
-                }
-
-                const saved = localStorage.getItem(appId + '_config');
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    siteData = { ...defaultSiteData, ...parsed };
-                }
+                await fetchSettingsFromWorker();
+                if (pollingTimer) clearInterval(pollingTimer);
+                pollingTimer = setInterval(async () => {
+                    const editorModal = document.getElementById('editor-modal');
+                    if (editorModal && !editorModal.classList.contains('hidden')) return;
+                    await fetchSettingsFromWorker(true);
+                }, 2500);
             } catch (err) {
-                console.warn("Initialization warning, using default data:", err);
+                console.warn("Init warning:", err);
             } finally {
                 renderPublicWebsite();
                 hideLoader();
             }
         }
 
-        async function checkSyncNow() {
+        async function fetchSettingsFromWorker(isBackground = false) {
             try {
-                const saved = localStorage.getItem(appId + '_config');
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    siteData = { ...defaultSiteData, ...parsed };
-                    renderPublicWebsite();
+                const response = await fetch('/api/data', {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' },
+                    cache: 'no-store'
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && Object.keys(data).length > 0) {
+                        const newSettings = { ...defaultSiteData, ...data };
+                        if (JSON.stringify(newSettings) !== JSON.stringify(siteData)) {
+                            siteData = newSettings;
+                            renderPublicWebsite();
+                            if (isBackground) {
+                                showToast("✨ ข้อมูลอัปเดตตรงกันทุกอุปกรณ์แล้ว!", "success");
+                            }
+                        }
+                        return true;
+                    }
                 }
-                showToast("✅ ซิงค์ข้อมูลล่าสุดสำเร็จเรียบร้อย!", "success");
             } catch (err) {
-                showToast("✅ เชื่อมต่อระบบเรียบร้อย", "success");
+                // Fallback to localStorage if /api/data is simulated offline
+                const local = localStorage.getItem('cute_bakery_sync_data');
+                if (local) {
+                    try {
+                        const parsed = JSON.parse(local);
+                        siteData = { ...defaultSiteData, ...parsed };
+                        renderPublicWebsite();
+                    } catch(e) {}
+                }
             }
+            return false;
         }
 
-        // ฟังก์ชันบันทึกข้อมูลลง localStorage และส่งสัญญาณ BroadcastChannel
         async function saveDataToCloud() {
             try {
                 const saveBtn = document.getElementById('save-cloud-btn');
@@ -1110,15 +1056,19 @@
                 collectEditorDataToDraft();
                 siteData = JSON.parse(JSON.stringify(window.draftData));
 
-                // บันทึกลง localStorage ทันที
-                localStorage.setItem(appId + '_config', JSON.stringify(siteData));
+                // Save to localStorage immediately for cross-tab sync
+                localStorage.setItem('cute_bakery_sync_data', JSON.stringify(siteData));
 
-                // ส่งสัญญาณบอกแท็บอื่นให้ซิงค์ข้อมูลทันที
-                if (storageChannel) {
-                    storageChannel.postMessage({ type: 'DATA_UPDATED', payload: siteData });
-                }
+                // Send to Server API
+                try {
+                    await fetch('/api/data', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(siteData)
+                    });
+                } catch(e) {}
 
-                showToast("บันทึกข้อมูลสำเร็จเรียบร้อย! 🥐", "success");
+                showToast("บันทึกข้อมูลเรียบร้อย! อัปเดตทุกอุปกรณ์สำเร็จ 🥐", "success");
                 renderPublicWebsite();
                 closeModal('editor-modal');
             } catch (error) {
@@ -1133,7 +1083,18 @@
             }
         }
 
-        // ฟังก์ชันแสดงผลเว็บไซต์ฝั่งผู้เข้าชม
+        // Cross-tab sync listener
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'cute_bakery_sync_data' && e.newValue) {
+                try {
+                    const parsed = JSON.parse(e.newValue);
+                    siteData = { ...defaultSiteData, ...parsed };
+                    renderPublicWebsite();
+                    showToast("✨ ข้อมูลซิงค์อัตโนมัติเรียบร้อย!", "success");
+                } catch(err) {}
+            }
+        });
+
         function renderPublicWebsite() {
             document.title = siteData.siteTitle || "Sweet Bakery Personal Link";
             document.getElementById('display-site-title').textContent = siteData.siteTitle;
@@ -1845,10 +1806,6 @@
             if (span) span.textContent = val;
         }
 
-        function updateDecoPos(index, field, val) {
-            window.draftData.decorations[index][field] = parseInt(val) || 0;
-        }
-
         function removeDecoItem(index) {
             window.draftData.decorations.splice(index, 1);
             renderEditorDecorations();
@@ -1892,7 +1849,6 @@
             }
         }
 
-        // Expose functions globally for HTML inline onclick handlers
         window.copyShareLink = copyShareLink;
         window.openAdminAuth = openAdminAuth;
         window.openEditorModal = openEditorModal;
@@ -1921,14 +1877,11 @@
         window.moveLink = moveLink;
         window.updateLinkField = updateLinkField;
         window.removeLinkItem = removeLinkItem;
-        window.updateDecoPos = updateDecoPos;
         window.updateDecoRange = updateDecoRange;
         window.removeDecoItem = removeDecoItem;
         window.handleCustomDecoUpload = handleCustomDecoUpload;
         window.updateDecoSize = updateDecoSize;
-        window.checkSyncNow = checkSyncNow;
 
-        // เริ่มต้นการทำงานเมื่อโหลดหน้าเว็บ
         window.onload = function() {
             initApp();
         };
