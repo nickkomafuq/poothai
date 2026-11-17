@@ -995,13 +995,20 @@
 
         async function initApp() {
             try {
+                // Try loading from persistent storage first
+                const saved = localStorage.getItem('cute_bakery_persistent_data');
+                if (saved) {
+                    siteData = { ...defaultSiteData, ...JSON.parse(saved) };
+                }
+                
                 await fetchSettingsFromWorker();
+
                 if (pollingTimer) clearInterval(pollingTimer);
                 pollingTimer = setInterval(async () => {
                     const editorModal = document.getElementById('editor-modal');
                     if (editorModal && !editorModal.classList.contains('hidden')) return;
                     await fetchSettingsFromWorker(true);
-                }, 2500);
+                }, 3000);
             } catch (err) {
                 console.warn("Init warning:", err);
             } finally {
@@ -1020,27 +1027,17 @@
                 if (response.ok) {
                     const data = await response.json();
                     if (data && Object.keys(data).length > 0) {
-                        const newSettings = { ...defaultSiteData, ...data };
-                        if (JSON.stringify(newSettings) !== JSON.stringify(siteData)) {
-                            siteData = newSettings;
-                            renderPublicWebsite();
-                            if (isBackground) {
-                                showToast("✨ ข้อมูลอัปเดตตรงกันทุกอุปกรณ์แล้ว!", "success");
-                            }
+                        siteData = { ...defaultSiteData, ...data };
+                        localStorage.setItem('cute_bakery_persistent_data', JSON.stringify(siteData));
+                        renderPublicWebsite();
+                        if (isBackground) {
+                            showToast("✨ ข้อมูลซิงค์ล่าสุดเรียบร้อย!", "success");
                         }
                         return true;
                     }
                 }
             } catch (err) {
-                // Fallback to localStorage if /api/data is simulated offline
-                const local = localStorage.getItem('cute_bakery_sync_data');
-                if (local) {
-                    try {
-                        const parsed = JSON.parse(local);
-                        siteData = { ...defaultSiteData, ...parsed };
-                        renderPublicWebsite();
-                    } catch(e) {}
-                }
+                console.warn("Fetch API warning:", err);
             }
             return false;
         }
@@ -1056,10 +1053,10 @@
                 collectEditorDataToDraft();
                 siteData = JSON.parse(JSON.stringify(window.draftData));
 
-                // Save to localStorage immediately for cross-tab sync
-                localStorage.setItem('cute_bakery_sync_data', JSON.stringify(siteData));
+                // Save to localStorage immediately so it never disappears on refresh
+                localStorage.setItem('cute_bakery_persistent_data', JSON.stringify(siteData));
 
-                // Send to Server API
+                // Save to Server API
                 try {
                     await fetch('/api/data', {
                         method: 'POST',
@@ -1068,7 +1065,7 @@
                     });
                 } catch(e) {}
 
-                showToast("บันทึกข้อมูลเรียบร้อย! อัปเดตทุกอุปกรณ์สำเร็จ 🥐", "success");
+                showToast("บันทึกข้อมูลเรียบร้อย! ข้อมูลอยู่ครบถ้วนไม่หายแน่นอน 🥐", "success");
                 renderPublicWebsite();
                 closeModal('editor-modal');
             } catch (error) {
@@ -1082,18 +1079,6 @@
                 }
             }
         }
-
-        // Cross-tab sync listener
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'cute_bakery_sync_data' && e.newValue) {
-                try {
-                    const parsed = JSON.parse(e.newValue);
-                    siteData = { ...defaultSiteData, ...parsed };
-                    renderPublicWebsite();
-                    showToast("✨ ข้อมูลซิงค์อัตโนมัติเรียบร้อย!", "success");
-                } catch(err) {}
-            }
-        });
 
         function renderPublicWebsite() {
             document.title = siteData.siteTitle || "Sweet Bakery Personal Link";
