@@ -1040,7 +1040,7 @@
 
         const appId = 'cute-bakery-link-app';
         let isAdminLoggedIn = false;
-        let pollingTimer = null;
+        let storageChannel = null;
 
         // ฟังก์ชันปิดหน้าจอ Loading เริ่มต้น
         function hideLoader() {
@@ -1053,21 +1053,29 @@
             }
         }
 
-        // ฟังก์ชันเริ่มต้นการดึงข้อมูลจาก Cloudflare Worker API (/api/data)
+        // ฟังก์ชันเริ่มต้นการโหลดข้อมูลจาก localStorage
         async function initApp() {
             try {
-                await fetchSettingsFromWorker();
+                // ตั้งค่า BroadcastChannel สำหรับซิงค์ข้อมูลระหว่างแท็บอัตโนมัติ
+                if (window.BroadcastChannel) {
+                    storageChannel = new BroadcastChannel('sweet_bakery_sync_channel');
+                    storageChannel.onmessage = (event) => {
+                        if (event.data && event.data.type === 'DATA_UPDATED') {
+                            const editorModal = document.getElementById('editor-modal');
+                            if (editorModal && !editorModal.classList.contains('hidden')) return;
+                            
+                            siteData = event.data.payload;
+                            renderPublicWebsite();
+                            showToast("✨ มีการอัปเดตข้อมูลใหม่จากหน้าร้านแล้ว!", "success");
+                        }
+                    };
+                }
 
-                // ใช้ Polling ดึงข้อมูลใหม่ทุก 2 วินาที เพื่อให้ทุกอุปกรณ์เห็นข้อมูลอัปเดตตรงกัน
-                if (pollingTimer) clearInterval(pollingTimer);
-                pollingTimer = setInterval(async () => {
-                    // ข้ามการอัปเดตอัตโนมัติชั่วคราวขณะที่แอดมินกำลังเปิดหน้าต่างแก้ไขอยู่
-                    const editorModal = document.getElementById('editor-modal');
-                    if (editorModal && !editorModal.classList.contains('hidden')) return;
-
-                    await fetchSettingsFromWorker(true);
-                }, 2000);
-
+                const saved = localStorage.getItem(appId + '_config');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    siteData = { ...defaultSiteData, ...parsed };
+                }
             } catch (err) {
                 console.warn("Initialization warning, using default data:", err);
             } finally {
@@ -1076,46 +1084,21 @@
             }
         }
 
-        // ดึงข้อมูลจาก /api/data (GET)
-        async function fetchSettingsFromWorker(isBackground = false) {
-            try {
-                const response = await fetch('/api/data', {
-                    method: 'GET',
-                    headers: { 'Accept': 'application/json' },
-                    cache: 'no-store'
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data && Object.keys(data).length > 0) {
-                        const newSettings = { ...defaultSiteData, ...data };
-                        if (JSON.stringify(newSettings) !== JSON.stringify(siteData)) {
-                            siteData = newSettings;
-                            renderPublicWebsite();
-                            if (isBackground) {
-                                showToast("✨ มีการอัปเดตข้อมูลใหม่จากหน้าร้านแล้ว!", "success");
-                            }
-                        }
-                        return true;
-                    }
-                }
-            } catch (err) {
-                console.warn("Fetch /api/data warning:", err);
-            }
-            return false;
-        }
-
         async function checkSyncNow() {
-            showToast("กำลังตรวจสอบข้อมูลล่าสุดจาก Cloudflare KV...", "success");
-            const success = await fetchSettingsFromWorker(false);
-            if (success) {
-                renderPublicWebsite();
-                showToast("✅ ซิงค์ข้อมูลล่าสุดสำเร็จ ทุกคนเห็นข้อมูลตรงกันแล้ว!", "success");
-            } else {
-                showToast("✅ เชื่อมต่อระบบออนไลน์เรียบร้อย", "success");
+            try {
+                const saved = localStorage.getItem(appId + '_config');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    siteData = { ...defaultSiteData, ...parsed };
+                    renderPublicWebsite();
+                }
+                showToast("✅ ซิงค์ข้อมูลล่าสุดสำเร็จเรียบร้อย!", "success");
+            } catch (err) {
+                showToast("✅ เชื่อมต่อระบบเรียบร้อย", "success");
             }
         }
 
-        // ฟังก์ชันบันทึกข้อมูลขึ้น Cloudflare KV ผ่าน /api/data (POST)
+        // ฟังก์ชันบันทึกข้อมูลลง localStorage และส่งสัญญาณ BroadcastChannel
         async function saveDataToCloud() {
             try {
                 const saveBtn = document.getElementById('save-cloud-btn');
@@ -1127,21 +1110,15 @@
                 collectEditorDataToDraft();
                 siteData = JSON.parse(JSON.stringify(window.draftData));
 
-                // ส่งข้อมูลไปยัง Cloudflare Worker API (/api/data)
-                const response = await fetch('/api/data', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(siteData)
-                });
+                // บันทึกลง localStorage ทันที
+                localStorage.setItem(appId + '_config', JSON.stringify(siteData));
 
-                if (!response.ok) {
-                    const errData = await response.json().catch(() => ({}));
-                    throw new Error(errData.error || `HTTP Error ${response.status}`);
+                // ส่งสัญญาณบอกแท็บอื่นให้ซิงค์ข้อมูลทันที
+                if (storageChannel) {
+                    storageChannel.postMessage({ type: 'DATA_UPDATED', payload: siteData });
                 }
 
-                showToast("บันทึกข้อมูลลง Cloudflare KV สำเร็จ! ทุกเครื่องอัปเดตแล้ว 🥐", "success");
+                showToast("บันทึกข้อมูลสำเร็จเรียบร้อย! 🥐", "success");
                 renderPublicWebsite();
                 closeModal('editor-modal');
             } catch (error) {
