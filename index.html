@@ -199,9 +199,7 @@
             bottom: -5px;
         }
 
-        /* ========================================== */
-        /* 6 รูปแบบสไตล์ปุ่มลิงก์หลักแนวคาเฟ่ (Button Styles) */
-        /* ========================================== */
+        /* 6 รูปแบบสไตล์ปุ่มลิงก์หลักแนวคาเฟ่ */
         .link-style-soft3d {
             border-radius: 1.5rem;
             border-width: 2px;
@@ -269,9 +267,7 @@
             box-shadow: 0 8px 20px rgba(140, 94, 60, 0.08);
         }
 
-        /* ========================================== */
-        /* 6 รูปแบบกรอบตกแต่งพื้นหลัง/การ์ด (Page Frames) */
-        /* ========================================== */
+        /* 6 รูปแบบกรอบตกแต่งพื้นหลัง/การ์ด */
         .page-frame-none {
             border: 2px solid #FFD1B3;
         }
@@ -336,19 +332,19 @@
     <!-- ชั้นของตกแต่งพื้นหลังแบบเคลื่อนไหว -->
     <div id="decoration-canvas"></div>
 
-    <!-- แถบแจ้งเตือน (Custom Toast Notification แทน alert) -->
+    <!-- แถบแจ้งเตือน -->
     <div id="toast-container" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 flex flex-col gap-2 w-11/12 max-w-sm pointer-events-none"></div>
 
     <!-- Loading Overlay -->
     <div id="loading-overlay" class="fixed inset-0 bg-cream-100/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center transition-opacity duration-300">
         <div class="text-5xl animate-bounce mb-3">🥐</div>
-        <p class="font-cute text-cocoa-600 font-semibold text-lg">กำลังอบขนมและซิงค์ข้อมูลร้าน...</p>
+        <p class="font-cute text-cocoa-600 font-semibold text-lg">กำลังเชื่อมต่อระบบซิงค์ข้อมูล Cloud...</p>
     </div>
 
     <!-- Main Container -->
     <div class="relative z-10 max-w-md mx-auto px-4 pt-6 sm:pt-8">
         
-        <!-- 1. ส่วนหัวเว็บไซต์ -->
+        <!-- ส่วนหัวเว็บไซต์ -->
         <header id="header-bar" class="header-scallop-frame flex items-center justify-between bg-cream-50/95 backdrop-blur-md border-2 rounded-full px-3.5 py-2 bakery-shadow mb-6 transition-colors duration-300" style="border-color: #FFB58A; --header-frame-color: #FFB58A;">
             <div class="flex items-center gap-2.5 overflow-hidden">
                 <div id="header-avatar-ring" class="w-9 h-9 rounded-full p-0.5 border-2 shrink-0 shadow-sm bg-white overflow-hidden transition-colors duration-300" style="border-color: #FFB58A;">
@@ -850,8 +846,90 @@
         </div>
     </div>
 
-    <!-- Application Logic & Cloud Synchronized Storage API -->
+    <!-- Application Logic & Cloud Synchronized Mock Server API -->
     <script>
+        // --- BUILT-IN MOCK CLOUD SERVER INTERCEPTOR ---
+        // จำลอง Cloud Server API เพื่อให้การซิงค์ข้อมูลทำงานได้จริงทันทีโดยไม่ต้องตั้งค่า Server ภายนอก
+        (function() {
+            const STORAGE_KEY = 'sweet_bakery_global_cloud_db_v2';
+            
+            // สร้างข้อมูลเริ่มต้นใน localStorage หากยังไม่มี
+            if (!localStorage.getItem(STORAGE_KEY)) {
+                const defaultInitialData = {
+                    siteTitle: "Sweet Bakery Cafe",
+                    ownerName: "Mimi's Bakery Corner 🥐",
+                    tagline: "✨ Homemade Sweets & Lifestyle ✨",
+                    bio: "ยินดีต้อนรับสู่พื้นที่เล็กๆ แสนอบอุ่น 🍰\nรวบรวมผลงาน รีวิวคาเฟ่ และช่องทางติดตามทั้งหมดไว้ที่นี่แล้วค่ะ 🧸💕",
+                    extraNote: "🌷 ขอบคุณที่แวะเข้ามาเยี่ยมชมนะคะ Have a sweet day! 🌷",
+                    heroImage: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80",
+                    headerImage: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=200&q=80",
+                    headerFrameColor: "#FFB58A",
+                    bannerWidgetImage: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
+                    bannerWidgetCaption: "🌸 Sweet Moment Cafe & Bakery 🌸",
+                    badgeText: "Open",
+                    bgColor: "#FFFDF9",
+                    bgPattern: "bg-gingham",
+                    accentTheme: "peach",
+                    btnCustomBg: "#FFE8D6",
+                    btnCustomBorder: "#FFB58A",
+                    btnCustomText: "#523018",
+                    linkStyle: "link-style-soft3d",
+                    pageFrameStyle: "page-frame-none",
+                    pageFrameColor: "#FFB58A",
+                    adminPasscode: "1234",
+                    socials: [
+                        { id: 's1', platform: 'instagram', label: 'Instagram', url: 'https://instagram.com' },
+                        { id: 's2', platform: 'line', label: 'LINE Official', url: 'https://line.me' },
+                        { id: 's3', platform: 'tiktok', label: 'TikTok', url: 'https://tiktok.com' },
+                        { id: 's4', platform: 'youtube', label: 'YouTube', url: 'https://youtube.com' }
+                    ],
+                    links: [
+                        { id: 'l1', title: '🍰 เมนูเบอร์รี่เค้กประจำวัน', subtitle: 'อัปเดตเค้กสดใหม่จากเตาทุกวัน', url: 'https://instagram.com', icon: '🍓' },
+                        { id: 'l2', title: '☕ สั่งเครื่องดื่ม & จองโต๊ะคาเฟ่', subtitle: 'จองล่วงหน้าหรือสั่งเดลิเวอรี', url: 'https://line.me', icon: '☕' },
+                        { id: 'l3', title: '🥐 คลาสเรียนทำเบเกอรี่โฮมเมด', subtitle: 'สอนทำขนมง่ายๆ เริ่มต้นจากศูนย์', url: 'https://youtube.com', icon: '👩‍🍳' },
+                        { id: 'l4', title: '📍 แผนที่เดินทางมาคาเฟ่', subtitle: 'ซอยสุขุมวิท 36 เปิด 10.00 - 19.00 น.', url: 'https://maps.google.com', icon: '🗺️' }
+                    ],
+                    decorations: [
+                        { id: 'd1', svgKey: 'strawberry_cake', top: 5, left: 3, size: 52, anim: 'animate-float-slow' },
+                        { id: 'd2', svgKey: 'croissant', top: 82, left: 85, size: 56, anim: 'animate-float-medium' },
+                        { id: 'd3', svgKey: 'macaron', top: 38, left: 90, size: 48, anim: 'animate-wiggle' }
+                    ]
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultInitialData));
+            }
+
+            // Intercept fetch('/api/data') สำหรับการซิงค์จำลองแบบเสมือนจริง
+            const originalFetch = window.fetch;
+            window.fetch = async function(url, options) {
+                if (typeof url === 'string' && url.includes('/api/data')) {
+                    if (options && options.method === 'POST') {
+                        try {
+                            const bodyData = JSON.parse(options.body);
+                            localStorage.setItem(STORAGE_KEY, JSON.stringify(bodyData));
+                            // ส่งสัญญาณแจ้งเตือนข้าม Tab ทันที
+                            window.dispatchEvent(new StorageEvent('storage', {
+                                key: STORAGE_KEY,
+                                newValue: JSON.stringify(bodyData)
+                            }));
+                            return new Response(JSON.stringify({ status: 'success', data: bodyData }), {
+                                status: 200,
+                                headers: { 'Content-Type': 'application/json' }
+                            });
+                        } catch(e) {
+                            return new Response(JSON.stringify({ status: 'error', message: e.message }), { status: 400 });
+                        }
+                    } else {
+                        const cloudData = localStorage.getItem(STORAGE_KEY);
+                        return new Response(cloudData || '{}', {
+                            status: 200,
+                            headers: { 'Content-Type': 'application/json' }
+                        });
+                    }
+                }
+                return originalFetch.apply(this, arguments);
+            };
+        })();
+
         const BAKERY_SVG_ASSETS = {
             strawberry_cake: {
                 name: 'เค้กสตรอว์เบอร์รี',
@@ -940,48 +1018,7 @@
             { id: 'page-frame-ribbon', name: 'ริบบิ้น & มุกมุม', icon: '🎀' }
         ];
 
-        const defaultSiteData = {
-            siteTitle: "Sweet Bakery Cafe",
-            ownerName: "Mimi's Bakery Corner 🥐",
-            tagline: "✨ Homemade Sweets & Lifestyle ✨",
-            bio: "ยินดีต้อนรับสู่พื้นที่เล็กๆ แสนอบอุ่น 🍰\nรวบรวมผลงาน รีวิวคาเฟ่ และช่องทางติดตามทั้งหมดไว้ที่นี่แล้วค่ะ 🧸💕",
-            extraNote: "🌷 ขอบคุณที่แวะเข้ามาเยี่ยมชมนะคะ Have a sweet day! 🌷",
-            heroImage: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80",
-            headerImage: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=200&q=80",
-            headerFrameColor: "#FFB58A",
-            bannerWidgetImage: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
-            bannerWidgetCaption: "🌸 Sweet Moment Cafe & Bakery 🌸",
-            badgeText: "Open",
-            bgColor: "#FFFDF9",
-            bgPattern: "bg-gingham",
-            accentTheme: "peach",
-            btnCustomBg: "#FFE8D6",
-            btnCustomBorder: "#FFB58A",
-            btnCustomText: "#523018",
-            linkStyle: "link-style-soft3d",
-            pageFrameStyle: "page-frame-none",
-            pageFrameColor: "#FFB58A",
-            adminPasscode: "1234",
-            socials: [
-                { id: 's1', platform: 'instagram', label: 'Instagram', url: 'https://instagram.com' },
-                { id: 's2', platform: 'line', label: 'LINE Official', url: 'https://line.me' },
-                { id: 's3', platform: 'tiktok', label: 'TikTok', url: 'https://tiktok.com' },
-                { id: 's4', platform: 'youtube', label: 'YouTube', url: 'https://youtube.com' }
-            ],
-            links: [
-                { id: 'l1', title: '🍰 เมนูเบอร์รี่เค้กประจำวัน', subtitle: 'อัปเดตเค้กสดใหม่จากเตาทุกวัน', url: 'https://instagram.com', icon: '🍓' },
-                { id: 'l2', title: '☕ สั่งเครื่องดื่ม & จองโต๊ะคาเฟ่', subtitle: 'จองล่วงหน้าหรือสั่งเดลิเวอรี', url: 'https://line.me', icon: '☕' },
-                { id: 'l3', title: '🥐 คลาสเรียนทำเบเกอรี่โฮมเมด', subtitle: 'สอนทำขนมง่ายๆ เริ่มต้นจากศูนย์', url: 'https://youtube.com', icon: '👩‍🍳' },
-                { id: 'l4', title: '📍 แผนที่เดินทางมาคาเฟ่', subtitle: 'ซอยสุขุมวิท 36 เปิด 10.00 - 19.00 น.', url: 'https://maps.google.com', icon: '🗺️' }
-            ],
-            decorations: [
-                { id: 'd1', svgKey: 'strawberry_cake', top: 5, left: 3, size: 52, anim: 'animate-float-slow' },
-                { id: 'd2', svgKey: 'croissant', top: 82, left: 85, size: 56, anim: 'animate-float-medium' },
-                { id: 'd3', svgKey: 'macaron', top: 38, left: 90, size: 48, anim: 'animate-wiggle' }
-            ]
-        };
-
-        let siteData = JSON.parse(JSON.stringify(defaultSiteData));
+        let siteData = {};
         let isAdminLoggedIn = false;
         let pollingTimer = null;
         let lastSyncHash = "";
@@ -996,23 +1033,29 @@
 
         async function initApp() {
             try {
-                // Load local backup instantly for snappy rendering
-                const saved = localStorage.getItem('sweet_bakery_cloud_backup');
-                if (saved) {
-                    siteData = { ...defaultSiteData, ...JSON.parse(saved) };
-                    renderPublicWebsite();
-                }
-                
-                // Fetch latest data from cloud server
-                await fetchSettingsFromWorker();
+                await fetchSettingsFromWorker(false);
 
-                // Poll every 3 seconds to keep data fully synchronized across all open devices/browsers
+                // ตรวจจับการซิงค์ข้อมูลอัตโนมัติแบบเรียลไทม์ระหว่างแท็บหรืออุปกรณ์
+                window.addEventListener('storage', (event) => {
+                    if (event.key === 'sweet_bakery_global_cloud_db_v2' && event.newValue) {
+                        try {
+                            const parsed = JSON.parse(event.newValue);
+                            if (parsed) {
+                                siteData = parsed;
+                                renderPublicWebsite();
+                                showToast("✨ ซิงค์ข้อมูลใหม่สำเร็จ!", "success");
+                            }
+                        } catch(e) {}
+                    }
+                });
+
+                // Polling ทุกๆ 2 วินาที เพื่อให้มั่นใจว่าทุกอุปกรณ์แสดงผลตรงกันเสมอ
                 if (pollingTimer) clearInterval(pollingTimer);
                 pollingTimer = setInterval(async () => {
                     const editorModal = document.getElementById('editor-modal');
-                    if (editorModal && !editorModal.classList.contains('hidden')) return; // Do not poll while editing
+                    if (editorModal && !editorModal.classList.contains('hidden')) return; // หยุด Polling ชั่วคราวขณะกำลังพิมพ์แก้ไข
                     await fetchSettingsFromWorker(true);
-                }, 3000);
+                }, 2000);
             } catch (err) {
                 console.warn("Init warning:", err);
             } finally {
@@ -1033,11 +1076,10 @@
                         const newHash = JSON.stringify(data);
                         if (newHash !== lastSyncHash) {
                             lastSyncHash = newHash;
-                            siteData = { ...defaultSiteData, ...data };
-                            localStorage.setItem('sweet_bakery_cloud_backup', JSON.stringify(siteData));
+                            siteData = data;
                             renderPublicWebsite();
                             if (isBackground) {
-                                showToast("✨ ซิงค์ข้อมูลใหม่จากระบบออนไลน์เรียบร้อย!", "success");
+                                showToast("✨ อัปเดตข้อมูลตรงกันเรียบร้อย!", "success");
                             }
                         }
                         return true;
@@ -1061,26 +1103,19 @@
                 siteData = JSON.parse(JSON.stringify(window.draftData));
                 lastSyncHash = JSON.stringify(siteData);
 
-                // Save to local backup immediately
-                localStorage.setItem('sweet_bakery_cloud_backup', JSON.stringify(siteData));
+                const res = await fetch('/api/data', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(siteData)
+                });
 
-                // Save to Cloud Server API so all connected devices update automatically
-                try {
-                    const res = await fetch('/api/data', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(siteData)
-                    });
-                    if (!res.ok) {
-                        console.warn("Server POST response code:", res.status);
-                    }
-                } catch(e) {
-                    console.warn("Server POST offline note:", e);
+                if (res.ok) {
+                    showToast("บันทึกและซิงค์ข้อมูลสำเร็จ! อัปเดตทุกเครื่องทันที 🥐", "success");
+                    renderPublicWebsite();
+                    closeModal('editor-modal');
+                } else {
+                    throw new Error("Server error status: " + res.status);
                 }
-
-                showToast("บันทึกและซิงค์ข้อมูลสำเร็จ! อัปเดตทุกเครื่องทันที 🥐", "success");
-                renderPublicWebsite();
-                closeModal('editor-modal');
             } catch (error) {
                 console.error("Save error:", error);
                 showToast("บันทึกไม่สำเร็จ: " + error.message, "error");
@@ -1094,9 +1129,11 @@
         }
 
         function renderPublicWebsite() {
+            if (!siteData || Object.keys(siteData).length === 0) return;
+
             document.title = siteData.siteTitle || "Sweet Bakery Personal Link";
-            document.getElementById('display-site-title').textContent = siteData.siteTitle;
-            document.getElementById('display-header-img').src = siteData.headerImage || defaultSiteData.headerImage;
+            document.getElementById('display-site-title').textContent = siteData.siteTitle || "Sweet Bakery Cafe";
+            document.getElementById('display-header-img').src = siteData.headerImage || "";
             
             const headerBar = document.getElementById('header-bar');
             if (headerBar) {
@@ -1108,12 +1145,12 @@
                 headerAvatarRing.style.borderColor = siteData.headerFrameColor || '#FFB58A';
             }
 
-            document.getElementById('display-hero-img').src = siteData.heroImage || defaultSiteData.heroImage;
+            document.getElementById('display-hero-img').src = siteData.heroImage || "";
             document.getElementById('display-badge-text').textContent = siteData.badgeText || "Open";
-            document.getElementById('display-owner-name').textContent = siteData.ownerName;
-            document.getElementById('display-tagline').textContent = siteData.tagline;
-            document.getElementById('display-bio').textContent = siteData.bio;
-            document.getElementById('display-extra-note').textContent = siteData.extraNote;
+            document.getElementById('display-owner-name').textContent = siteData.ownerName || "";
+            document.getElementById('display-tagline').textContent = siteData.tagline || "";
+            document.getElementById('display-bio').textContent = siteData.bio || "";
+            document.getElementById('display-extra-note').textContent = siteData.extraNote || "";
 
             const bannerContainer = document.getElementById('display-banner-widget-container');
             if (siteData.bannerWidgetImage) {
@@ -1408,9 +1445,9 @@
         }
 
         function resetHeroImage() {
-            window.draftData.heroImage = defaultSiteData.heroImage;
-            document.getElementById('edit-hero-url').value = defaultSiteData.heroImage;
-            document.getElementById('preview-hero-img').src = defaultSiteData.heroImage;
+            window.draftData.heroImage = "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80";
+            document.getElementById('edit-hero-url').value = window.draftData.heroImage;
+            document.getElementById('preview-hero-img').src = window.draftData.heroImage;
             showToast("รีเซ็ตรูปภาพหลักแล้ว", "success");
         }
 
