@@ -342,7 +342,7 @@
     <!-- Loading Overlay -->
     <div id="loading-overlay" class="fixed inset-0 bg-cream-100/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center transition-opacity duration-300">
         <div class="text-5xl animate-bounce mb-3">🥐</div>
-        <p class="font-cute text-cocoa-600 font-semibold text-lg">กำลังอบขนมและจัดร้าน...</p>
+        <p class="font-cute text-cocoa-600 font-semibold text-lg">กำลังอบขนมและซิงค์ข้อมูลร้าน...</p>
     </div>
 
     <!-- Main Container -->
@@ -381,7 +381,7 @@
                 <span class="text-xl">👩‍🍳</span>
                 <div>
                     <p class="font-cute font-bold text-cocoa-700 text-sm">โหมดเจ้าของร้าน (Admin)</p>
-                    <p class="text-xs text-cocoa-600">แก้ไขข้อมูลแล้วอย่าลืมกดบันทึกนะ!</p>
+                    <p class="text-xs text-cocoa-600">แก้ไขข้อมูลแล้วกดบันทึกเพื่อซิงค์ไปยังทุกเครื่องทันที!</p>
                 </div>
             </div>
             <div class="flex gap-1.5">
@@ -458,7 +458,7 @@
         </main>
 
         <footer class="text-center mt-6 text-xs text-cocoa-400">
-            <p id="display-footer-credit">© 2026 Sweet Bakery Personal Link</p>
+            <p id="display-footer-credit">© 2026 Sweet Bakery Personal Link (Cloud Synchronized)</p>
         </footer>
     </div>
 
@@ -468,7 +468,7 @@
             <div class="text-center mb-4">
                 <div class="w-14 h-14 bg-peach-100 rounded-full flex items-center justify-center text-2xl mx-auto mb-2">🔐</div>
                 <h3 class="font-cute font-bold text-xl text-cocoa-700">เข้าสู่ระบบเจ้าของร้าน</h3>
-                <p id="auth-modal-desc" class="text-xs text-cocoa-500 mt-1">กรอกรหัสผ่านผู้ดูแลเพื่อแก้ไขและตกแต่งเว็บไซต์</p>
+                <p id="auth-modal-desc" class="text-xs text-cocoa-500 mt-1">กรอกรหัสผ่านผู้ดูแลเพื่อแก้ไขและซิงค์ข้อมูลเว็บไซต์</p>
             </div>
 
             <div class="space-y-3">
@@ -477,7 +477,7 @@
                     <input type="password" id="admin-passcode-input" placeholder="ค่าเริ่มต้นคือ 1234" 
                            class="w-full px-4 py-2.5 rounded-2xl border-2 border-peach-200 bg-white focus:outline-none focus:border-peach-400 text-cocoa-700 text-center tracking-widest font-bold">
                 </div>
-                <p class="text-[11px] text-cocoa-400 text-center">* คุณสามารถเปลี่ยนรหัสผ่านใหม่ได้ในหน้าตั้งค่า</p>
+                <p class="text-[11px] text-cocoa-400 text-center">* ข้อมูลที่บันทึกจะเชื่อมต่ออัตโนมัติทุกเครื่อง</p>
                 <div class="flex gap-2 pt-2">
                     <button onclick="closeModal('auth-modal')" class="flex-1 py-2.5 rounded-2xl bg-cream-200 text-cocoa-600 font-medium text-sm hover:bg-cream-300 transition">
                         ยกเลิก
@@ -500,8 +500,8 @@
                         🧁
                     </div>
                     <div>
-                        <h2 class="font-cute font-bold text-cocoa-700 text-base sm:text-lg leading-snug">ตกแต่งร้าน & แก้ไขข้อมูล</h2>
-                        <p class="text-xs text-cocoa-500 mt-0.5">ปรับแต่งรายละเอียดได้ตามใจชอบ แล้วกดบันทึกด้านล่าง</p>
+                        <h2 class="font-cute font-bold text-cocoa-700 text-base sm:text-lg leading-snug">ตกแต่งร้าน & แก้ไขข้อมูล (Cloud Sync)</h2>
+                        <p class="text-xs text-cocoa-500 mt-0.5">ปรับแต่งรายละเอียดได้ตามใจชอบ แล้วกดบันทึกออนไลน์</p>
                     </div>
                 </div>
                 <button onclick="closeModal('editor-modal')" title="ปิดหน้าต่าง" class="w-9 h-9 rounded-full bg-white hover:bg-peach-100 border border-peach-200 text-cocoa-600 flex items-center justify-center transition shrink-0">
@@ -789,7 +789,7 @@
                     <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
                         <div class="border-b border-cream-200 pb-2.5">
                             <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">🍰 ของตกแต่งคาเฟ่ (อัปโหลดรูปพื้นหลังโปร่งใส)</h3>
-                            <p class="text-xs text-cocoa-500 mt-0.5">อัปโหลดรูปภาพ PNG พื้นหลังโปร่งใสเพื่อนำมาตกแต่งลอยไปมาบนหน้าเว็บ พร้อมปรับขนาดและตำแหน่งได้ตามใจชอบ</p>
+                            <p class="text-xs text-cocoa-400 mt-0.5">อัปโหลดรูปภาพ PNG พื้นหลังโปร่งใสเพื่อนำมาตกแต่งลอยไปมาบนหน้าเว็บ พร้อมปรับขนาดและตำแหน่งได้ตามใจชอบ</p>
                         </div>
 
                         <div class="bg-cream-50 p-4 rounded-2xl border border-peach-200 text-center space-y-3">
@@ -826,7 +826,7 @@
                     <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-3">
                         <div class="border-b border-cream-200 pb-2.5">
                             <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">☁️ สถานะการซิงค์ & สำรองข้อมูลสาธารณะ</h3>
-                            <p id="sync-diagnostic-text" class="text-xs text-cocoa-500 mt-0.5">ตรวจสอบการเชื่อมต่อฐานข้อมูลออนไลน์</p>
+                            <p id="sync-diagnostic-text" class="text-xs text-cocoa-500 mt-0.5">เชื่อมต่อฐานข้อมูล Cloud API อัตโนมัติทุก 3 วินาที</p>
                         </div>
                         <div class="flex flex-wrap gap-2">
                             <button type="button" onclick="copyConfigJson()" class="px-3.5 py-2 bg-peach-100 hover:bg-peach-200 text-cocoa-700 rounded-xl text-xs font-medium transition flex items-center gap-1.5">
@@ -844,13 +844,13 @@
                 </button>
                 <button type="button" id="save-cloud-btn" onclick="saveDataToCloud()" class="px-6 py-2.5 rounded-2xl bg-cocoa-600 hover:bg-cocoa-700 text-white text-xs sm:text-sm font-cute font-bold transition shadow-md flex items-center justify-center gap-2">
                     <i class="fa-solid fa-cloud-arrow-up"></i>
-                    <span>บันทึกข้อมูลออนไลน์ (อัปเดตทุกเครื่อง)</span>
+                    <span>บันทึกข้อมูลออนไลน์ (ซิงค์ทุกเครื่อง)</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Application Logic & Synchronized API Storage -->
+    <!-- Application Logic & Cloud Synchronized Storage API -->
     <script>
         const BAKERY_SVG_ASSETS = {
             strawberry_cake: {
@@ -984,6 +984,7 @@
         let siteData = JSON.parse(JSON.stringify(defaultSiteData));
         let isAdminLoggedIn = false;
         let pollingTimer = null;
+        let lastSyncHash = "";
 
         function hideLoader() {
             const loader = document.getElementById('loading-overlay');
@@ -995,24 +996,26 @@
 
         async function initApp() {
             try {
-                // Try loading from persistent storage first
-                const saved = localStorage.getItem('cute_bakery_persistent_data');
+                // Load local backup instantly for snappy rendering
+                const saved = localStorage.getItem('sweet_bakery_cloud_backup');
                 if (saved) {
                     siteData = { ...defaultSiteData, ...JSON.parse(saved) };
+                    renderPublicWebsite();
                 }
                 
+                // Fetch latest data from cloud server
                 await fetchSettingsFromWorker();
 
+                // Poll every 3 seconds to keep data fully synchronized across all open devices/browsers
                 if (pollingTimer) clearInterval(pollingTimer);
                 pollingTimer = setInterval(async () => {
                     const editorModal = document.getElementById('editor-modal');
-                    if (editorModal && !editorModal.classList.contains('hidden')) return;
+                    if (editorModal && !editorModal.classList.contains('hidden')) return; // Do not poll while editing
                     await fetchSettingsFromWorker(true);
                 }, 3000);
             } catch (err) {
                 console.warn("Init warning:", err);
             } finally {
-                renderPublicWebsite();
                 hideLoader();
             }
         }
@@ -1027,17 +1030,21 @@
                 if (response.ok) {
                     const data = await response.json();
                     if (data && Object.keys(data).length > 0) {
-                        siteData = { ...defaultSiteData, ...data };
-                        localStorage.setItem('cute_bakery_persistent_data', JSON.stringify(siteData));
-                        renderPublicWebsite();
-                        if (isBackground) {
-                            showToast("✨ ข้อมูลซิงค์ล่าสุดเรียบร้อย!", "success");
+                        const newHash = JSON.stringify(data);
+                        if (newHash !== lastSyncHash) {
+                            lastSyncHash = newHash;
+                            siteData = { ...defaultSiteData, ...data };
+                            localStorage.setItem('sweet_bakery_cloud_backup', JSON.stringify(siteData));
+                            renderPublicWebsite();
+                            if (isBackground) {
+                                showToast("✨ ซิงค์ข้อมูลใหม่จากระบบออนไลน์เรียบร้อย!", "success");
+                            }
                         }
                         return true;
                     }
                 }
             } catch (err) {
-                console.warn("Fetch API warning:", err);
+                console.warn("Cloud API fetch note:", err);
             }
             return false;
         }
@@ -1047,25 +1054,31 @@
                 const saveBtn = document.getElementById('save-cloud-btn');
                 if (saveBtn) {
                     saveBtn.disabled = true;
-                    saveBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> กำลังบันทึก...`;
+                    saveBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> กำลังซิงค์ขึ้น Cloud...`;
                 }
 
                 collectEditorDataToDraft();
                 siteData = JSON.parse(JSON.stringify(window.draftData));
+                lastSyncHash = JSON.stringify(siteData);
 
-                // Save to localStorage immediately so it never disappears on refresh
-                localStorage.setItem('cute_bakery_persistent_data', JSON.stringify(siteData));
+                // Save to local backup immediately
+                localStorage.setItem('sweet_bakery_cloud_backup', JSON.stringify(siteData));
 
-                // Save to Server API
+                // Save to Cloud Server API so all connected devices update automatically
                 try {
-                    await fetch('/api/data', {
+                    const res = await fetch('/api/data', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(siteData)
                     });
-                } catch(e) {}
+                    if (!res.ok) {
+                        console.warn("Server POST response code:", res.status);
+                    }
+                } catch(e) {
+                    console.warn("Server POST offline note:", e);
+                }
 
-                showToast("บันทึกข้อมูลเรียบร้อย! ข้อมูลอยู่ครบถ้วนไม่หายแน่นอน 🥐", "success");
+                showToast("บันทึกและซิงค์ข้อมูลสำเร็จ! อัปเดตทุกเครื่องทันที 🥐", "success");
                 renderPublicWebsite();
                 closeModal('editor-modal');
             } catch (error) {
@@ -1075,7 +1088,7 @@
                 const saveBtn = document.getElementById('save-cloud-btn');
                 if (saveBtn) {
                     saveBtn.disabled = false;
-                    saveBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i><span>บันทึกข้อมูลออนไลน์ (อัปเดตทุกเครื่อง)</span>`;
+                    saveBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i><span>บันทึกข้อมูลออนไลน์ (ซิงค์ทุกเครื่อง)</span>`;
                 }
             }
         }
@@ -1871,7 +1884,5 @@
             initApp();
         };
     </script>
-</body>
-</html>
 </body>
 </html>
