@@ -338,7 +338,7 @@
     <!-- Loading Overlay -->
     <div id="loading-overlay" class="fixed inset-0 bg-cream-100/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center transition-opacity duration-300">
         <div class="text-5xl animate-bounce mb-3">🥐</div>
-        <p class="font-cute text-cocoa-600 font-semibold text-lg">กำลังเชื่อมต่อระบบซิงค์ข้อมูล Cloud...</p>
+        <p class="font-cute text-cocoa-600 font-semibold text-lg">กำลังซิงค์ข้อมูลจาก Cloud...</p>
     </div>
 
     <!-- Main Container -->
@@ -473,7 +473,7 @@
                     <input type="password" id="admin-passcode-input" placeholder="ค่าเริ่มต้นคือ 1234" 
                            class="w-full px-4 py-2.5 rounded-2xl border-2 border-peach-200 bg-white focus:outline-none focus:border-peach-400 text-cocoa-700 text-center tracking-widest font-bold">
                 </div>
-                <p class="text-[11px] text-cocoa-400 text-center">* ข้อมูลที่บันทึกจะเชื่อมต่ออัตโนมัติทุกเครื่อง</p>
+                <p class="text-[11px] text-cocoa-400 text-center">* ข้อมูลที่บันทึกจะเชื่อมต่ออัตโนมัติทุกเครื่องผ่าน Cloud</p>
                 <div class="flex gap-2 pt-2">
                     <button onclick="closeModal('auth-modal')" class="flex-1 py-2.5 rounded-2xl bg-cream-200 text-cocoa-600 font-medium text-sm hover:bg-cream-300 transition">
                         ยกเลิก
@@ -519,7 +519,7 @@
                     🎨 พื้นหลัง & ของตกแต่ง
                 </button>
                 <button onclick="switchEditorTab('security')" id="tab-btn-security" class="editor-tab-btn px-4 py-2.5 rounded-t-2xl text-xs font-cute font-bold text-cocoa-500 hover:bg-cream-50/50 whitespace-nowrap shrink-0 transition">
-                    🔐 รหัสผ่าน
+                    🔐 รหัสผ่าน & Cloud
                 </button>
             </div>
 
@@ -806,12 +806,22 @@
                     </div>
                 </div>
 
-                <!-- TAB 5: ตั้งค่ารหัสผ่าน Admin -->
+                <!-- TAB 5: ตั้งค่ารหัสผ่าน & Cloud API -->
                 <div id="tab-security" class="editor-tab-content hidden space-y-4">
                     <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
                         <div class="border-b border-cream-200 pb-2.5">
+                            <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">☁️ สถานะการเชื่อมต่อ Cloud Database</h3>
+                            <p class="text-xs text-green-600 font-medium mt-0.5">✅ เชื่อมต่อกับ https://api.npoint.io/58175ca2786259a1be59 เรียบร้อยแล้ว</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-cocoa-600 mb-1">Cloud Endpoint URL</label>
+                            <input type="text" id="edit-npoint-url" value="https://api.npoint.io/58175ca2786259a1be59" class="w-full px-4 py-2.5 rounded-xl border border-peach-200 text-xs font-mono bg-cream-50 text-cocoa-600 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-4">
+                        <div class="border-b border-cream-200 pb-2.5">
                             <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">🔐 เปลี่ยนรหัสผ่านเจ้าของร้าน</h3>
-                            <p class="text-xs text-cocoa-500 mt-0.5">รหัสผ่านนี้ใช้ป้องกันไม่ให้ผู้เข้าชมทั่วไปแก้ไขข้อมูลบนหน้าเว็บไซต์สาธารณะของคุณ</p>
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-cocoa-600 mb-1.5">รหัสผ่านใหม่</label>
@@ -821,12 +831,11 @@
 
                     <div class="bg-white p-5 rounded-3xl border border-peach-200 shadow-sm space-y-3">
                         <div class="border-b border-cream-200 pb-2.5">
-                            <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">☁️ สถานะการซิงค์ & สำรองข้อมูลสาธารณะ</h3>
-                            <p id="sync-diagnostic-text" class="text-xs text-cocoa-500 mt-0.5">เชื่อมต่อฐานข้อมูล Cloud API อัตโนมัติทุก 3 วินาที</p>
+                            <h3 class="font-cute font-bold text-cocoa-700 text-sm sm:text-base">📋 สำรองข้อมูล JSON</h3>
                         </div>
                         <div class="flex flex-wrap gap-2">
                             <button type="button" onclick="copyConfigJson()" class="px-3.5 py-2 bg-peach-100 hover:bg-peach-200 text-cocoa-700 rounded-xl text-xs font-medium transition flex items-center gap-1.5">
-                                <i class="fa-solid fa-copy"></i> คัดลอกโค้ดการตั้งค่าทั้งหมด (Backup)
+                                <i class="fa-solid fa-copy"></i> คัดลอกโค้ดการตั้งค่าปัจจุบัน (JSON)
                             </button>
                         </div>
                     </div>
@@ -846,89 +855,10 @@
         </div>
     </div>
 
-    <!-- Application Logic & Cloud Synchronized Mock Server API -->
+    <!-- Application Logic & Cloud Sync -->
     <script>
-        // --- BUILT-IN MOCK CLOUD SERVER INTERCEPTOR ---
-        // จำลอง Cloud Server API เพื่อให้การซิงค์ข้อมูลทำงานได้จริงทันทีโดยไม่ต้องตั้งค่า Server ภายนอก
-        (function() {
-            const STORAGE_KEY = 'sweet_bakery_global_cloud_db_v2';
-            
-            // สร้างข้อมูลเริ่มต้นใน localStorage หากยังไม่มี
-            if (!localStorage.getItem(STORAGE_KEY)) {
-                const defaultInitialData = {
-                    siteTitle: "Sweet Bakery Cafe",
-                    ownerName: "Mimi's Bakery Corner 🥐",
-                    tagline: "✨ Homemade Sweets & Lifestyle ✨",
-                    bio: "ยินดีต้อนรับสู่พื้นที่เล็กๆ แสนอบอุ่น 🍰\nรวบรวมผลงาน รีวิวคาเฟ่ และช่องทางติดตามทั้งหมดไว้ที่นี่แล้วค่ะ 🧸💕",
-                    extraNote: "🌷 ขอบคุณที่แวะเข้ามาเยี่ยมชมนะคะ Have a sweet day! 🌷",
-                    heroImage: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80",
-                    headerImage: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=200&q=80",
-                    headerFrameColor: "#FFB58A",
-                    bannerWidgetImage: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
-                    bannerWidgetCaption: "🌸 Sweet Moment Cafe & Bakery 🌸",
-                    badgeText: "Open",
-                    bgColor: "#FFFDF9",
-                    bgPattern: "bg-gingham",
-                    accentTheme: "peach",
-                    btnCustomBg: "#FFE8D6",
-                    btnCustomBorder: "#FFB58A",
-                    btnCustomText: "#523018",
-                    linkStyle: "link-style-soft3d",
-                    pageFrameStyle: "page-frame-none",
-                    pageFrameColor: "#FFB58A",
-                    adminPasscode: "1234",
-                    socials: [
-                        { id: 's1', platform: 'instagram', label: 'Instagram', url: 'https://instagram.com' },
-                        { id: 's2', platform: 'line', label: 'LINE Official', url: 'https://line.me' },
-                        { id: 's3', platform: 'tiktok', label: 'TikTok', url: 'https://tiktok.com' },
-                        { id: 's4', platform: 'youtube', label: 'YouTube', url: 'https://youtube.com' }
-                    ],
-                    links: [
-                        { id: 'l1', title: '🍰 เมนูเบอร์รี่เค้กประจำวัน', subtitle: 'อัปเดตเค้กสดใหม่จากเตาทุกวัน', url: 'https://instagram.com', icon: '🍓' },
-                        { id: 'l2', title: '☕ สั่งเครื่องดื่ม & จองโต๊ะคาเฟ่', subtitle: 'จองล่วงหน้าหรือสั่งเดลิเวอรี', url: 'https://line.me', icon: '☕' },
-                        { id: 'l3', title: '🥐 คลาสเรียนทำเบเกอรี่โฮมเมด', subtitle: 'สอนทำขนมง่ายๆ เริ่มต้นจากศูนย์', url: 'https://youtube.com', icon: '👩‍🍳' },
-                        { id: 'l4', title: '📍 แผนที่เดินทางมาคาเฟ่', subtitle: 'ซอยสุขุมวิท 36 เปิด 10.00 - 19.00 น.', url: 'https://maps.google.com', icon: '🗺️' }
-                    ],
-                    decorations: [
-                        { id: 'd1', svgKey: 'strawberry_cake', top: 5, left: 3, size: 52, anim: 'animate-float-slow' },
-                        { id: 'd2', svgKey: 'croissant', top: 82, left: 85, size: 56, anim: 'animate-float-medium' },
-                        { id: 'd3', svgKey: 'macaron', top: 38, left: 90, size: 48, anim: 'animate-wiggle' }
-                    ]
-                };
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultInitialData));
-            }
-
-            // Intercept fetch('/api/data') สำหรับการซิงค์จำลองแบบเสมือนจริง
-            const originalFetch = window.fetch;
-            window.fetch = async function(url, options) {
-                if (typeof url === 'string' && url.includes('/api/data')) {
-                    if (options && options.method === 'POST') {
-                        try {
-                            const bodyData = JSON.parse(options.body);
-                            localStorage.setItem(STORAGE_KEY, JSON.stringify(bodyData));
-                            // ส่งสัญญาณแจ้งเตือนข้าม Tab ทันที
-                            window.dispatchEvent(new StorageEvent('storage', {
-                                key: STORAGE_KEY,
-                                newValue: JSON.stringify(bodyData)
-                            }));
-                            return new Response(JSON.stringify({ status: 'success', data: bodyData }), {
-                                status: 200,
-                                headers: { 'Content-Type': 'application/json' }
-                            });
-                        } catch(e) {
-                            return new Response(JSON.stringify({ status: 'error', message: e.message }), { status: 400 });
-                        }
-                    } else {
-                        const cloudData = localStorage.getItem(STORAGE_KEY);
-                        return new Response(cloudData || '{}', {
-                            status: 200,
-                            headers: { 'Content-Type': 'application/json' }
-                        });
-                    }
-                }
-                return originalFetch.apply(this, arguments);
-            };
-        })();
+        // ลิงก์ Cloud Database หลักของคุณ
+        let NPOINT_URL = "https://api.npoint.io/58175ca2786259a1be59";
 
         const BAKERY_SVG_ASSETS = {
             strawberry_cake: {
@@ -1018,6 +948,47 @@
             { id: 'page-frame-ribbon', name: 'ริบบิ้น & มุกมุม', icon: '🎀' }
         ];
 
+        const defaultInitialData = {
+            siteTitle: "Sweet Bakery Cafe",
+            ownerName: "Mimi's Bakery Corner 🥐",
+            tagline: "✨ Homemade Sweets & Lifestyle ✨",
+            bio: "ยินดีต้อนรับสู่พื้นที่เล็กๆ แสนอบอุ่น 🍰\nรวบรวมผลงาน รีวิวคาเฟ่ และช่องทางติดตามทั้งหมดไว้ที่นี่แล้วค่ะ 🧸💕",
+            extraNote: "🌷 ขอบคุณที่แวะเข้ามาเยี่ยมชมนะคะ Have a sweet day! 🌷",
+            heroImage: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80",
+            headerImage: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=200&q=80",
+            headerFrameColor: "#FFB58A",
+            bannerWidgetImage: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80",
+            bannerWidgetCaption: "🌸 Sweet Moment Cafe & Bakery 🌸",
+            badgeText: "Open",
+            bgColor: "#FFFDF9",
+            bgPattern: "bg-gingham",
+            accentTheme: "peach",
+            btnCustomBg: "#FFE8D6",
+            btnCustomBorder: "#FFB58A",
+            btnCustomText: "#523018",
+            linkStyle: "link-style-soft3d",
+            pageFrameStyle: "page-frame-none",
+            pageFrameColor: "#FFB58A",
+            adminPasscode: "1234",
+            socials: [
+                { id: 's1', platform: 'instagram', label: 'Instagram', url: 'https://instagram.com' },
+                { id: 's2', platform: 'line', label: 'LINE Official', url: 'https://line.me' },
+                { id: 's3', platform: 'tiktok', label: 'TikTok', url: 'https://tiktok.com' },
+                { id: 's4', platform: 'youtube', label: 'YouTube', url: 'https://youtube.com' }
+            ],
+            links: [
+                { id: 'l1', title: '🍰 เมนูเบอร์รี่เค้กประจำวัน', subtitle: 'อัปเดตเค้กสดใหม่จากเตาทุกวัน', url: 'https://instagram.com', icon: '🍓' },
+                { id: 'l2', title: '☕ สั่งเครื่องดื่ม & จองโต๊ะคาเฟ่', subtitle: 'จองล่วงหน้าหรือสั่งเดลิเวอรี', url: 'https://line.me', icon: '☕' },
+                { id: 'l3', title: '🥐 คลาสเรียนทำเบเกอรี่โฮมเมด', subtitle: 'สอนทำขนมง่ายๆ เริ่มต้นจากศูนย์', url: 'https://youtube.com', icon: '👩‍🍳' },
+                { id: 'l4', title: '📍 แผนที่เดินทางมาคาเฟ่', subtitle: 'ซอยสุขุมวิท 36 เปิด 10.00 - 19.00 น.', url: 'https://maps.google.com', icon: '🗺️' }
+            ],
+            decorations: [
+                { id: 'd1', svgKey: 'strawberry_cake', top: 5, left: 3, size: 52, anim: 'animate-float-slow' },
+                { id: 'd2', svgKey: 'croissant', top: 82, left: 85, size: 56, anim: 'animate-float-medium' },
+                { id: 'd3', svgKey: 'macaron', top: 38, left: 90, size: 48, anim: 'animate-wiggle' }
+            ]
+        };
+
         let siteData = {};
         let isAdminLoggedIn = false;
         let pollingTimer = null;
@@ -1032,44 +1003,20 @@
         }
 
         async function initApp() {
-            try {
-                await fetchSettingsFromWorker(false);
+            await fetchSettingsFromCloud(false);
 
-                // ตรวจจับการซิงค์ข้อมูลอัตโนมัติแบบเรียลไทม์ระหว่างแท็บหรืออุปกรณ์
-                window.addEventListener('storage', (event) => {
-                    if (event.key === 'sweet_bakery_global_cloud_db_v2' && event.newValue) {
-                        try {
-                            const parsed = JSON.parse(event.newValue);
-                            if (parsed) {
-                                siteData = parsed;
-                                renderPublicWebsite();
-                                showToast("✨ ซิงค์ข้อมูลใหม่สำเร็จ!", "success");
-                            }
-                        } catch(e) {}
-                    }
-                });
-
-                // Polling ทุกๆ 2 วินาที เพื่อให้มั่นใจว่าทุกอุปกรณ์แสดงผลตรงกันเสมอ
-                if (pollingTimer) clearInterval(pollingTimer);
-                pollingTimer = setInterval(async () => {
-                    const editorModal = document.getElementById('editor-modal');
-                    if (editorModal && !editorModal.classList.contains('hidden')) return; // หยุด Polling ชั่วคราวขณะกำลังพิมพ์แก้ไข
-                    await fetchSettingsFromWorker(true);
-                }, 2000);
-            } catch (err) {
-                console.warn("Init warning:", err);
-            } finally {
-                hideLoader();
-            }
+            // ตรวจสอบข้อมูลล่าสุดจาก Cloud ทุกๆ 3 วินาที
+            if (pollingTimer) clearInterval(pollingTimer);
+            pollingTimer = setInterval(async () => {
+                const editorModal = document.getElementById('editor-modal');
+                if (editorModal && !editorModal.classList.contains('hidden')) return;
+                await fetchSettingsFromCloud(true);
+            }, 3000);
         }
 
-        async function fetchSettingsFromWorker(isBackground = false) {
+        async function fetchSettingsFromCloud(isBackground = false) {
             try {
-                const response = await fetch('/api/data', {
-                    method: 'GET',
-                    headers: { 'Accept': 'application/json' },
-                    cache: 'no-store'
-                });
+                const response = await fetch(NPOINT_URL, { cache: 'no-store' });
                 if (response.ok) {
                     const data = await response.json();
                     if (data && Object.keys(data).length > 0) {
@@ -1079,16 +1026,23 @@
                             siteData = data;
                             renderPublicWebsite();
                             if (isBackground) {
-                                showToast("✨ อัปเดตข้อมูลตรงกันเรียบร้อย!", "success");
+                                showToast("✨ ซิงค์ข้อมูลล่าสุดสำเร็จ!", "success");
                             }
                         }
-                        return true;
+                    } else if (!siteData.siteTitle) {
+                        siteData = JSON.parse(JSON.stringify(defaultInitialData));
+                        renderPublicWebsite();
                     }
                 }
             } catch (err) {
-                console.warn("Cloud API fetch note:", err);
+                console.warn("Cloud fetch note:", err);
+                if (!siteData.siteTitle) {
+                    siteData = JSON.parse(JSON.stringify(defaultInitialData));
+                    renderPublicWebsite();
+                }
+            } finally {
+                hideLoader();
             }
-            return false;
         }
 
         async function saveDataToCloud() {
@@ -1102,19 +1056,21 @@
                 collectEditorDataToDraft();
                 siteData = JSON.parse(JSON.stringify(window.draftData));
                 lastSyncHash = JSON.stringify(siteData);
+                
+                const targetUrl = document.getElementById('edit-npoint-url').value.trim() || NPOINT_URL;
 
-                const res = await fetch('/api/data', {
-                    method: 'POST',
+                const res = await fetch(targetUrl, {
+                    method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(siteData)
                 });
 
                 if (res.ok) {
-                    showToast("บันทึกและซิงค์ข้อมูลสำเร็จ! อัปเดตทุกเครื่องทันที 🥐", "success");
+                    showToast("บันทึกขึ้น Cloud สำเร็จ! ทุกคนเห็นข้อมูลตรงกันแล้ว 🥐", "success");
                     renderPublicWebsite();
                     closeModal('editor-modal');
                 } else {
-                    throw new Error("Server error status: " + res.status);
+                    throw new Error("Server status: " + res.status);
                 }
             } catch (error) {
                 console.error("Save error:", error);
@@ -1373,6 +1329,7 @@
             document.getElementById('preview-banner-widget-img').src = d.bannerWidgetImage || '';
             document.getElementById('edit-banner-widget-caption').value = d.bannerWidgetCaption || '';
             document.getElementById('edit-admin-passcode').value = d.adminPasscode || '';
+            document.getElementById('edit-npoint-url').value = NPOINT_URL;
 
             renderEditorSocials();
             renderEditorLinks();
