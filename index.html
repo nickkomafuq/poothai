@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sweet Crumbs Cafe — Cute Bakery Personal Link</title>
+  <!-- Google Fonts: Prompt & Fredoka for soft rounded cafe typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Prompt', 'Fredoka', 'sans-serif'],
+            display: ['Fredoka', 'Prompt', 'sans-serif'],
+          },
+          colors: {
+            cream: '#FFF9F0',
+            vanilla: '#FFF1D6',
+            peach: '#F7C59F',
+            cocoa: '#6E473B',
+            caramel: '#C68B59',
+            espresso: '#432818',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --bg-canvas: #FFF8EE;
+      --bg-card: #FFFDF9;
+      --btn-bg: #F7C59F;
+      --btn-bg-end: #E8A87C;
+      --btn-use-gradient: 1;
+      --btn-text: #432818;
+      --btn-border: #C68B59;
+      --btn-icon: #6E473B;
+      --btn-radius: 24px;
+      --btn-border-width: 2px;
+      --btn-opacity: 1;
+      --btn-shadow: 0 8px 18px -6px rgba(110, 71, 59, 0.22);
+      --frame-color: #E8A87C;
+      --frame-color-2: #FFF1D6;
+      --frame-size: 16px;
+      --frame-freq: 18px;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: #432818;
+      font-family: 'Prompt', 'Fredoka', sans-serif;
+      overflow-x: hidden;
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+
+    /* Soft floating animations for bakery & cafe motifs */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(6deg); }
+    }
+    @keyframes floatDrift {
+      0%, 100% { transform: translate(0px, 0px) rotate(-4deg); }
+      50% { transform: translate(8px, -12px) rotate(7deg); }
+    }
+    @keyframes pulseSparkle {
+      0%, 100% { opacity: 0.45; transform: scale(0.92); }
+      50% { opacity: 0.95; transform: scale(1.12); }
+    }
+
+    .anim-float-slow { animation: floatSlow 6.5s ease-in-out infinite; }
+    .anim-float-drift { animation: floatDrift 8s ease-in-out infinite; }
+    .anim-sparkle { animation: pulseSparkle 3.6s ease-in-out infinite; }
+
+    /* Custom Link Button Styles (9 styles) */
+    .link-btn-base {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 15px 20px;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: var(--btn-border-width) solid var(--btn-border);
+      border-radius: var(--btn-radius);
+      opacity: var(--btn-opacity);
+      box-shadow: var(--btn-shadow);
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, filter 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .link-btn-gradient {
+      background: linear-gradient(135deg, var(--btn-bg) 0%, var(--btn-bg-end) 100%);
+    }
+
+    .link-btn-base:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 24px -8px rgba(110, 71, 59, 0.32);
+    }
+
+    .link-btn-base:active {
+      transform: scale(0.98);
+    }
+
+    /* Style 1: Milk Capsule */
+    .style-milk-capsule {
+      border-radius: 9999px !important;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    /* Style 2: Bakery Card */
+    .style-bakery-card {
+      border-radius: 18px !important;
+      box-shadow: 0 6px 0 var(--btn-border), 0 10px 18px rgba(110, 71, 59, 0.14) !important;
+    }
+
+    /* Style 3: Cookie Frame */
+    .style-cookie-frame {
+      border-radius: 22px !important;
+      border-style: dashed !important;
+      outline: 3px dotted var(--btn-border);
+      outline-offset: -6px;
+    }
+
+    /* Style 4: Ribbon Button */
+    .style-ribbon-button {
+      border-radius: 16px !important;
+    }
+    .style-ribbon-button::before {
+      content: "🎀";
+      position: absolute;
+      top: -11px;
+      right: 18px;
+      font-size: 1.05rem;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.12));
+    }
+
+    /* Style 5: Cafe Ticket */
+    .style-cafe-ticket {
+      border-radius: 14px !important;
+      border-style: dashed !important;
+      background-image:
+        radial-gradient(circle at 0 50%, var(--bg-canvas) 8px, transparent 9px),
+        radial-gradient(circle at 100% 50%, var(--bg-canvas) 8px, transparent 9px);
+    }
+
+    /* Style 6: Soft Outline */
+    .style-soft-outline {
+      background: #FFFDF9 !important;
+      border-width: 2.5px !important;
+      box-shadow: 0 4px 12px rgba(198, 139, 89, 0.12) !important;
+    }
+
+    /* Style 7: Floating Glass */
+    .style-floating-glass {
+      background: rgba(255, 253, 249, 0.68) !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-color: rgba(255, 255, 255, 0.85) !important;
+      box-shadow: 0 10px 24px rgba(110, 71, 59, 0.14) !important;
+    }
+
+    /* Style 8: Sweet Label */
+    .style-sweet-label {
+      border-radius: 12px 26px 12px 26px !important;
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.65), 0 8px 16px rgba(110, 71, 59, 0.16) !important;
+    }
+
+    /* Style 9: Wavy Button */
+    .style-wavy-button {
+      border-radius: 28px 14px 28px 14px !important;
+      border-bottom-width: 4px !important;
+    }
+
+    /* Decorative Frame Effects around main profile card */
+    .frame-scallop-edge {
+      border: 3px dashed var(--frame-color);
+      box-shadow: 0 0 0 6px var(--bg-card), 0 0 0 9px var(--frame-color);
+    }
+    .frame-soft-wave {
+      border: 3px solid var(--frame-color);
+      border-radius: 40px 28px 40px 28px;
+    }
+    .frame-cream-drip {
+      border-top: 8px solid var(--frame-color);
+      border-bottom: 4px solid var(--frame-color-2);
+      border-left: 2px solid var(--frame-color);
+      border-right: 2px solid var(--frame-color);
+    }
+    .frame-cookie-edge {
+      border: 4px dotted var(--frame-color);
+      outline: 3px dashed var(--frame-color-2);
+      outline-offset: -8px;
+    }
+    .frame-cloud-border {
+      border-radius: 44px;
+      border: 4px solid var(--frame-color);
+      box-shadow: 0 14px 32px rgba(110, 71, 59, 0.14), inset 0 0 0 5px var(--frame-color-2);
+    }
+    .frame-dotted-stitch {
+      border: 2.5px dashed var(--frame-color);
+      box-shadow: inset 0 0 0 5px var(--bg-card), inset 0 0 0 7px var(--frame-color-2);
+    }
+    .frame-lace-cafe {
+      border: 3px double var(--frame-color);
+      outline: 2px dotted var(--frame-color);
+      outline-offset: 5px;
+    }
+    .frame-double-wave {
+      border: 3px solid var(--frame-color);
+      box-shadow: 0 0 0 5px var(--bg-card), 0 0 0 8px var(--frame-color-2), 0 0 0 10px var(--frame-color);
+    }
+    .frame-ribbon-frame {
+      border: 3px solid var(--frame-color);
+      position: relative;
+    }
+    .frame-bakery-paper {
+      background-color: #FFFDF8;
+      border: 2px solid #E6CCB2;
+      box-shadow: 0 12px 28px rgba(110, 71, 59, 0.14), 6px 6px 0 var(--frame-color-2);
+    }
+
+    /* Subtle scrollbar */
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: #FFF5E4; }
+    ::-webkit-scrollbar-thumb { background: #DFB38A; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #C68B59; }
+  </style>
+</head>
+<body class="min-h-screen pb-28">
+  <!-- Animated Bakery & Cafe Background Layer -->
+  <div id="animated-bg" class="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"></div>
+
+  <!-- Top Utility & Connection Status Bar -->
+  <header class="relative z-20 mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-4 pt-4">
+    <div class="flex items-center gap-2 rounded-full bg-white/85 px-3.5 py-1.5 text-xs font-medium text-cocoa shadow-sm backdrop-blur-sm border border-peach/50">
+      <span id="connection-dot" class="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+      <span id="connection-text">ออนไลน์ • ซิงค์ข้อมูลล่าสุดแล้ว</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button
+        id="toggle-admin-btn"
+        onclick="toggleAdminMode()"
+        class="flex items-center gap-1.5 rounded-full bg-cocoa px-4 py-1.5 text-xs font-medium text-cream shadow-sm transition hover:bg-espresso active:scale-95"
+      >
+        <i data-lucide="sparkles" class="h-3.5 w-3.5"></i>
+        <span id="admin-btn-label">โหมดแก้ไขร้าน (Admin)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Admin Login Modal -->
+  <div id="admin-login-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-espresso/45 px-4 backdrop-blur-xs">
+    <div class="w-full max-w-sm rounded-3xl bg-[#FFFDF9] p-6 shadow-2xl border-2 border-peach">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🔐</span>
+          <h3 class="font-display text-lg font-bold text-espresso">เข้าสู่ระบบเจ้าของร้าน</h3>
+        </div>
+        <button onclick="closeAdminLoginModal()" class="rounded-xl p-1 text-cocoa hover:bg-vanilla" aria-label="ปิดหน้าต่างเข้าสู่ระบบ">
+          <i data-lucide="x" class="h-4 w-4"></i>
+        </button>
+      </div>
+      <p class="text-xs text-cocoa/85 mb-4">
+        เฉพาะเจ้าของเว็บไซต์ที่เข้าสู่ระบบแล้วเท่านั้นจึงจะแก้ไขและบันทึกข้อมูลได้ (รหัสทดลองใช้งาน: <span class="font-mono font-semibold text-espresso">sweet1234</span>)
+      </p>
+      <form onsubmit="handleAdminLogin(event)" class="space-y-3">
+        <div>
+          <label for="admin-passcode-input" class="block text-xs font-medium text-cocoa mb-1">รหัสผ่านผู้ดูแลระบบ (Passcode)</label>
+          <input
+            id="admin-passcode-input"
+            type="password"
+            required
+            placeholder="กรอกรหัสผ่าน..."
+            class="w-full rounded-xl border border-peach bg-cream/70 px-3 py-2 text-sm text-espresso focus:outline-none focus:border-caramel"
+          />
+          <p id="admin-login-error" class="mt-1 hidden text-xs text-rose-600">รหัสผ่านไม่ถูกต้อง ลองใหม่อีกครั้งนะคะ</p>
+        </div>
+        <div class="flex justify-end gap-2 pt-1">
+          <button type="button" onclick="closeAdminLoginModal()" class="rounded-xl border border-peach px-3.5 py-2 text-xs font-medium text-cocoa hover:bg-cream">
+            ยกเลิก
+          </button>
+          <button type="submit" class="rounded-xl bg-cocoa px-4 py-2 text-xs font-semibold text-cream shadow hover:bg-espresso">
+            เข้าสู่ระบบ
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Responsive Layout Container -->
+  <main class="relative z-10 mx-auto mt-3 max-w-5xl px-4">
+    <div id="main-grid" class="grid grid-cols-1 gap-6 items-start">
+
+      <!-- PUBLIC / LIVE PREVIEW COLUMN -->
+      <section id="preview-column" class="mx-auto w-full max-w-md">
+        <!-- Unsaved Draft Banner (shown when editing in admin mode) -->
+        <div id="draft-banner" class="hidden mb-3 rounded-2xl bg-vanilla border border-caramel/40 px-4 py-2.5 text-xs text-espresso shadow-sm flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span>🧁</span>
+            <span>กำลังดูตัวอย่างแบบสด (ยังไม่บันทึกสู่หน้าสาธารณะ)</span>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button onclick="saveChanges()" class="rounded-lg bg-cocoa px-2.5 py-1 font-medium text-cream hover:bg-espresso">บันทึก</button>
+            <button onclick="discardChanges()" class="rounded-lg bg-white px-2.5 py-1 font-medium text-cocoa border border-peach">ยกเลิก</button>
+          </div>
+        </div>
+
+        <!-- Main Profile Card with Decorative Frame -->
+        <div id="profile-card" class="relative rounded-[32px] bg-[#FFFDF9]/95 p-6 shadow-xl backdrop-blur-sm transition-all duration-300">
+          <!-- Top Site Header -->
+          <div class="mb-4 flex items-center justify-between text-xs font-medium text-caramel">
+            <span id="site-header-badge" class="inline-flex items-center gap-1.5 rounded-full bg-vanilla px-3 py-1">
+              <span>🥐</span>
+              <span id="site-name-display">Sweet Crumbs Cafe</span>
+            </span>
+            <button
+              onclick="copyProfileLink()"
+              class="inline-flex items-center gap-1 rounded-full bg-cream px-2.5 py-1 text-[11px] text-cocoa border border-peach/60 hover:bg-vanilla transition"
+              title="คัดลอกลิงก์เว็บไซต์"
+            >
+              <i data-lucide="share-2" class="h-3 w-3"></i>
+              <span id="copy-label">แชร์ลิงก์</span>
+            </button>
+          </div>
+
+          <!-- Avatar / Main Image Area -->
+          <div class="flex flex-col items-center text-center">
+            <div class="relative mb-3">
+              <div class="h-28 w-28 overflow-hidden rounded-full border-4 border-peach bg-vanilla shadow-md flex items-center justify-center">
+                <img
+                  id="avatar-img"
+                  src=""
+                  alt="รูปโปรไฟล์คาเฟ่"
+                  class="h-full w-full object-cover hidden"
+                />
+                <div id="avatar-placeholder" class="flex flex-col items-center justify-center text-cocoa">
+                  <span class="text-4xl">🍰</span>
+                  <span class="text-[10px] font-medium mt-0.5">Bakery Host</span>
+                </div>
+              </div>
+              <span class="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full bg-vanilla border-2 border-peach text-base shadow">
+                🍓
+              </span>
+            </div>
+
+            <!-- Display Name & Bio -->
+            <h1 id="profile-name-display" class="font-display text-2xl font-bold text-espresso tracking-tight">
+              นามิ • น้องเค้กวานิลลา
+            </h1>
+            <p id="profile-handle-display" class="text-xs font-medium text-caramel mt-0.5">
+              @sweetcrumbs.cafe
+            </p>
+            <p id="profile-bio-display" class="mt-2.5 text-sm leading-relaxed text-cocoa/90 max-w-xs">
+              ยินดีต้อนรับสู่คาเฟ่ขนมหวานเล็ก ๆ แห่งนี้ ☕✨ รวมช่องทางติดตาม รีวิวคาเฟ่ สูตรเบเกอรี่ และร้านขนมแสนอบอุ่น
+            </p>
+          </div>
+
+          <!-- Social Media Icons Row -->
+          <div id="social-links-container" class="mt-5 flex flex-wrap items-center justify-center gap-2.5"></div>
+
+          <!-- Extra Custom Text Blocks -->
+          <div id="extra-texts-container" class="mt-4 space-y-2"></div>
+
+          <!-- Page Section Content Switcher (Home / Shop / YouTube / TikTok / More) -->
+          <div id="section-tab-banner" class="mt-5 hidden rounded-2xl bg-vanilla/80 px-3.5 py-2 text-center text-xs font-medium text-cocoa border border-peach/40"></div>
+
+          <!-- Main Big Action Link Buttons -->
+          <div id="main-links-container" class="mt-5 space-y-3"></div>
+
+          <!-- Footer Note -->
+          <footer class="mt-6 pt-3 border-t border-peach/30 text-center text-[11px] text-caramel">
+            <span id="footer-note-display">Baked with warm vanilla & love • เปิดให้บริการทุกวัน 09:00 - 20:00</span>
+          </footer>
+        </div>
+      </section>
+
+      <!-- ADMIN CUSTOMIZATION STUDIO COLUMN -->
+      <aside id="admin-panel" class="hidden w-full rounded-[28px] bg-white/95 p-5 shadow-xl border border-peach/60 backdrop-blur-md">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-peach/40">
+          <div>
+            <h2 class="font-display text-lg font-bold text-espresso flex items-center gap-2">
+              <span>🎛️</span>
+              <span>สตูดิโอตกแต่งคาเฟ่ (Admin Studio)</span>
+            </h2>
+            <p class="text-xs text-caramel">แก้ไขรายละเอียด ดูตัวอย่างทันที และบันทึกข้อมูลส่วนกลาง</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="logoutAdmin()" class="rounded-xl border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-medium text-rose-700 hover:bg-rose-100">
+              ออกจากระบบ
+            </button>
+            <button onclick="discardChanges()" class="rounded-xl border border-peach px-3 py-1.5 text-xs font-medium text-cocoa hover:bg-cream">
+              ยกเลิก
+            </button>
+            <button onclick="saveChanges()" class="rounded-xl bg-cocoa px-4 py-1.5 text-xs font-semibold text-cream shadow hover:bg-espresso">
+              💾 บันทึกการตกแต่ง
+            </button>
+          </div>
+        </div>
+
+        <!-- Studio Category Tabs -->
+        <div class="mt-4 flex flex-wrap gap-1.5 rounded-2xl bg-cream p-1.5 border border-peach/40">
+          <button data-studio-tab="profile" onclick="switchStudioTab('profile')" class="studio-tab-btn rounded-xl px-3 py-1.5 text-xs font-medium bg-cocoa text-cream">
+            โปรไฟล์ & ข้อความ
+          </button>
+          <button data-studio-tab="links" onclick="switchStudioTab('links')" class="studio-tab-btn rounded-xl px-3 py-1.5 text-xs font-medium text-cocoa hover:bg-vanilla">
+            ปุ่มลิงก์ & โซเชียล
+          </button>
+          <button data-studio-tab="colors" onclick="switchStudioTab('colors')" class="studio-tab-btn rounded-xl px-3 py-1.5 text-xs font-medium text-cocoa hover:bg-vanilla">
+            สีปุ่ม (Color Studio)
+          </button>
+          <button data-studio-tab="button-style" onclick="switchStudioTab('button-style')" class="studio-tab-btn rounded-xl px-3 py-1.5 text-xs font-medium text-cocoa hover:bg-vanilla">
+            รูปแบบปุ่ม (9 สไตล์)
+          </button>
+          <button data-studio-tab="frames" onclick="switchStudioTab('frames')" class="studio-tab-btn rounded-xl px-3 py-1.5 text-xs font-medium text-cocoa hover:bg-vanilla">
+            กรอบพื้นหลัง & ของตกแต่ง
+          </button>
+          <button data-studio-tab="menu" onclick="switchStudioTab('menu')" class="studio-tab-btn rounded-xl px-3 py-1.5 text-xs font-medium text-cocoa hover:bg-vanilla">
+            แถบเมนูด้านล่าง
+          </button>
+        </div>
+
+        <!-- TAB 1: PROFILE & TEXTS -->
+        <div id="tab-profile" class="studio-tab-content mt-4 space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-cocoa mb-1">ชื่อเว็บไซต์ / ชื่อร้าน</label>
+              <input id="input-site-name" type="text" oninput="updateField('siteName', this.value)" class="w-full rounded-xl border border-peach/70 bg-cream/60 px-3 py-2 text-sm focus:outline-none focus:border-caramel" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-cocoa mb-1">ชื่อเจ้าของ / ตัวละคร</label>
+              <input id="input-profile-name" type="text" oninput="updateField('profileName', this.value)" class="w-full rounded-xl border border-peach/70 bg-cream/60 px-3 py-2 text-sm focus:outline-none focus:border-caramel" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-cocoa mb-1">ชื่อผู้ใช้ (@handle)</label>
+              <input id="input-handle" type="text" oninput="updateField('handle', this.value)" class="w-full rounded-xl border border-peach/70 bg-cream/60 px-3 py-2 text-sm focus:outline-none focus:border-caramel" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-cocoa mb-1">ข้อความท้ายหน้า</label>
+              <input id="input-footer" type="text" oninput="updateField('footerNote', this.value)" class="w-full rounded-xl border border-peach/70 bg-cream/60 px-3 py-2 text-sm focus:outline-none focus:border-caramel" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-cocoa mb-1">ข้อความแนะนำตัว</label>
+            <textarea id="input-bio" rows="2" oninput="updateField('bio', this.value)" class="w-full rounded-xl border border-peach/70 bg-cream/60 px-3 py-2 text-sm focus:outline-none focus:border-caramel"></textarea>
+          </div>
+
+          <!-- Avatar Upload & URL -->
+          <div class="rounded-2xl bg-cream/70 p-3.5 border border-peach/50">
+            <label class="block text-xs font-semibold text-cocoa mb-2">รูปภาพหลัก / รูปโปรไฟล์ (อัปโหลดไฟล์หรือใส่ลิงก์รูป)</label>
+            <div class="flex flex-wrap items-center gap-2">
+              <label class="cursor-pointer rounded-xl bg-white px-3 py-1.5 text-xs font-medium text-cocoa border border-peach hover:bg-vanilla">
+                📷 อัปโหลดรูปภาพ
+                <input type="file" accept="image/*" onchange="handleAvatarUpload(event)" class="hidden" />
+              </label>
+              <input
+                id="input-avatar-url"
+                type="text"
+                placeholder="หรือวาง URL รูปภาพ..."
+                oninput="updateField('avatarUrl', this.value)"
+                class="flex-1 min-w-[180px] rounded-xl border border-peach/70 bg-white px-3 py-1.5 text-xs focus:outline-none"
+              />
+              <button onclick="updateField('avatarUrl', '')" class="rounded-xl bg-rose-100 px-3 py-1.5 text-xs font-medium text-rose-700 hover:bg-rose-200">
+                ลบรูป
+              </button>
+            </div>
+          </div>
+
+          <!-- Extra Custom Text Blocks -->
+          <div class="rounded-2xl bg-cream/70 p-3.5 border border-peach/50">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-cocoa">ข้อความเพิ่มเติม / คำประกาศคาเฟ่</span>
+              <button onclick="addExtraText()" class="rounded-lg bg-peach/70 px-2.5 py-1 text-xs font-medium text-espresso hover:bg-peach">
+                + เพิ่มข้อความ
+              </button>
+            </div>
+            <div id="admin-extra-texts" class="space-y-2"></div>
+          </div>
+        </div>
+
+        <!-- TAB 2: LINKS & SOCIALS -->
+        <div id="tab-links" class="studio-tab-content hidden mt-4 space-y-5">
+          <!-- Social Icons Manager -->
+          <div class="rounded-2xl bg-cream/70 p-3.5 border border-peach/50">
+            <div class="flex items-center justify-between mb-2.5">
+              <span class="text-xs font-semibold text-cocoa">ไอคอนโซเชียลมีเดีย (LINE, YouTube, IG, TikTok ฯลฯ)</span>
+              <button onclick="addSocialLink()" class="rounded-lg bg-peach/70 px-2.5 py-1 text-xs font-medium text-espresso hover:bg-peach">
+                + เพิ่มโซเชียล
+              </button>
+            </div>
+            <div id="admin-socials-list" class="space-y-2"></div>
+          </div>
+
+          <!-- Main Link Buttons Manager -->
+          <div class="rounded-2xl bg-cream/70 p-3.5 border border-peach/50">
+            <div class="flex items-center justify-between mb-2.5">
+              <span class="text-xs font-semibold text-cocoa">ปุ่มลิงก์หลัก (เพิ่ม/ลบ/จัดหมวดหน้าได้ไม่จำกัด)</span>
+              <button onclick="addMainLink()" class="rounded-lg bg-peach/70 px-2.5 py-1 text-xs font-medium text-espresso hover:bg-peach">
+                + เพิ่มปุ่มลิงก์
+              </button>
+            </div>
+            <div id="admin-links-list" class="space-y-2.5"></div>
+          </div>
+        </div>
+
+        <!-- TAB 3: CUSTOM BUTTON COLORS -->
+        <div id="tab-colors" class="studio-tab-content hidden mt-4 space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-cocoa mb-2">ชุดสีสำเร็จรูปสไตล์ Cute Bakery Cafe</label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <button onclick="applyColorPreset('vanilla')" class="flex items-center gap-2 rounded-xl border border-peach/60 bg-vanilla p-2 text-left text-xs font-medium text-espresso hover:scale-[1.02] transition">
+                <span class="h-5 w-5 rounded-full bg-[#FFF1D6] border border-caramel"></span>
+                <span>Vanilla Cream</span>
+              </button>
+              <button onclick="applyColorPreset('peach')" class="flex items-center gap-2 rounded-xl border border-peach/60 bg-cream p-2 text-left text-xs font-medium text-espresso hover:scale-[1.02] transition">
+                <span class="h-5 w-5 rounded-full bg-[#F7C59F] border border-caramel"></span>
+                <span>Peach Milk</span>
+              </button>
+              <button onclick="applyColorPreset('caramel')" class="flex items-center gap-2 rounded-xl border border-peach/60 bg-cream p-2 text-left text-xs font-medium text-espresso hover:scale-[1.02] transition">
+                <span class="h-5 w-5 rounded-full bg-[#DDA15E] border border-cocoa"></span>
+                <span>Caramel Latte</span>
+              </button>
+              <button onclick="applyColorPreset('cocoa')" class="flex items-center gap-2 rounded-xl border border-peach/60 bg-cream p-2 text-left text-xs font-medium text-espresso hover:scale-[1.02] transition">
+                <span class="h-5 w-5 rounded-full bg-[#6E473B] border border-espresso"></span>
+                <span>Cocoa Brown</span>
+              </button>
+              <button onclick="applyColorPreset('strawberry')" class="flex items-center gap-2 rounded-xl border border-peach/60 bg-cream p-2 text-left text-xs font-medium text-espresso hover:scale-[1.02] transition">
+                <span class="h-5 w-5 rounded-full bg-[#F8C8DC] border border-rose-400"></span>
+                <span>Strawberry Cream</span>
+              </button>
+              <button onclick="applyColorPreset('honey')" class="flex items-center gap-2 rounded-xl border border-peach/60 bg-cream p-2 text-left text-xs font-medium text-espresso hover:scale-[1.02] transition">
+                <span class="h-5 w-5 rounded-full bg-[#FDE68A] border border-amber-500"></span>
+                <span>Honey Toast</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Gradient Toggle -->
+          <div class="flex items-center justify-between rounded-xl bg-cream p-3 border border-peach/50">
+            <span class="text-xs font-medium text-cocoa">ใช้งานพื้นหลังปุ่มแบบไล่เฉดสี (Gradient)</span>
+            <input id="input-use-gradient" type="checkbox" onchange="updateStyleField('useGradient', this.checked)" class="h-4 w-4 accent-cocoa" />
+          </div>
+
+          <!-- Color Pickers & HEX Inputs -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="rounded-xl bg-cream/70 p-3 border border-peach/50">
+              <label class="block text-xs font-medium text-cocoa mb-1.5">สีพื้นหลังปุ่มหลัก</label>
+              <div class="flex items-center gap-2">
+                <input id="picker-btn-bg" type="color" oninput="syncColor('btnBg', this.value)" class="h-9 w-11 cursor-pointer rounded-lg border border-peach bg-white p-0.5" />
+                <input id="hex-btn-bg" type="text" oninput="syncColor('btnBg', this.value)" class="w-full rounded-lg border border-peach bg-white px-2.5 py-1.5 text-xs font-mono" />
+              </div>
+            </div>
+
+            <div class="rounded-xl bg-cream/70 p-3 border border-peach/50">
+              <label class="block text-xs font-medium text-cocoa mb-1.5">สีไล่เฉดปลายทาง (Gradient End)</label>
+              <div class="flex items-center gap-2">
+                <input id="picker-btn-bg-end" type="color" oninput="syncColor('btnBgEnd', this.value)" class="h-9 w-11 cursor-pointer rounded-lg border border-peach bg-white p-0.5" />
+                <input id="hex-btn-bg-end" type="text" oninput="syncColor('btnBgEnd', this.value)" class="w-full rounded-lg border border-peach bg-white px-2.5 py-1.5 text-xs font-mono" />
+              </div>
+            </div>
+
+            <div class="rounded-xl bg-cream/70 p-3 border border-peach/50">
+              <label class="block text-xs font-medium text-cocoa mb-1.5">สีตัวอักษรบนปุ่ม</label>
+              <div class="flex items-center gap-2">
+                <input id="picker-btn-text" type="color" oninput="syncColor('btnText', this.value)" class="h-9 w-11 cursor-pointer rounded-lg border border-peach bg-white p-0.5" />
+                <input id="hex-btn-text" type="text" oninput="syncColor('btnText', this.value)" class="w-full rounded-lg border border-peach bg-white px-2.5 py-1.5 text-xs font-mono" />
+              </div>
+            </div>
+
+            <div class="rounded-xl bg-cream/70 p-3 border border-peach/50">
+              <label class="block text-xs font-medium text-cocoa mb-1.5">สีขอบปุ่ม & สีไอคอน</label>
+              <div class="flex items-center gap-2">
+                <input id="picker-btn-border" type="color" oninput="syncColor('btnBorder', this.value); syncColor('btnIcon', this.value)" class="h-9 w-11 cursor-pointer rounded-lg border border-peach bg-white p-0.5" />
+                <input id="hex-btn-border" type="text" oninput="syncColor('btnBorder', this.value); syncColor('btnIcon', this.value)" class="w-full rounded-lg border border-peach bg-white px-2.5 py-1.5 text-xs font-mono" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Canvas & Card Base Colors -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="rounded-xl bg-cream/70 p-3 border border-peach/50">
+              <label class="block text-xs font-medium text-cocoa mb-1.5">สีพื้นหลังเว็บไซต์</label>
+              <div class="flex items-center gap-2">
+                <input id="picker-bg-canvas" type="color" oninput="syncColor('bgCanvas', this.value)" class="h-9 w-11 cursor-pointer rounded-lg border border-peach bg-white p-0.5" />
+                <input id="hex-bg-canvas" type="text" oninput="syncColor('bgCanvas', this.value)" class="w-full rounded-lg border border-peach bg-white px-2.5 py-1.5 text-xs font-mono" />
+              </div>
+            </div>
+            <div class="rounded-xl bg-cream/70 p-3 border border-peach/50">
+              <label class="block text-xs font-medium text-cocoa mb-1.5">สีการ์ดหลัก</label>
+              <div class="flex items-center gap-2">
+                <input id="picker-bg-card" type="color" oninput="syncColor('bgCard', this.value)" class="h-9 w-11 cursor-pointer rounded-lg border border-peach bg-white p-0.5" />
+                <input id="hex-bg-card" type="text" oninput="syncColor('bgCard', this.value)" class="w-full rounded-lg border border-peach bg-white px-2.5 py-1.5 text-xs font-mono" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: LINK BUTTON STYLES (9 STYLES) -->
+        <div id="tab-button-style" class="studio-tab-content hidden mt-4 space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-cocoa mb-2">เลือกรูปแบบแถบปุ่มลิงก์หลัก (9 สไตล์)</label>
+            <div id="button-style-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 rounded-2xl bg-cream/70 p-3.5 border border-peach/50">
+            <div>
+              <label class="block text-xs font-medium text-cocoa mb-1">ความโค้งมุมปุ่ม: <span id="val-radius">24px</span></label>
+              <input type="range" min="4" max="36" oninput="updateStyleField('btnRadius', Number(this.value)); document.getElementById('val-radius').textContent = this.value + 'px'" class="w-full accent-cocoa" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-cocoa mb-1">ความหนาเส้นขอบ: <span id="val-border-width">2px</span></label>
+              <input type="range" min="0" max="5" step="0.5" oninput="updateStyleField('btnBorderWidth', Number(this.value)); document.getElementById('val-border-width').textContent = this.value + 'px'" class="w-full accent-cocoa" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-cocoa mb-1">ความโปร่งใสปุ่ม: <span id="val-opacity">100%</span></label>
+              <input type="range" min="50" max="100" oninput="updateStyleField('btnOpacity', Number(this.value) / 100); document.getElementById('val-opacity').textContent = this.value + '%'" class="w-full accent-cocoa" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-cocoa mb-1">ตำแหน่งไอคอนบนปุ่ม</label>
+              <select id="select-icon-pos" onchange="updateStyleField('iconPosition', this.value)" class="w-full rounded-xl border border-peach bg-white px-3 py-1.5 text-xs">
+                <option value="left">ด้านซ้าย (Left)</option>
+                <option value="right">ด้านขวา (Right)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: DECORATIVE FRAMES & ANIMATED MOTIFS (10 FRAMES) -->
+        <div id="tab-frames" class="studio-tab-content hidden mt-4 space-y-4">
+          <div class="flex items-center justify-between rounded-xl bg-cream p-3 border border-peach/50">
+            <span class="text-xs font-semibold text-cocoa">เปิดใช้งานกรอบตกแต่งการ์ดหลัก</span>
+            <input id="input-frame-enabled" type="checkbox" onchange="updateStyleField('frameEnabled', this.checked)" class="h-4 w-4 accent-cocoa" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-cocoa mb-2">เลือกรูปแบบกรอบตกแต่ง (10 สไตล์)</label>
+            <div id="frame-style-grid" class="grid grid-cols-2 sm:grid-cols-5 gap-2"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 rounded-2xl bg-cream/70 p-3.5 border border-peach/50">
+            <div>
+              <label class="block text-xs font-medium text-cocoa mb-1.5">สีกรอบหลัก</label>
+              <div class="flex items-center gap-2">
+                <input id="picker-frame-color" type="color" oninput="syncColor('frameColor', this.value)" class="h-8 w-10 cursor-pointer rounded border border-peach bg-white" />
+                <input id="hex-frame-color" type="text" oninput="syncColor('frameColor', this.value)" class="w-full rounded-lg border border-peach bg-white px-2.5 py-1 text-xs font-mono" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-cocoa mb-1.5">สีกรอบรอง</label>
+              <div class="flex items-center gap-2">
+                <input id="picker-frame-color2" type="color" oninput="syncColor('frameColor2', this.value)" class="h-8 w-10 cursor-pointer rounded border border-peach bg-white" />
+                <input id="hex-frame-color2" type="text" oninput="syncColor('frameColor2', this.value)" class="w-full rounded-lg border border-peach bg-white px-2.5 py-1 text-xs font-mono" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Animated Background Motifs -->
+          <div class="rounded-2xl bg-cream/70 p-3.5 border border-peach/50 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-cocoa">ของตกแต่งพื้นหลังเคลื่อนไหว (ดาว หัวใจ ดอกไม้ ขนม คาเฟ่)</span>
+              <input id="input-anim-bg" type="checkbox" onchange="updateStyleField('animatedBgEnabled', this.checked)" class="h-4 w-4 accent-cocoa" />
+            </div>
+            <p class="text-[11px] text-caramel">เลือกอิโมจิ/สัญลักษณ์น่ารักที่ลอยนุ่มนวลบนพื้นหลัง:</p>
+            <div id="motif-chips" class="flex flex-wrap gap-1.5"></div>
+          </div>
+        </div>
+
+        <!-- TAB 6: BOTTOM NAVIGATION BAR -->
+        <div id="tab-menu" class="studio-tab-content hidden mt-4 space-y-3">
+          <p class="text-xs text-caramel">ปรับแต่งชื่อเมนูด้านล่างหรือลิงก์ปลายทางสำหรับแต่ละหน้าได้อิสระ</p>
+          <div id="admin-nav-list" class="space-y-2"></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Bottom Navigation Bar -->
+  <nav aria-label="แถบเมนูด้านล่าง" class="fixed bottom-4 left-1/2 z-30 w-[94%] max-w-md -translate-x-1/2 rounded-3xl bg-white/95 px-2 py-2 shadow-xl border border-peach/70 backdrop-blur-md">
+    <ul id="bottom-nav-list" class="grid grid-cols-5 gap-1"></ul>
+  </nav>
+
+  <!-- Toast Notification -->
+  <div id="toast-msg" class="pointer-events-none fixed top-16 left-1/2 z-50 -translate-x-1/2 rounded-full bg-espresso px-4 py-2 text-xs font-medium text-cream shadow-lg opacity-0 transition-opacity duration-300"></div>
+
+  <script>
+    // =========================================================================
+    // 1. STATE & DEFAULT CUTE BAKERY CAFE CONFIGURATION
+    // =========================================================================
+    const BUTTON_STYLES = [
+      { id: 'milk-capsule', name: 'Milk Capsule', desc: 'ทรงแคปซูลนุ่มละมุน', previewEmoji: '🥛' },
+      { id: 'bakery-card', name: 'Bakery Card', desc: 'การ์ดเมนูเบเกอรี่มีมิติ', previewEmoji: '🍞' },
+      { id: 'cookie-frame', name: 'Cookie Frame', desc: 'ขอบคุกกี้น่ารักมีเอกลักษณ์', previewEmoji: '🍪' },
+      { id: 'ribbon-button', name: 'Ribbon Button', desc: 'ป้ายของขวัญติดโบว์ริบบิ้น', previewEmoji: '🎀' },
+      { id: 'cafe-ticket', name: 'Cafe Ticket', desc: 'ตั๋วคูปองคาเฟ่ขนมหวาน', previewEmoji: '🎟️' },
+      { id: 'soft-outline', name: 'Soft Outline', desc: 'เส้นขอบพาสเทลละมุนตา', previewEmoji: '🧁' },
+      { id: 'floating-glass', name: 'Floating Glass', desc: 'กระจกโปร่งแสงเบา ๆ', previewEmoji: '🫧' },
+      { id: 'sweet-label', name: 'Sweet Label', desc: 'ป้ายชื่อขนมทรงโค้งสลับ', previewEmoji: '🍮' },
+      { id: 'wavy-button', name: 'Wavy Button', desc: 'ขอบคลื่นครีมแต่งหน้าเค้ก', previewEmoji: '🍰' },
+    ];
+
+    const DECORATIVE_FRAMES = [
+      { id: 'scallop-edge', name: 'Scallop Edge', icon: '〰️' },
+      { id: 'soft-wave', name: 'Soft Wave', icon: '🌊' },
+      { id: 'cream-drip', name: 'Cream Drip', icon: '🍨' },
+      { id: 'cookie-edge', name: 'Cookie Edge', icon: '🥠' },
+      { id: 'cloud-border', name: 'Cloud Border', icon: '☁️' },
+      { id: 'dotted-stitch', name: 'Dotted Stitch', icon: '🧵' },
+      { id: 'lace-cafe', name: 'Lace Cafe', icon: '🤍' },
+      { id: 'double-wave', name: 'Double Wave', icon: '✨' },
+      { id: 'ribbon-frame', name: 'Ribbon Frame', icon: '🎗️' },
+      { id: 'bakery-paper', name: 'Bakery Paper', icon: '📜' },
+    ];
+
+    const ALL_MOTIFS = ['🥐', '🍰', '🍓', '☕', '🍪', '✨', '🌸', '💛', '🤍', '🧁'];
+
+    const COLOR_PRESETS = {
+      vanilla: {
+        bgCanvas: '#FFF8EE', bgCard: '#FFFDF9', btnBg: '#FFF1D6', btnBgEnd: '#FDE2B8',
+        btnText: '#432818', btnBorder: '#D4A373', btnIcon: '#6E473B', frameColor: '#E6CCB2', frameColor2: '#FFF1D6'
+      },
+      peach: {
+        bgCanvas: '#FFF6EE', bgCard: '#FFFDFB', btnBg: '#F7C59F', btnBgEnd: '#F3A678',
+        btnText: '#432818', btnBorder: '#C68B59', btnIcon: '#6E473B', frameColor: '#F4A261', frameColor2: '#FFE5D9'
+      },
+      caramel: {
+        bgCanvas: '#FDF4E7', bgCard: '#FFFDF9', btnBg: '#E6B88A', btnBgEnd: '#C68B59',
+        btnText: '#3A2114', btnBorder: '#8C583A', btnIcon: '#5C3A21', frameColor: '#C68B59', frameColor2: '#F5E6D3'
+      },
+      cocoa: {
+        bgCanvas: '#FAF3EC', bgCard: '#FFFDF9', btnBg: '#7F5539', btnBgEnd: '#5C3A21',
+        btnText: '#FFF9F0', btnBorder: '#432818', btnIcon: '#FFF1D6', frameColor: '#9C6644', frameColor2: '#EDE0D4'
+      },
+      strawberry: {
+        bgCanvas: '#FFF5F8', bgCard: '#FFFFFF', btnBg: '#FAD2E1', btnBgEnd: '#F4B6C2',
+        btnText: '#4A2533', btnBorder: '#D48C9E', btnIcon: '#8D495C', frameColor: '#F4ACB7', frameColor2: '#FFE5EC'
+      },
+      honey: {
+        bgCanvas: '#FFFBEB', bgCard: '#FFFDF7', btnBg: '#FDE68A', btnBgEnd: '#FCD34D',
+        btnText: '#452700', btnBorder: '#D97706', btnIcon: '#92400E', frameColor: '#F59E0B', frameColor2: '#FEF3C7'
+      }
+    };
+
+    const initialState = {
+      siteName: 'Sweet Crumbs Cafe',
+      profileName: 'นามิ • น้องเค้กวานิลลา',
+      handle: '@sweetcrumbs.cafe',
+      bio: 'ยินดีต้อนรับสู่คาเฟ่ขนมหวานเล็ก ๆ แห่งนี้ ☕✨ รวมช่องทางติดตาม รีวิวคาเฟ่ สูตรเบเกอรี่ และร้านขนมแสนอบอุ่น',
+      footerNote: 'Baked with warm vanilla & love • เปิดให้บริการทุกวัน 09:00 - 20:00',
+      avatarUrl: '',
+      activeNav: 'home',
+      extraTexts: [
+        { id: 't1', text: '🥐 เมนูใหม่ประจำสัปดาห์: ครอฟเฟิลซอสคาราเมลวานิลลา & ชาพีชหอมละมุน' }
+      ],
+      socials: [
+        { id: 's1', name: 'LINE', emoji: '💚', url: 'https://line.me' },
+        { id: 's2', name: 'YouTube', emoji: '▶️', url: 'https://youtube.com' },
+        { id: 's3', name: 'Instagram', emoji: '📸', url: 'https://instagram.com' },
+        { id: 's4', name: 'TikTok', emoji: '🎵', url: 'https://tiktok.com' }
+      ],
+      links: [
+        { id: 'l1', title: 'เมนูเบเกอรี่ & สินค้าโฮมเมด', subtitle: 'สั่งจองขนมอบสดใหม่ประจำวัน', emoji: '🧁', url: '#shop', category: 'shop' },
+        { id: 'l2', title: 'YouTube — พาทำขนม & คาเฟ่วล็อก', subtitle: 'ชมคลิปอบขนมแบบละมุนใจ', emoji: '🎬', url: 'https://youtube.com', category: 'youtube' },
+        { id: 'l3', title: 'TikTok — คลิปสั้นสูตรคาเฟ่', subtitle: 'ไอเดียจัดจาน & เครื่องดื่มน่ารัก', emoji: '🍓', url: 'https://tiktok.com', category: 'tiktok' },
+        { id: 'l4', title: 'สั่งเครื่องดื่ม & โต๊ะล่วงหน้า', subtitle: 'ทักแชตจองคิวหรือสอบถามเพิ่มเติม', emoji: '☕', url: 'https://line.me', category: 'more' }
+      ],
+      bottomNav: [
+        { id: 'home', label: 'หน้าแรก', emoji: '🏠', url: '#home' },
+        { id: 'shop', label: 'สินค้า', emoji: '🍰', url: '#shop' },
+        { id: 'youtube', label: 'YouTube', emoji: '📺', url: '#youtube' },
+        { id: 'tiktok', label: 'TikTok', emoji: '🎶', url: '#tiktok' },
+        { id: 'more', label: 'เพิ่มเติม', emoji: '✨', url: '#more' }
+      ],
+      style: {
+        bgCanvas: '#FFF8EE',
+        bgCard: '#FFFDF9',
+        btnBg: '#F7C59F',
+        btnBgEnd: '#E8A87C',
+        useGradient: true,
+        btnText: '#432818',
+        btnBorder: '#C68B59',
+        btnIcon: '#6E473B',
+        btnStyleId: 'milk-capsule',
+        btnRadius: 24,
+        btnBorderWidth: 2,
+        btnOpacity: 1,
+        iconPosition: 'left',
+        frameEnabled: true,
+        frameStyleId: 'cloud-border',
+        frameColor: '#F4A261',
+        frameColor2: '#FFF1D6',
+        animatedBgEnabled: true,
+        motifs: ['🥐', '🍰', '🍓', '☕', '✨', '🌸']
+      }
+    };
+
+    // Working copy & saved snapshot (simulates cloud sync across session)
+    let state = structuredClone(initialState);
+    let savedSnapshot = structuredClone(initialState);
+    let isAdminAuthenticated = false;
+    let isAdminOpen = false;
+    let hasUnsavedChanges = false;
+    const ADMIN_PASSCODE = 'sweet1234';
+
+    // =========================================================================
+    // 2. RENDERING ENGINE
+    // =========================================================================
+    function renderAll() {
+      applyCssVariables();
+      renderProfile();
+      renderSocials();
+      renderExtraTexts();
+      renderMainLinks();
+      renderBottomNav();
+      renderAnimatedMotifs();
+
+      if (isAdminOpen) {
+        syncAdminInputs();
+        renderAdminLists();
+        renderButtonStylePicker();
+        renderFrameStylePicker();
+        renderMotifChips();
+      }
+
+      document.getElementById('draft-banner').classList.toggle('hidden', !hasUnsavedChanges);
+      lucide.createIcons();
+    }
+
+    function applyCssVariables() {
+      const s = state.style;
+      const root = document.documentElement;
+      root.style.setProperty('--bg-canvas', s.bgCanvas);
+      root.style.setProperty('--bg-card', s.bgCard);
+      root.style.setProperty('--btn-bg', s.btnBg);
+      root.style.setProperty('--btn-bg-end', s.btnBgEnd);
+      root.style.setProperty('--btn-text', s.btnText);
+      root.style.setProperty('--btn-border', s.btnBorder);
+      root.style.setProperty('--btn-icon', s.btnIcon);
+      root.style.setProperty('--btn-radius', `${s.btnRadius}px`);
+      root.style.setProperty('--btn-border-width', `${s.btnBorderWidth}px`);
+      root.style.setProperty('--btn-opacity', s.btnOpacity);
+      root.style.setProperty('--frame-color', s.frameColor);
+      root.style.setProperty('--frame-color-2', s.frameColor2);
+
+      const card = document.getElementById('profile-card');
+      card.style.backgroundColor = s.bgCard;
+
+      // Reset frame classes
+      DECORATIVE_FRAMES.forEach(f => card.classList.remove(`frame-${f.id}`));
+      if (s.frameEnabled) {
+        card.classList.add(`frame-${s.frameStyleId}`);
+      }
+    }
+
+    function renderProfile() {
+      document.getElementById('site-name-display').textContent = state.siteName || 'Cute Cafe';
+      document.getElementById('profile-name-display').textContent = state.profileName || '';
+      document.getElementById('profile-handle-display').textContent = state.handle || '';
+      document.getElementById('profile-bio-display').textContent = state.bio || '';
+      document.getElementById('footer-note-display').textContent = state.footerNote || '';
+
+      const img = document.getElementById('avatar-img');
+      const placeholder = document.getElementById('avatar-placeholder');
+      if (state.avatarUrl && state.avatarUrl.trim() !== '') {
+        img.src = state.avatarUrl;
+        img.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+        img.onerror = () => {
+          img.classList.add('hidden');
+          placeholder.classList.remove('hidden');
+        };
+      } else {
+        img.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+      }
+    }
+
+    function renderSocials() {
+      const container = document.getElementById('social-links-container');
+      container.innerHTML = '';
+      state.socials.forEach(soc => {
+        const a = document.createElement('a');
+        a.href = sanitizeUrl(soc.url);
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.title = soc.name;
+        a.className = 'flex h-11 w-11 items-center justify-center rounded-2xl bg-vanilla border border-peach/80 text-xl shadow-sm transition hover:-translate-y-1 hover:bg-peach/40';
+        a.innerHTML = `<span>${escapeHtml(soc.emoji || '✨')}</span>`;
+        container.appendChild(a);
+      });
+    }
+
+    function renderExtraTexts() {
+      const container = document.getElementById('extra-texts-container');
+      container.innerHTML = '';
+      state.extraTexts.forEach(item => {
+        if (!item.text.trim()) return;
+        const div = document.createElement('div');
+        div.className = 'rounded-2xl bg-cream/90 px-4 py-2.5 text-center text-xs font-medium text-cocoa border border-peach/50';
+        div.textContent = item.text;
+        container.appendChild(div);
+      });
+    }
+
+    function renderMainLinks() {
+      const container = document.getElementById('main-links-container');
+      const banner = document.getElementById('section-tab-banner');
+      container.innerHTML = '';
+
+      const activeTab = state.activeNav;
+      if (activeTab && activeTab !== 'home') {
+        const navObj = state.bottomNav.find(n => n.id === activeTab);
+        banner.classList.remove('hidden');
+        banner.innerHTML = `กำลังแสดงหมวด: <strong>${escapeHtml(navObj ? navObj.label : activeTab)}</strong> • <button onclick="selectNav('home')" class="underline font-semibold ml-1">ดูทั้งหมด</button>`;
+      } else {
+        banner.classList.add('hidden');
+      }
+
+      const filtered = (!activeTab || activeTab === 'home')
+        ? state.links
+        : state.links.filter(l => l.category === activeTab || activeTab === 'more');
+
+      const listToShow = filtered.length > 0 ? filtered : state.links;
+
+      listToShow.forEach(link => {
+        const a = document.createElement('a');
+        a.href = sanitizeUrl(link.url);
+        a.target = link.url.startsWith('#') ? '_self' : '_blank';
+        a.rel = 'noopener noreferrer';
+
+        const classes = ['link-btn-base', `style-${state.style.btnStyleId}`];
+        if (state.style.useGradient) classes.push('link-btn-gradient');
+        a.className = classes.join(' ');
+
+        const iconBadge = `
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/75 text-xl shadow-inner" style="color: ${escapeAttr(state.style.btnIcon)}">
+            ${escapeHtml(link.emoji || '🍰')}
+          </span>
+        `;
+
+        const textBlock = `
+          <div class="min-w-0 flex-1 ${state.style.iconPosition === 'right' ? 'text-left pr-3' : 'text-left pl-3'}">
+            <div class="truncate text-sm font-semibold leading-snug">${escapeHtml(link.title || 'ลิงก์ใหม่')}</div>
+            ${link.subtitle ? `<div class="truncate text-[11px] opacity-80 mt-0.5">${escapeHtml(link.subtitle)}</div>` : ''}
+          </div>
+        `;
+
+        const arrowBadge = `
+          <span class="shrink-0 opacity-75">
+            <i data-lucide="chevron-right" class="h-4 w-4"></i>
+          </span>
+        `;
+
+        if (state.style.iconPosition === 'right') {
+          a.innerHTML = `${textBlock}${iconBadge}${arrowBadge}`;
+        } else {
+          a.innerHTML = `${iconBadge}${textBlock}${arrowBadge}`;
+        }
+
+        container.appendChild(a);
+      });
+    }
+
+    function renderBottomNav() {
+      const ul = document.getElementById('bottom-nav-list');
+      ul.innerHTML = '';
+
+      state.bottomNav.slice(0, 5).forEach(item => {
+        const isActive = state.activeNav === item.id;
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <button
+            onclick="handleBottomNavClick('${escapeAttr(item.id)}', '${escapeAttr(item.url)}')"
+            class="flex w-full flex-col items-center justify-center rounded-2xl py-1.5 px-1 text-[11px] font-medium transition ${
+              isActive
+                ? 'bg-peach/50 text-espresso font-semibold shadow-inner'
+                : 'text-cocoa hover:bg-cream'
+            }"
+          >
+            <span class="text-base leading-none mb-0.5">${escapeHtml(item.emoji || '🧁')}</span>
+            <span class="truncate max-w-full">${escapeHtml(item.label)}</span>
+          </button>
+        `;
+        ul.appendChild(li);
+      });
+    }
+
+    function renderAnimatedMotifs() {
+      const layer = document.getElementById('animated-bg');
+      layer.innerHTML = '';
+      if (!state.style.animatedBgEnabled || !state.style.motifs.length) return;
+
+      const positions = [
+        { top: '8%', left: '6%', size: 'text-2xl', anim: 'anim-float-slow' },
+        { top: '16%', right: '8%', size: 'text-3xl', anim: 'anim-float-drift' },
+        { top: '34%', left: '4%', size: 'text-xl', anim: 'anim-sparkle' },
+        { top: '52%', right: '6%', size: 'text-2xl', anim: 'anim-float-slow' },
+        { top: '70%', left: '9%', size: 'text-3xl', anim: 'anim-float-drift' },
+        { top: '82%', right: '11%', size: 'text-xl', anim: 'anim-sparkle' },
+      ];
+
+      positions.forEach((pos, idx) => {
+        const motif = state.style.motifs[idx % state.style.motifs.length];
+        const span = document.createElement('span');
+        span.className = `absolute opacity-35 ${pos.size} ${pos.anim}`;
+        if (pos.top) span.style.top = pos.top;
+        if (pos.left) span.style.left = pos.left;
+        if (pos.right) span.style.right = pos.right;
+        span.textContent = motif;
+        layer.appendChild(span);
+      });
+    }
+
+    // =========================================================================
+    // 3. ADMIN STUDIO CONTROLS & LIVE EDITING
+    // =========================================================================
+    function openAdminLoginModal() {
+      const modal = document.getElementById('admin-login-modal');
+      const err = document.getElementById('admin-login-error');
+      const input = document.getElementById('admin-passcode-input');
+      err.classList.add('hidden');
+      input.value = '';
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      setTimeout(() => input.focus(), 50);
+    }
+
+    function closeAdminLoginModal() {
+      const modal = document.getElementById('admin-login-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function handleAdminLogin(event) {
+      event.preventDefault();
+      const input = document.getElementById('admin-passcode-input');
+      const err = document.getElementById('admin-login-error');
+      if (input.value === ADMIN_PASSCODE) {
+        isAdminAuthenticated = true;
+        err.classList.add('hidden');
+        closeAdminLoginModal();
+        showToast('เข้าสู่ระบบผู้ดูแลร้านสำเร็จแล้ว');
+        if (!isAdminOpen) toggleAdminMode();
+      } else {
+        err.classList.remove('hidden');
+      }
+    }
+
+    function logoutAdmin() {
+      if (hasUnsavedChanges) {
+        discardChanges();
+      }
+      isAdminAuthenticated = false;
+      if (isAdminOpen) toggleAdminMode();
+      showToast('ออกจากระบบผู้ดูแลร้านเรียบร้อย');
+    }
+
+    function toggleAdminMode() {
+      if (!isAdminOpen && !isAdminAuthenticated) {
+        openAdminLoginModal();
+        return;
+      }
+
+      isAdminOpen = !isAdminOpen;
+      const panel = document.getElementById('admin-panel');
+      const grid = document.getElementById('main-grid');
+      const previewCol = document.getElementById('preview-column');
+      const label = document.getElementById('admin-btn-label');
+
+      if (isAdminOpen) {
+        panel.classList.remove('hidden');
+        grid.className = 'grid grid-cols-1 lg:grid-cols-12 gap-6 items-start';
+        previewCol.className = 'lg:col-span-5 mx-auto w-full max-w-md';
+        panel.classList.add('lg:col-span-7');
+        label.textContent = 'ปิดโหมดแก้ไขร้าน';
+        renderAll();
+      } else {
+        panel.classList.add('hidden');
+        grid.className = 'grid grid-cols-1 gap-6 items-start';
+        previewCol.className = 'mx-auto w-full max-w-md';
+        label.textContent = isAdminAuthenticated ? 'เปิดโหมดแก้ไขร้าน (Admin)' : 'โหมดแก้ไขร้าน (Admin)';
+      }
+    }
+
+    function switchStudioTab(tabId) {
+      document.querySelectorAll('.studio-tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+      document.querySelectorAll('.studio-tab-btn').forEach(btn => {
+        if (btn.dataset.studioTab === tabId) {
+          btn.className = 'studio-tab-btn rounded-xl px-3 py-1.5 text-xs font-medium bg-cocoa text-cream';
+        } else {
+          btn.className = 'studio-tab-btn rounded-xl px-3 py-1.5 text-xs font-medium text-cocoa hover:bg-vanilla';
+        }
+      });
+    }
+
+    function syncAdminInputs() {
+      setVal('input-site-name', state.siteName);
+      setVal('input-profile-name', state.profileName);
+      setVal('input-handle', state.handle);
+      setVal('input-bio', state.bio);
+      setVal('input-footer', state.footerNote);
+      setVal('input-avatar-url', state.avatarUrl);
+
+      const s = state.style;
+      document.getElementById('input-use-gradient').checked = !!s.useGradient;
+      document.getElementById('input-frame-enabled').checked = !!s.frameEnabled;
+      document.getElementById('input-anim-bg').checked = !!s.animatedBgEnabled;
+      setVal('select-icon-pos', s.iconPosition);
+
+      syncColorPair('btn-bg', s.btnBg);
+      syncColorPair('btn-bg-end', s.btnBgEnd);
+      syncColorPair('btn-text', s.btnText);
+      syncColorPair('btn-border', s.btnBorder);
+      syncColorPair('bg-canvas', s.bgCanvas);
+      syncColorPair('bg-card', s.bgCard);
+      syncColorPair('frame-color', s.frameColor);
+      syncColorPair('frame-color2', s.frameColor2);
+    }
+
+    function syncColorPair(key, hex) {
+      const picker = document.getElementById(`picker-${key}`);
+      const input = document.getElementById(`hex-${key}`);
+      if (picker && /^#[0-9A-Fa-f]{6}$/.test(hex)) picker.value = hex;
+      if (input) input.value = hex;
+    }
+
+    function syncColor(styleKey, val) {
+      state.style[styleKey] = val;
+      hasUnsavedChanges = true;
+      applyCssVariables();
+      renderMainLinks();
+      document.getElementById('draft-banner').classList.remove('hidden');
+
+      const map = {
+        btnBg: 'btn-bg',
+        btnBgEnd: 'btn-bg-end',
+        btnText: 'btn-text',
+        btnBorder: 'btn-border',
+        bgCanvas: 'bg-canvas',
+        bgCard: 'bg-card',
+        frameColor: 'frame-color',
+        frameColor2: 'frame-color2'
+      };
+      if (map[styleKey]) syncColorPair(map[styleKey], val);
+    }
+
+    function updateField(field, value) {
+      state[field] = value;
+      hasUnsavedChanges = true;
+      renderProfile();
+      document.getElementById('draft-banner').classList.remove('hidden');
+    }
+
+    function updateStyleField(field, value) {
+      state.style[field] = value;
+      hasUnsavedChanges = true;
+      renderAll();
+    }
+
+    function applyColorPreset(presetKey) {
+      const preset = COLOR_PRESETS[presetKey];
+      if (!preset) return;
+      Object.assign(state.style, preset);
+      hasUnsavedChanges = true;
+      renderAll();
+      showToast(`เลือกชุดสี ${presetKey} เรียบร้อย`);
+    }
+
+    function renderButtonStylePicker() {
+      const grid = document.getElementById('button-style-grid');
+      grid.innerHTML = '';
+      BUTTON_STYLES.forEach(st => {
+        const active = state.style.btnStyleId === st.id;
+        const btn = document.createElement('button');
+        btn.onclick = () => updateStyleField('btnStyleId', st.id);
+        btn.className = `rounded-2xl p-2.5 text-left transition border ${
+          active ? 'border-cocoa bg-vanilla shadow-sm ring-2 ring-peach' : 'border-peach/60 bg-cream/60 hover:bg-vanilla/60'
+        }`;
+        btn.innerHTML = `
+          <div class="flex items-center justify-between text-xs font-semibold text-espresso">
+            <span>${st.previewEmoji} ${st.name}</span>
+          </div>
+          <div class="text-[10px] text-cocoa/80 mt-0.5">${st.desc}</div>
+        `;
+        grid.appendChild(btn);
+      });
+    }
+
+    function renderFrameStylePicker() {
+      const grid = document.getElementById('frame-style-grid');
+      grid.innerHTML = '';
+      DECORATIVE_FRAMES.forEach(fr => {
+        const active = state.style.frameStyleId === fr.id;
+        const btn = document.createElement('button');
+        btn.onclick = () => updateStyleField('frameStyleId', fr.id);
+        btn.className = `rounded-xl p-2 text-center transition border ${
+          active ? 'border-cocoa bg-vanilla font-semibold ring-2 ring-peach' : 'border-peach/60 bg-cream/60 hover:bg-vanilla/60'
+        }`;
+        btn.innerHTML = `
+          <div class="text-base">${fr.icon}</div>
+          <div class="text-[10px] text-espresso mt-0.5 leading-tight">${fr.name}</div>
+        `;
+        grid.appendChild(btn);
+      });
+    }
+
+    function renderMotifChips() {
+      const wrap = document.getElementById('motif-chips');
+      wrap.innerHTML = '';
+      ALL_MOTIFS.forEach(m => {
+        const selected = state.style.motifs.includes(m);
+        const btn = document.createElement('button');
+        btn.onclick = () => {
+          if (selected) {
+            state.style.motifs = state.style.motifs.filter(x => x !== m);
+          } else {
+            state.style.motifs.push(m);
+          }
+          hasUnsavedChanges = true;
+          renderAll();
+        };
+        btn.className = `rounded-xl px-2.5 py-1 text-sm border transition ${
+          selected ? 'bg-vanilla border-cocoa shadow-sm scale-105' : 'bg-white border-peach/50 opacity-60'
+        }`;
+        btn.textContent = m;
+        wrap.appendChild(btn);
+      });
+    }
+
+    function renderAdminLists() {
+      // Extra texts
+      const extraWrap = document.getElementById('admin-extra-texts');
+      extraWrap.innerHTML = '';
+      state.extraTexts.forEach((item, idx) => {
+        const row = document.createElement('div');
+        row.className = 'flex items-center gap-2';
+        row.innerHTML = `
+          <input type="text" value="${escapeAttr(item.text)}" oninput="state.extraTexts[${idx}].text = this.value; hasUnsavedChanges = true; renderExtraTexts();" class="flex-1 rounded-xl border border-peach bg-white px-3 py-1.5 text-xs" />
+          <button onclick="state.extraTexts.splice(${idx}, 1); hasUnsavedChanges = true; renderAll();" class="rounded-lg bg-rose-100 px-2.5 py-1.5 text-xs text-rose-700 hover:bg-rose-200">ลบ</button>
+        `;
+        extraWrap.appendChild(row);
+      });
+
+      // Socials
+      const socWrap = document.getElementById('admin-socials-list');
+      socWrap.innerHTML = '';
+      state.socials.forEach((soc, idx) => {
+        const row = document.createElement('div');
+        row.className = 'grid grid-cols-12 gap-1.5 items-center';
+        row.innerHTML = `
+          <input type="text" value="${escapeAttr(soc.emoji)}" oninput="state.socials[${idx}].emoji = this.value; hasUnsavedChanges = true; renderSocials();" class="col-span-2 rounded-xl border border-peach bg-white px-2 py-1.5 text-center text-sm" />
+          <input type="text" value="${escapeAttr(soc.name)}" placeholder="ชื่อ" oninput="state.socials[${idx}].name = this.value; hasUnsavedChanges = true;" class="col-span-3 rounded-xl border border-peach bg-white px-2.5 py-1.5 text-xs" />
+          <input type="text" value="${escapeAttr(soc.url)}" placeholder="https://..." oninput="state.socials[${idx}].url = this.value; hasUnsavedChanges = true; renderSocials();" class="col-span-5 rounded-xl border border-peach bg-white px-2.5 py-1.5 text-xs" />
+          <button onclick="state.socials.splice(${idx}, 1); hasUnsavedChanges = true; renderAll();" class="col-span-2 rounded-xl bg-rose-100 py-1.5 text-xs text-rose-700 hover:bg-rose-200">ลบ</button>
+        `;
+        socWrap.appendChild(row);
+      });
+
+      // Main links
+      const linkWrap = document.getElementById('admin-links-list');
+      linkWrap.innerHTML = '';
+      state.links.forEach((lk, idx) => {
+        const box = document.createElement('div');
+        box.className = 'rounded-xl bg-white p-2.5 border border-peach/60 space-y-2';
+        box.innerHTML = `
+          <div class="grid grid-cols-12 gap-1.5 items-center">
+            <input type="text" value="${escapeAttr(lk.emoji)}" oninput="state.links[${idx}].emoji = this.value; hasUnsavedChanges = true; renderMainLinks();" class="col-span-2 rounded-lg border border-peach px-2 py-1 text-center text-sm" />
+            <input type="text" value="${escapeAttr(lk.title)}" placeholder="ชื่อปุ่มลิงก์" oninput="state.links[${idx}].title = this.value; hasUnsavedChanges = true; renderMainLinks();" class="col-span-7 rounded-lg border border-peach px-2.5 py-1 text-xs font-medium" />
+            <select onchange="state.links[${idx}].category = this.value; hasUnsavedChanges = true; renderMainLinks();" class="col-span-3 rounded-lg border border-peach px-1.5 py-1 text-[11px]">
+              <option value="home" ${lk.category === 'home' ? 'selected' : ''}>หน้าแรก</option>
+              <option value="shop" ${lk.category === 'shop' ? 'selected' : ''}>สินค้า</option>
+              <option value="youtube" ${lk.category === 'youtube' ? 'selected' : ''}>YouTube</option>
+              <option value="tiktok" ${lk.category === 'tiktok' ? 'selected' : ''}>TikTok</option>
+              <option value="more" ${lk.category === 'more' ? 'selected' : ''}>เพิ่มเติม</option>
+            </select>
+          </div>
+          <div class="flex gap-1.5 items-center">
+            <input type="text" value="${escapeAttr(lk.subtitle || '')}" placeholder="คำอธิบายสั้น ๆ" oninput="state.links[${idx}].subtitle = this.value; hasUnsavedChanges = true; renderMainLinks();" class="w-2/5 rounded-lg border border-peach px-2.5 py-1 text-xs" />
+            <input type="text" value="${escapeAttr(lk.url)}" placeholder="https://..." oninput="state.links[${idx}].url = this.value; hasUnsavedChanges = true; renderMainLinks();" class="flex-1 rounded-lg border border-peach px-2.5 py-1 text-xs" />
+            <button onclick="state.links.splice(${idx}, 1); hasUnsavedChanges = true; renderAll();" class="rounded-lg bg-rose-100 px-2.5 py-1 text-xs text-rose-700 hover:bg-rose-200">ลบ</button>
+          </div>
+        `;
+        linkWrap.appendChild(box);
+      });
+
+      // Bottom nav items
+      const navWrap = document.getElementById('admin-nav-list');
+      navWrap.innerHTML = '';
+      state.bottomNav.forEach((nav, idx) => {
+        const row = document.createElement('div');
+        row.className = 'grid grid-cols-12 gap-1.5 items-center rounded-xl bg-cream/70 p-2 border border-peach/50';
+        row.innerHTML = `
+          <input type="text" value="${escapeAttr(nav.emoji)}" oninput="state.bottomNav[${idx}].emoji = this.value; hasUnsavedChanges = true; renderBottomNav();" class="col-span-2 rounded-lg border border-peach bg-white px-2 py-1 text-center text-sm" />
+          <input type="text" value="${escapeAttr(nav.label)}" oninput="state.bottomNav[${idx}].label = this.value; hasUnsavedChanges = true; renderBottomNav();" class="col-span-4 rounded-lg border border-peach bg-white px-2 py-1 text-xs" />
+          <input type="text" value="${escapeAttr(nav.url)}" oninput="state.bottomNav[${idx}].url = this.value; hasUnsavedChanges = true; renderBottomNav();" class="col-span-6 rounded-lg border border-peach bg-white px-2 py-1 text-xs" />
+        `;
+        navWrap.appendChild(row);
+      });
+    }
+
+    function addExtraText() {
+      state.extraTexts.push({ id: `t-${Date.now()}`, text: '🍩 โปรโมชันพิเศษสำหรับผู้ติดตามใหม่!' });
+      hasUnsavedChanges = true;
+      renderAll();
+    }
+
+    function addSocialLink() {
+      state.socials.push({ id: `s-${Date.now()}`, name: 'New Social', emoji: '💌', url: 'https://example.com' });
+      hasUnsavedChanges = true;
+      renderAll();
+    }
+
+    function addMainLink() {
+      state.links.push({
+        id: `l-${Date.now()}`,
+        title: 'ลิงก์ขนมหวานสุดน่ารัก',
+        subtitle: 'กดเพื่อเปิดดูรายละเอียดเพิ่มเติม',
+        emoji: '🥐',
+        url: 'https://example.com',
+        category: 'home'
+      });
+      hasUnsavedChanges = true;
+      renderAll();
+    }
+
+    function handleAvatarUpload(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        state.avatarUrl = reader.result;
+        hasUnsavedChanges = true;
+        renderAll();
+        showToast('อัปโหลดรูปภาพตัวอย่างเรียบร้อย');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function saveChanges() {
+      savedSnapshot = structuredClone(state);
+      hasUnsavedChanges = false;
+      renderAll();
+      showToast('✅ บันทึกการตกแต่งเรียบร้อยแล้ว');
+    }
+
+    function discardChanges() {
+      state = structuredClone(savedSnapshot);
+      hasUnsavedChanges = false;
+      renderAll();
+      showToast('↩️ ยกเลิกการเปลี่ยนแปลงแล้ว');
+    }
+
+    // =========================================================================
+    // 4. NAVIGATION, SHARING & CONNECTION HELPERS
+    // =========================================================================
+    function handleBottomNavClick(id, url) {
+      if (!url || url.startsWith('#')) {
+        selectNav(id);
+      } else {
+        window.open(sanitizeUrl(url), '_blank', 'noopener,noreferrer');
+      }
+    }
+
+    function selectNav(id) {
+      state.activeNav = id;
+      renderMainLinks();
+      renderBottomNav();
+    }
+
+    function copyProfileLink() {
+      const shareUrl = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showToast('คัดลอกลิงก์หน้าเว็บไซต์แล้ว');
+        }).catch(() => {
+          showToast('พร้อมแชร์ลิงก์หน้าเว็บไซต์');
+        });
+      } else {
+        showToast('พร้อมแชร์ลิงก์หน้าเว็บไซต์');
+      }
+    }
+
+    function updateConnectionStatus() {
+      const online = navigator.onLine;
+      const dot = document.getElementById('connection-dot');
+      const text = document.getElementById('connection-text');
+      if (online) {
+        dot.className = 'inline-block h-2.5 w-2.5 rounded-full bg-emerald-500';
+        text.textContent = 'ออนไลน์ • ซิงค์ข้อมูลล่าสุดแล้ว';
+      } else {
+        dot.className = 'inline-block h-2.5 w-2.5 rounded-full bg-amber-500';
+        text.textContent = 'ออฟไลน์ชั่วคราว • กำลังรอเชื่อมต่อ';
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast-msg');
+      toast.textContent = message;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2400);
+    }
+
+    function setVal(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.value = value ?? '';
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function escapeAttr(str) {
+      return escapeHtml(str);
+    }
+
+    function sanitizeUrl(url) {
+      const trimmed = String(url || '').trim();
+      if (!trimmed || trimmed.startsWith('#')) return trimmed || '#';
+      if (/^(https?:\/\/|mailto:|tel:)/i.test(trimmed)) return trimmed;
+      return `https://${trimmed}`;
+    }
+
+    window.addEventListener('online', updateConnectionStatus);
+    window.addEventListener('offline', updateConnectionStatus);
+    window.addEventListener('DOMContentLoaded', () => {
+      updateConnectionStatus();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
